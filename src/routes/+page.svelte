@@ -87,7 +87,7 @@ export function Counter() {
 			</div>
 
 			<a
-				href="https://supersvelte.dev"
+				href="https://supersvelte.netlify.app"
 				target="_blank"
 				class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90"
 			>

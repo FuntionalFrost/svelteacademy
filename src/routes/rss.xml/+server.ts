@@ -1,48 +1,37 @@
-// src/routes/rss.xml/+server.ts
+// src/routes/sitemap.xml/+server.ts
 import type { RequestHandler } from './$types';
 
-interface GuideModule {
-	metadata: {
-		title?: string;
-		description?: string;
-		category?: string;
-	};
-}
-
 export const GET: RequestHandler = async () => {
-	const modules = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', { eager: true });
+	const modules = import.meta.glob('/src/lib/content/guides/*.md', { eager: true });
+	const guideSlugs = Object.keys(modules).map((path) => path.split('/').pop()?.replace('.md', ''));
 
-	const guides = Object.entries(modules).map(([path, module]) => {
-		const slug = path.split('/').pop()?.replace('.md', '');
-		return {
-			slug,
-			meta: module.metadata
-		};
-	});
+	const siteUrl = 'https://svelteacademy.netlify.app';
 
-	const siteUrl = 'https://sveltey.dev';
-
-	const rss = `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
-<channel>
-	<title>Sveltey — Guides & Stack Comparisons</title>
-	<link>${siteUrl}</link>
-	<description>Deep dives into Svelte 5, SvelteKit, and zero-complexity web development.</description>
-	${guides
+	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>${siteUrl}/</loc>
+		<changefreq>weekly</changefreq>
+		<priority>1.0</priority>
+	</url>
+	<url>
+		<loc>${siteUrl}/learn</loc>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	${guideSlugs
 		.map(
-			(guide) => `
-	<item>
-		<title>${guide.meta.title || guide.slug}</title>
-		<link>${siteUrl}/learn/${guide.slug}</link>
-		<description>${guide.meta.description || ''}</description>
-		<guid>${siteUrl}/learn/${guide.slug}</guid>
-	</item>`
+			(slug) => `
+	<url>
+		<loc>${siteUrl}/learn/${slug}</loc>
+		<changefreq>monthly</changefreq>
+		<priority>0.7</priority>
+	</url>`
 		)
 		.join('')}
-</channel>
-</rss>`.trim();
+</urlset>`.trim();
 
-	return new Response(rss, {
+	return new Response(sitemap, {
 		headers: {
 			'Content-Type': 'application/xml',
 			'Cache-Control': 'max-age=0, s-maxage=3600'

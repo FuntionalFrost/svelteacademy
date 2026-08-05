@@ -1,9 +1,9 @@
 <!-- src/lib/components/SEO.svelte -->
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let {
-		title = 'Sveltey — Modern Web Development Without Complexity',
+		title = 'SvelteAcademy — Modern Web Development Without Complexity',
 		description = 'Deep dives into Svelte 5 Runes, SvelteKit architecture, and zero-complexity full-stack web development.',
 		category = 'Development',
 		type = 'website'
@@ -14,9 +14,9 @@
 		type?: string;
 	}>();
 
-	const siteName = 'Sveltey.dev';
-	// Dynamic canonical URL based on current route
-	const url = $derived(`https://sveltey.dev${$page.url.pathname}`);
+	const siteName = 'SvelteAcademy';
+	// Svelte 5: page is now a reactive state object (no $ prefix)
+	const url = $derived(`https://svelteacademy.netlify.app${page.url.pathname}`);
 </script>
 
 <svelte:head>

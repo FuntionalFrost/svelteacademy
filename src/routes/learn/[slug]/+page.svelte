@@ -54,7 +54,7 @@
 				production reference boilerplate with Auth, Postgres, Caching, and Storage pre-configured.
 			</p>
 			<a
-				href="https://supersvelte.dev"
+				href="https://supersvelte.netlify.app"
 				target="_blank"
 				class="mt-4 inline-block rounded-lg bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs hover:bg-primary/90"
 			>

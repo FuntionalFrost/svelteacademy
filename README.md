@@ -1,8 +1,8 @@
-# ⚡ Sveltey.dev
+# ⚡ SvelteAcademy
 
 > **Code without the complexity.** Deep dives into Svelte 5 Runes, SvelteKit architecture, and framework comparisons brought down to earth.
 
-Sveltey is a modern learning platform, interactive benchmark hub, and guide engine designed to showcase the zero-complexity developer experience of Svelte 5 and SvelteKit.
+SvelteAcademy is a modern learning platform, interactive benchmark hub, and guide engine designed to showcase the zero-complexity developer experience of Svelte 5 and SvelteKit.
 
 ---
 

@@ -31,7 +31,7 @@
 					<Flame class="size-4 fill-white" />
 				</div>
 				<span class="text-xl font-black tracking-tight"
-					>Sveltey<span class="text-primary">.dev</span></span
+					>Svelte<span class="text-primary">Academy</span></span
 				>
 				<span
 					class="rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[10px] font-bold text-primary"
@@ -48,7 +48,7 @@
 				<ThemeToggle />
 
 				<a
-					href="https://supersvelte.dev"
+					href="https://supersvelte.netlify.app"
 					target="_blank"
 					class="inline-flex items-center gap-1.5 rounded-lg bg-linear-to-r from-primary to-orange-600 px-3.5 py-2 font-bold text-primary-foreground shadow-md shadow-primary/25 transition hover:brightness-110"
 				>
@@ -67,7 +67,7 @@
 	<!-- Footer -->
 	<footer class="border-t border-border/60 py-8 text-center text-xs text-muted-foreground">
 		<div class="container mx-auto max-w-6xl px-4">
-			<p>Sveltey — Modern Svelte 5 and SvelteKit learning engine.</p>
+			<p>SvelteAcademy — Modern Svelte 5 and SvelteKit learning engine.</p>
 		</div>
 	</footer>
 </div>

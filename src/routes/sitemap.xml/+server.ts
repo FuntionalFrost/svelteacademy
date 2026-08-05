@@ -2,11 +2,10 @@
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async () => {
-	// Discover all guide markdown files at build/request time
 	const modules = import.meta.glob('/src/lib/content/guides/*.md', { eager: true });
 	const guideSlugs = Object.keys(modules).map((path) => path.split('/').pop()?.replace('.md', ''));
 
-	const siteUrl = 'https://sveltey.dev';
+	const siteUrl = 'https://svelteacademy.netlify.app';
 
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
