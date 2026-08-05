@@ -1,8 +1,11 @@
 <!-- src/routes/learn/[slug]/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import ProgressBar from '$lib/components/ProgressBar.svelte';
 	import SEO from '$lib/components/SEO.svelte';
-	import { ArrowLeft, Zap } from '@lucide/svelte';
+	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
+	import TableOfContents from '$lib/components/TableOfContents.svelte';
+	import { ArrowLeft, Clock, Tag } from '@lucide/svelte';
 
 	let { data } = $props();
 
@@ -16,50 +19,61 @@
 	type="article"
 />
 
+<ProgressBar />
+
 <div class="min-h-screen bg-background py-12 text-foreground">
-	<div class="container mx-auto max-w-3xl px-4">
-		<!-- Back Button using resolve -->
+	<div class="container mx-auto max-w-6xl px-4">
+		<!-- Back Link -->
 		<a
 			href={resolve('/learn')}
-			class="mb-8 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground"
+			class="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground transition hover:text-primary"
 		>
 			<ArrowLeft class="size-3.5" />
-			<span>Back to all guides</span>
+			<span>Back to Guides</span>
 		</a>
 
-		<!-- Article Metadata Header -->
-		<header class="mb-10 space-y-3">
-			<div class="inline-block rounded-md bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary">
-				{data.meta.category || 'Framework Comparison'}
-			</div>
-			<h1 class="text-3xl font-black tracking-tight sm:text-4xl">{data.meta.title}</h1>
-			<p class="text-base text-muted-foreground">{data.meta.description}</p>
-		</header>
-
-		<!-- Markdown Content Body -->
-		<article
-			class="prose max-w-none prose-zinc dark:prose-invert prose-headings:font-bold prose-a:text-primary"
-		>
-			<Content />
-		</article>
-
-		<!-- Bottom Conversion Banner -->
-		<div class="mt-16 rounded-2xl border border-primary/20 bg-primary/5 p-6">
-			<div class="flex items-center gap-2 text-xs font-bold text-primary">
-				<Zap class="size-4" />
-				<span>Ready to build this?</span>
-			</div>
-			<p class="mt-2 text-xs leading-relaxed text-muted-foreground">
-				Skip weeks of infrastructure configuration. **Super Svelte** provides the complete
-				production reference boilerplate with Auth, Postgres, Caching, and Storage pre-configured.
-			</p>
-			<a
-				href="https://supersvelte.netlify.app"
-				target="_blank"
-				class="mt-4 inline-block rounded-lg bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-xs hover:bg-primary/90"
+		<div class="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_240px]">
+			<article
+				class="prose max-w-none prose-slate dark:prose-invert prose-headings:scroll-mt-24 prose-a:text-primary"
 			>
-				Get Super Svelte Kit →
-			</a>
+				<header class="not-prose border-b border-border pb-8">
+					<div class="flex items-center gap-3 text-xs text-muted-foreground">
+						<span class="inline-flex items-center gap-1 font-semibold text-primary">
+							<Tag class="size-3" />
+							{data.meta.category || 'Guide'}
+						</span>
+						<span>•</span>
+						<span class="inline-flex items-center gap-1">
+							<Clock class="size-3" />
+							{data.meta.readTime || '5 min read'}
+						</span>
+					</div>
+
+					<h1 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl">
+						{data.meta.title}
+					</h1>
+
+					<p class="mt-3 text-sm text-muted-foreground">
+						{data.meta.description}
+					</p>
+				</header>
+
+				<div class="mt-8">
+					<Content />
+				</div>
+
+				<!-- Commercial Conversion Banner -->
+				<div class="not-prose pt-8">
+					<SuperSvelteBanner />
+				</div>
+			</article>
+
+			<!-- Sidebar Table of Contents -->
+			<aside class="hidden lg:block">
+				<div class="sticky top-24 rounded-xl border border-border bg-card/50 p-4 backdrop-blur-xs">
+					<TableOfContents />
+				</div>
+			</aside>
 		</div>
 	</div>
 </div>

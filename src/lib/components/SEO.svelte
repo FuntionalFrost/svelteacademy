@@ -15,8 +15,10 @@
 	}>();
 
 	const siteName = 'SvelteAcademy';
-	// Svelte 5: page is now a reactive state object (no $ prefix)
 	const url = $derived(`https://svelteacademy.netlify.app${page.url.pathname}`);
+	const ogImage = $derived(
+		`https://svelteacademy.netlify.app/og.png?title=${encodeURIComponent(title)}&category=${encodeURIComponent(category)}`
+	);
 </script>
 
 <svelte:head>
@@ -35,12 +37,14 @@
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
 	<meta property="og:site_name" content={siteName} />
+	<meta property="og:image" content={ogImage} />
 
 	<!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:url" content={url} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
+	<meta name="twitter:image" content={ogImage} />
 	<meta name="twitter:label1" content="Category" />
 	<meta name="twitter:data1" content={category} />
 </svelte:head>
