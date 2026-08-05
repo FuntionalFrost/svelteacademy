@@ -1,8 +1,9 @@
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import Logo from '$lib/components/Logo.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import { ArrowRight, Flame } from '@lucide/svelte';
+	import { ArrowRight } from '@lucide/svelte';
 	import { ModeWatcher } from 'mode-watcher';
 	import './layout.css';
 
@@ -28,7 +29,7 @@
 				<div
 					class="flex size-8 items-center justify-center rounded-xl bg-linear-to-br from-primary via-orange-500 to-amber-500 text-white shadow-md shadow-primary/20 transition group-hover:scale-105"
 				>
-					<Flame class="size-4 fill-white" />
+					<Logo />
 				</div>
 				<span class="text-xl font-black tracking-tight"
 					>Svelte<span class="text-primary">Academy</span></span

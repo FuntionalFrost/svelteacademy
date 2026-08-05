@@ -20,7 +20,7 @@
 
 	--secondary: oklch(0.97 0 0);
 	--secondary-foreground: oklch(0.205 0 0);
-	--muted: oklch(0.97 0 0);
+	--muted: oklch(0.965 0.005 260);
 	--muted-foreground: oklch(0.556 0 0);
 
 	/* Warm Orange Accent Tints */
@@ -65,7 +65,7 @@
 
 	--secondary: oklch(0.22 0 0);
 	--secondary-foreground: oklch(0.985 0 0);
-	--muted: oklch(0.22 0 0);
+	--muted: oklch(0.2 0.01 260);
 	--muted-foreground: oklch(0.708 0 0);
 
 	/* Dark Mode Orange Glow Accent */
@@ -167,4 +167,184 @@
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 	font-size: 0.8125rem;
 	line-height: 1.6;
+}
+
+/* ==========================================================================
+   MDsveX Theme-Aware Code Containers & Typography
+   ========================================================================== */
+
+/* 1. Theme-Aware Fenced Code Block Container (<pre>) */
+pre {
+	background-color: var(--muted) !important;
+	color: var(--foreground) !important;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 1.25rem;
+	overflow-x: auto;
+	margin-top: 1.25rem;
+	margin-bottom: 1.25rem;
+	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+}
+
+.dark pre {
+	background-color: var(--card) !important;
+	border-color: var(--border);
+	box-shadow: none;
+}
+
+pre code {
+	font-family:
+		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+		monospace;
+	font-size: 0.84rem;
+	line-height: 1.6;
+	background: transparent !important;
+	padding: 0 !important;
+	border: none !important;
+}
+
+/* 2. Inline Code Badges (prose text like `$derived()`) */
+:not(pre) > code {
+	background-color: var(--accent);
+	color: var(--accent-foreground);
+	border: 1px solid var(--border);
+	padding: 0.15rem 0.35rem;
+	border-radius: 0.375rem;
+	font-size: 0.825em;
+	font-weight: 600;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* 3. Custom Scrollbars for Fenced Code Blocks */
+pre::-webkit-scrollbar {
+	height: 6px;
+}
+
+pre::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+pre::-webkit-scrollbar-thumb {
+	background-color: var(--border);
+	border-radius: 9999px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+	background-color: var(--muted-foreground);
+}
+
+/* ==========================================================================
+   Dual-Theme Syntax Tokens (Light Mode vs Dark Mode)
+   ========================================================================== */
+
+/* Light Mode Tokens (Crisp high-contrast colors) */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #656d76;
+	font-style: italic;
+}
+
+.token.punctuation {
+	color: #24292f;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+	color: #0550ae;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+	color: #0a3069;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #cf222e;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #8250df;
+	font-weight: 600;
+}
+
+.token.function,
+.token.class-name {
+	color: #953800;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #116329;
+}
+
+/* Dark Mode Tokens (Vibrant neon colors on midnight card background) */
+.dark .token.comment,
+.dark .token.prolog,
+.dark .token.doctype,
+.dark .token.cdata {
+	color: #7d8590;
+}
+
+.dark .token.punctuation {
+	color: #e6edf3;
+}
+
+.dark .token.property,
+.dark .token.tag,
+.dark .token.boolean,
+.dark .token.number,
+.dark .token.constant,
+.dark .token.symbol {
+	color: #79c0ff;
+}
+
+.dark .token.selector,
+.dark .token.attr-name,
+.dark .token.string,
+.dark .token.char,
+.dark .token.builtin {
+	color: #a5d6ff;
+}
+
+.dark .token.operator,
+.dark .token.entity,
+.dark .token.url {
+	color: #ff7b72;
+}
+
+.dark .token.atrule,
+.dark .token.attr-value,
+.dark .token.keyword {
+	color: #d2a8ff;
+}
+
+.dark .token.function,
+.dark .token.class-name {
+	color: #ffa657;
+}
+
+.dark .token.regex,
+.dark .token.important,
+.dark .token.variable {
+	color: #7ee787;
+}
+
+/* Remove Tailwind Typography auto-injected backtick quotes */
+:not(pre) > code::before,
+:not(pre) > code::after {
+	content: '' !important;
 }
