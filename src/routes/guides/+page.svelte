@@ -1,8 +1,8 @@
 <!-- src/routes/guides/+page.svelte -->
 <script lang="ts">
-	import { resolveRoute } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import SEO from '$lib/components/SEO.svelte';
-	import { ArrowRight, BookOpen, Search, Tag, XCircle } from '@lucide/svelte';
+	import { ArrowRight, BookOpen, CircleX, Search, Tag } from '@lucide/svelte';
 
 	export interface Guide {
 		slug: string;
@@ -124,7 +124,7 @@
 						onclick={() => (searchQuery = '')}
 						class="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
 					>
-						<XCircle class="size-4" />
+						<CircleX class="size-4" />
 					</button>
 				{/if}
 			</div>
@@ -178,7 +178,7 @@
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 			{#each filteredGuides as guide (guide.slug)}
 				<a
-					href={resolveRoute('/guides/[slug]', { slug: guide.slug })}
+					href={resolve('/guides/[slug]', { slug: guide.slug })}
 					class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-md"
 				>
 					<div>
