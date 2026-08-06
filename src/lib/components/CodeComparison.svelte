@@ -1,6 +1,7 @@
 <!-- src/lib/components/CodeComparison.svelte -->
 <script lang="ts">
 	import { Check, Copy, Sparkles } from '@lucide/svelte';
+	import { codeToHtml } from 'shiki';
 
 	interface Props {
 		title?: string;
@@ -19,32 +20,20 @@
 	}: Props = $props();
 
 	let copied = $state(false);
-	let competingHtml = $state('');
-	let svelteHtml = $state('');
 
-	// Dynamically import Shiki on demand to code-split it out of the main bundle
-	$effect(() => {
-		const cleanSvelte = svelteCode ? svelteCode.trim() : '';
-		const cleanCompeting = competingCode ? competingCode.trim() : '';
-
-		if (!cleanSvelte) return;
-
-		import('shiki').then(({ codeToHtml }) => {
-			codeToHtml(cleanSvelte, {
-				lang: 'svelte',
-				theme: 'github-dark'
-			}).then((html) => (svelteHtml = html));
-
-			if (cleanCompeting) {
-				codeToHtml(cleanCompeting, {
-					lang: 'typescript',
-					theme: 'github-dark'
-				}).then((html) => (competingHtml = html));
-			} else {
-				competingHtml = '';
-			}
+	// Helper function for SSR + Client syntax highlighting
+	async function highlight(code: string, lang: string) {
+		const clean = code ? code.trim() : '';
+		if (!clean) return '';
+		return await codeToHtml(clean, {
+			lang,
+			theme: 'github-dark'
 		});
-	});
+	}
+
+	// Promises derived from props - SvelteKit SSR resolves these on the server before sending HTML
+	let svelteHtmlPromise = $derived(highlight(svelteCode, 'svelte'));
+	let competingHtmlPromise = $derived(highlight(competingCode, 'typescript'));
 
 	function copyCode() {
 		navigator.clipboard.writeText(svelteCode.trim());
@@ -106,14 +95,14 @@
 				<div
 					class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-[#0d1117] shadow-xs"
 				>
-					{#if competingHtml}
-						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-						{@html competingHtml}
-					{:else}
+					{#await competingHtmlPromise}
 						<pre class="h-full flex-1 bg-[#0d1117] p-4 font-mono text-xs text-slate-200"><code
 								>{competingCode.trim()}</code
 							></pre>
-					{/if}
+					{:then html}
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						{@html html}
+					{/await}
 				</div>
 			</div>
 		{/if}
@@ -132,14 +121,14 @@
 			<div
 				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-primary/30 bg-[#0d1117] shadow-md"
 			>
-				{#if svelteHtml}
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-					{@html svelteHtml}
-				{:else}
+				{#await svelteHtmlPromise}
 					<pre class="h-full flex-1 bg-[#0d1117] p-4 font-mono text-xs text-slate-200"><code
 							>{svelteCode.trim()}</code
 						></pre>
-				{/if}
+				{:then html}
+					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+					{@html html}
+				{/await}
 			</div>
 		</div>
 	</div>
