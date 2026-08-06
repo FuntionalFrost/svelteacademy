@@ -8,6 +8,34 @@ readTime: '6 min read'
 
 <script>
   import CodeComparison from '$lib/components/CodeComparison.svelte';
+
+  const reactCode = `import { useState, useEffect } from 'react';
+
+export function Logger() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log('Count updated to:', count);
+
+    return () => console.log('Cleanup previous effect');
+  }, [count]);
+
+  return <button onClick={() => setCount(c => c + 1)}>Increment</button>;
+}`;
+
+  const svelteCode = `<${'script'} lang="ts">
+  let count = $state(0);
+
+  $effect(() => {
+    console.log('Count updated to:', count);
+
+    return () => {
+      console.log('Cleanup previous effect');
+    };
+  });
+</${'script'}>
+
+<button onclick={() => count++}>Increment</button>`;
 </script>
 
 ## Fine-Grained Effect Dependencies
@@ -15,37 +43,11 @@ readTime: '6 min read'
 In Svelte 5, `$effect` automatically tracks any reactive state read inside its body during execution.
 
 <CodeComparison
-title="Side Effects & Dependency Tracking"
-description="React 19 explicit dependency arrays vs Svelte 5 auto-tracked $effect dependencies."
-competingName="React 19"
-competingCode={`import { useState, useEffect } from 'react';
-
-export function Logger() {
-const [count, setCount] = useState(0);
-
-useEffect(() => {
-console.log('Count updated to:', count);
-
-    return () => console.log('Cleanup previous effect');
-
-}, [count]);
-
-return <button onClick={() => setCount(c => c + 1)}>Increment</button>;
-}`}
-  svelteCode={`<script lang="ts">
-let count = $state(0);
-
-$effect(() => {
-console.log('Count updated to:', count);
-
-    return () => {
-      console.log('Cleanup previous effect');
-    };
-
-});
-</script>
-
-<button onclick={() => count++}>Increment</button>`}
+  title="Side Effects & Dependency Tracking"
+  description="React 19 explicit dependency arrays vs Svelte 5 auto-tracked $effect dependencies."
+  competingName="React 19"
+  competingCode={reactCode}
+  svelteCode={svelteCode}
 />
 
 ### Preventing Unwanted Dependencies with `untrack()`

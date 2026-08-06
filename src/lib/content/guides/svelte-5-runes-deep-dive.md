@@ -21,13 +21,13 @@ export function Counter() {
   return <button onClick={increment}>Count: {count}</button>;
 }`;
 
-  const svelteCode = `<` + `script>
+  const svelteCode = `<${'script'}>
   let count = $state(0);
 
   function increment() {
     count += 1;
   }
-</` + `script>
+</${'script'}>
 
 <button onclick={increment}>Count: {count}</button>`;
 </script>
