@@ -1,32 +1,42 @@
 <!-- src/routes/guides/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { ArrowRight, BookOpen, Clock, Filter, Search, X } from '@lucide/svelte';
+	import SEO from '$lib/components/SEO.svelte';
+	import { ArrowRight, BookOpen, Search, Tag, XCircle } from '@lucide/svelte';
 
-	let { data } = $props();
+	export interface Guide {
+		slug: string;
+		title: string;
+		description: string;
+		category: string;
+		readTime: string;
+	}
 
+	interface CustomPageData {
+		guides: Guide[];
+		categories: string[];
+	}
+
+	// Explicitly type props to bypass stale SvelteKit generated $types
+	let { data }: { data: CustomPageData } = $props();
+
+	// Safely fallback lists to ensure clean array types
+	let guides = $derived(data?.guides ?? []);
+	let categories = $derived(data?.categories ?? ['All']);
+
+	// Reactive state signals for filters
 	let searchQuery = $state('');
 	let selectedCategory = $state('All');
 
-	// Extract unique categories dynamically from loaded Markdown metadata
-	const categories = $derived([
-		'All',
-		...Array.from(new Set(data.guides.map((g) => g.meta.category).filter(Boolean) as string[]))
-	]);
-
-	// Reactive filter logic powered by Svelte 5 $derived rune
-	const filteredGuides = $derived(
-		data.guides.filter((guide) => {
-			const matchesCategory =
-				selectedCategory === 'All' || guide.meta.category === selectedCategory;
-
+	// Instant derived signal filtering
+	let filteredGuides = $derived(
+		guides.filter((guide) => {
+			const matchesCategory = selectedCategory === 'All' || guide.category === selectedCategory;
 			const query = searchQuery.toLowerCase().trim();
 			const matchesSearch =
 				!query ||
-				guide.meta.title?.toLowerCase().includes(query) ||
-				guide.meta.description?.toLowerCase().includes(query) ||
-				guide.slug?.toLowerCase().includes(query) ||
-				guide.meta.category?.toLowerCase().includes(query);
+				guide.title.toLowerCase().includes(query) ||
+				guide.description.toLowerCase().includes(query);
 
 			return matchesCategory && matchesSearch;
 		})
@@ -38,108 +48,123 @@
 	}
 </script>
 
-<div class="min-h-screen bg-background py-16 text-foreground">
-	<div class="container mx-auto max-w-4xl px-4">
-		<!-- Header -->
-		<div class="space-y-4">
-			<div
-				class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
-			>
-				<BookOpen class="size-3.5" />
-				<span>Sveltey Curriculum</span>
-			</div>
-			<h1 class="text-3xl font-black tracking-tight sm:text-4xl">Guides & Stack Comparisons</h1>
-			<p class="text-sm text-muted-foreground">
-				Deep dives into Svelte 5, SvelteKit, and zero-complexity full-stack development.
-			</p>
+<SEO
+	title="Svelte 5 Developer Guides & Tutorials"
+	description="Explore interactive deep dives into Svelte 5 runes, state synchronization, SSR patterns, and performance optimizations."
+/>
+
+<div class="container mx-auto max-w-6xl px-4 py-12">
+	<!-- Page Header -->
+	<header class="mb-10 text-center sm:text-left">
+		<h1 class="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+			Developer Guides
+		</h1>
+		<p class="mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
+			Practical architecture blueprints and rune-based patterns for building high-performance Svelte
+			5 applications.
+		</p>
+	</header>
+
+	<!-- Search & Filter Controls -->
+	<div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+		<!-- Search Input -->
+		<div class="relative max-w-md flex-1">
+			<Search class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" />
+			<input
+				type="text"
+				bind:value={searchQuery}
+				placeholder="Search guides by keyword..."
+				class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-sm text-foreground shadow-xs placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+			/>
+			{#if searchQuery}
+				<button
+					onclick={() => (searchQuery = '')}
+					class="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+				>
+					<XCircle class="size-4" />
+				</button>
+			{/if}
 		</div>
 
-		<!-- Search & Filter Bar -->
-		<div class="mt-8 space-y-4">
-			<!-- Search Input -->
-			<div class="relative">
-				<Search class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" />
-				<input
-					type="text"
-					bind:value={searchQuery}
-					placeholder="Search guides, concepts, or frameworks (e.g. React, HTMX, Runes)..."
-					class="w-full rounded-xl border border-border bg-card py-3 pr-10 pl-10 text-xs font-medium text-foreground transition placeholder:text-muted-foreground/60 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-hidden"
-				/>
-				{#if searchQuery}
-					<button
-						onclick={() => (searchQuery = '')}
-						class="absolute top-1/2 right-3.5 -translate-y-1/2 text-muted-foreground transition hover:text-foreground"
-						aria-label="Clear search"
-					>
-						<X class="size-4" />
-					</button>
-				{/if}
-			</div>
-
-			<!-- Category Filter Pills -->
-			<div class="flex flex-wrap items-center gap-2 pt-1">
-				<span
-					class="mr-1 inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground"
+		<!-- Category Filter Pills -->
+		<div class="flex flex-wrap items-center gap-2">
+			{#each categories as category (category)}
+				<button
+					onclick={() => (selectedCategory = category)}
+					class="rounded-lg px-3 py-1.5 font-mono text-xs font-semibold transition-all {selectedCategory ===
+					category
+						? 'bg-primary text-primary-foreground shadow-xs'
+						: 'border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground'}"
 				>
-					<Filter class="size-3" />
-					Category:
-				</span>
-				{#each categories as category (category)}
-					<button
-						onclick={() => (selectedCategory = category)}
-						class="rounded-lg px-3 py-1.5 text-xs font-medium transition {selectedCategory ===
-						category
-							? 'bg-primary text-primary-foreground shadow-xs'
-							: 'border border-border bg-card text-muted-foreground hover:bg-accent hover:text-foreground'}"
-					>
-						{category}
-					</button>
-				{/each}
-			</div>
-		</div>
-
-		<!-- Guide Grid -->
-		<div class="mt-8 grid gap-4">
-			{#each filteredGuides as guide (guide.slug)}
-				<a
-					href={resolve(`/guides/${guide.slug}`)}
-					class="group flex flex-col justify-between gap-4 rounded-2xl border border-border bg-card p-6 transition hover:border-primary/50 sm:flex-row sm:items-center"
-				>
-					<div class="space-y-1">
-						<div class="flex items-center gap-2 text-xs text-muted-foreground">
-							<Clock class="size-3.5" />
-							<span>{guide.meta.readTime || '5 min read'}</span>
-							<span>•</span>
-							<span class="font-medium text-primary">{guide.meta.category || 'Comparison'}</span>
-						</div>
-						<h2 class="text-lg font-bold text-foreground group-hover:text-primary">
-							{guide.meta.title || guide.slug}
-						</h2>
-						<p class="text-xs text-muted-foreground">
-							{guide.meta.description || 'No description provided.'}
-						</p>
-					</div>
-
-					<div class="inline-flex items-center gap-1 text-xs font-semibold text-primary">
-						<span>Read Guide</span>
-						<ArrowRight class="size-3.5 transition group-hover:translate-x-1" />
-					</div>
-				</a>
-			{:else}
-				<!-- Empty State -->
-				<div class="rounded-2xl border border-dashed border-border p-12 text-center">
-					<p class="text-sm font-semibold text-foreground">No matching guides found</p>
-					<p class="mt-1 text-xs text-muted-foreground">
-						Try adjusting your search query or switching category filters.
-					</p>
-					<button
-						onclick={resetFilters}
-						class="mt-4 rounded-lg bg-primary/10 px-4 py-2 text-xs font-bold text-primary transition hover:bg-primary/20"
-					>
-						Clear all filters
-					</button>
-				</div>
+					{category}
+				</button>
 			{/each}
 		</div>
 	</div>
+
+	<!-- Results Count Badge -->
+	<div class="mb-6 flex items-center justify-between font-mono text-xs text-muted-foreground">
+		<span>Showing {filteredGuides.length} of {guides.length} guides</span>
+		{#if selectedCategory !== 'All' || searchQuery}
+			<button onclick={resetFilters} class="font-semibold text-primary hover:underline">
+				Clear active filters
+			</button>
+		{/if}
+	</div>
+
+	<!-- Guides Grid -->
+	{#if filteredGuides.length > 0}
+		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+			{#each filteredGuides as guide (guide.slug)}
+				<a
+					href={resolve('/guides/[slug]', { slug: guide.slug })}
+					class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-md"
+				>
+					<div>
+						<div class="mb-3 flex items-center justify-between">
+							<span
+								class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-primary"
+							>
+								<Tag class="size-3" />
+								{guide.category}
+							</span>
+							<span class="font-mono text-xs text-muted-foreground">
+								{guide.readTime}
+							</span>
+						</div>
+
+						<h2
+							class="text-lg font-bold tracking-tight text-foreground transition-colors group-hover:text-primary"
+						>
+							{guide.title}
+						</h2>
+
+						<p class="mt-2 line-clamp-3 text-sm text-muted-foreground">
+							{guide.description}
+						</p>
+					</div>
+
+					<div class="mt-6 flex items-center gap-1.5 font-mono text-xs font-semibold text-primary">
+						<span>Read guide</span>
+						<ArrowRight class="size-3.5 transition-transform group-hover:translate-x-1" />
+					</div>
+				</a>
+			{/each}
+		</div>
+	{:else}
+		<!-- Empty Search State -->
+		<div class="rounded-2xl border border-dashed border-border p-12 text-center">
+			<BookOpen class="mx-auto mb-3 size-10 text-muted-foreground/60" />
+			<h3 class="text-base font-bold text-foreground">No guides found</h3>
+			<p class="mt-1 text-sm text-muted-foreground">
+				No matches for "{searchQuery}" under category "{selectedCategory}".
+			</p>
+			<button
+				onclick={resetFilters}
+				class="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition hover:bg-primary/90"
+			>
+				Reset Filters
+			</button>
+		</div>
+	{/if}
 </div>
