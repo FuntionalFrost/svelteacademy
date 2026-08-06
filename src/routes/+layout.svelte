@@ -4,6 +4,7 @@
 	import { page } from '$app/state';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
 	import Logo from '$lib/components/Logo.svelte';
+	import SEO from '$lib/components/SEO.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import { BookOpen, CodeXml, ExternalLink, Menu, Rocket, Terminal, X } from '@lucide/svelte';
 	import { ModeWatcher } from 'mode-watcher';
@@ -25,6 +26,9 @@
 
 <!-- Mounts ModeWatcher to physically toggle .dark on <html> for mode-watcher -->
 <ModeWatcher defaultMode="dark" />
+
+<!-- Default Site-Wide SEO Fallback -->
+<SEO />
 
 <div
 	class="flex min-h-screen flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary"

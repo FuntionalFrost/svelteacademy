@@ -36,8 +36,8 @@ export function Counter() {
 </script>
 
 <SEO
-	title="SuperSvelte — Code Without Complexity"
-	description="Learn how Svelte 5 Runes and SvelteKit eliminate artificial framework bloat, complex dependency arrays, and build-time codegen."
+	title="Code Without Complexity"
+	description="Learn how Svelte 5 Runes and SvelteKit eliminate artificial framework bloat..."
 />
 
 <div class="container mx-auto max-w-5xl px-4 py-16">
@@ -58,8 +58,10 @@ export function Counter() {
 		</h1>
 
 		<p class="mx-auto max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-			Learn how Svelte 5 Runes and SvelteKit eliminate artificial framework bloat, complex
-			dependency arrays, and build-time codegen—so you can focus on shipping your ideas.
+			Eliminate artificial framework bloat and complex dependency arrays with Svelte 5.
+			<span class="mt-1 block font-medium text-foreground/90"
+				>Focus on shipping your ideas, not fighting hooks.</span
+			>
 		</p>
 	</section>
 
