@@ -68,7 +68,7 @@
 	function navigateTo(slug: string) {
 		isOpen = false;
 		searchQuery = '';
-		goto(resolve(`/learn/${slug}`));
+		goto(resolve(`/guides/${slug}`));
 	}
 </script>
 

@@ -1,4 +1,4 @@
-// src/routes/learn/+page.ts
+// src/routes/guides/+page.ts
 interface GuideModule {
 	metadata: {
 		title?: string;

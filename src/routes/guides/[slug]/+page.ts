@@ -1,4 +1,4 @@
-// src/routes/learn/[slug]/+page.ts
+// src/routes/guides/[slug]/+page.ts
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ params }) => {

@@ -46,7 +46,7 @@
 		{#each trackGuides as guide, index (guide.slug)}
 			<li>
 				<a
-					href={resolve('/learn/[slug]', { slug: guide.slug })}
+					href={resolve('/guides/[slug]', { slug: guide.slug })}
 					class="group flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
 				>
 					<div class="flex items-center gap-3 truncate">

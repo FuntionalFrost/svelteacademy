@@ -42,7 +42,7 @@
 			</a>
 
 			<div class="flex items-center gap-3 text-xs font-medium">
-				<a href={resolve('/learn')} class="text-muted-foreground transition hover:text-foreground">
+				<a href={resolve('/guides')} class="text-muted-foreground transition hover:text-foreground">
 					Guides
 				</a>
 

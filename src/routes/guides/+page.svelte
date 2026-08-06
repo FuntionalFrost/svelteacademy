@@ -1,4 +1,4 @@
-<!-- src/routes/learn/+page.svelte -->
+<!-- src/routes/guides/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { ArrowRight, BookOpen, Clock, Filter, Search, X } from '@lucide/svelte';
@@ -102,7 +102,7 @@
 		<div class="mt-8 grid gap-4">
 			{#each filteredGuides as guide (guide.slug)}
 				<a
-					href={resolve(`/learn/${guide.slug}`)}
+					href={resolve(`/guides/${guide.slug}`)}
 					class="group flex flex-col justify-between gap-4 rounded-2xl border border-border bg-card p-6 transition hover:border-primary/50 sm:flex-row sm:items-center"
 				>
 					<div class="space-y-1">

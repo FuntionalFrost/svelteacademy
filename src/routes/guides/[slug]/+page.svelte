@@ -1,4 +1,4 @@
-<!-- src/routes/learn/[slug]/+page.svelte -->
+<!-- src/routes/guides/[slug]/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
@@ -20,7 +20,7 @@
 	<div class="container mx-auto max-w-6xl px-4">
 		<!-- Back Link -->
 		<a
-			href={resolve('/learn')}
+			href={resolve('/guides')}
 			class="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground transition hover:text-primary"
 		>
 			<ArrowLeft class="size-3.5" />

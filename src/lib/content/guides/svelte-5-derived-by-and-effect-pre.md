@@ -15,20 +15,20 @@ When derived state requires loops, conditions, or intermediate variables, use `$
 
 ```svelte
 <script>
-let items = $state([
- { name: 'Laptop', price: 999, active: true },
- { name: 'Mouse', price: 25, active: false },
- { name: 'Monitor', price: 300, active: true }
-]);
+	let items = $state([
+		{ name: 'Laptop', price: 999, active: true },
+		{ name: 'Mouse', price: 25, active: false },
+		{ name: 'Monitor', price: 300, active: true }
+	]);
 
-// Use $derived.by for multi-statement computations
-let activeTotal = $derived.by(() => {
-let sum = 0;
-for (const item of items) {
-   if (item.active) sum += item.price;
-  }
-  return sum;
-});
+	// Use $derived.by for multi-statement computations
+	let activeTotal = $derived.by(() => {
+		let sum = 0;
+		for (const item of items) {
+			if (item.active) sum += item.price;
+		}
+		return sum;
+	});
 </script>
 
 <p>Active Inventory Total: ${activeTotal}</p>
@@ -42,22 +42,23 @@ Standard `$effect()` runs **after** the DOM has been updated. If you need to rea
 
 ```svelte
 <script>
-  let messages = $state<string[]>([]);
-  let container = $state<HTMLElement null |>(null);
+	let messages = $state<string[]>([]);
+	let container = $state < HTMLElement;
+	null |> null;
 
-  // Runs right BEFORE the DOM updates with new items
-  $effect.pre(() => {
-    if (container) {
-      const isAtBottom = container.scrollHeight - container.scrollTop === container.clientHeight;
-      console.log('Scroll position prior to DOM patch:', isAtBottom);
-    }
-  });
+	// Runs right BEFORE the DOM updates with new items
+	$effect.pre(() => {
+		if (container) {
+			const isAtBottom = container.scrollHeight - container.scrollTop === container.clientHeight;
+			console.log('Scroll position prior to DOM patch:', isAtBottom);
+		}
+	});
 </script>
 
 <div bind:this={container} class="chat-box">
- {#each messages as msg}
-  <p>{msg}</p>
- {/each}
+	{#each messages as msg}
+		<p>{msg}</p>
+	{/each}
 </div>
 ```
 
@@ -69,19 +70,19 @@ If you read a reactive signal inside an effect but do **not** want that signal t
 
 ```svelte
 <script>
- import { untrack } from 'svelte';
+	import { untrack } from 'svelte';
 
- let page = $state(1);
- let analyticsId = $state('SESSION_123');
+	let page = $state(1);
+	let analyticsId = $state('SESSION_123');
 
- $effect(() => {
-  // Triggers when 'page' changes...
-  console.log('Navigated to page:', page);
+	$effect(() => {
+		// Triggers when 'page' changes...
+		console.log('Navigated to page:', page);
 
-  // ...but reading 'analyticsId' will NOT register as a dependency
-  const currentId = untrack(() => analyticsId);
-  sendBeacon(currentId, page);
- });
+		// ...but reading 'analyticsId' will NOT register as a dependency
+		const currentId = untrack(() => analyticsId);
+		sendBeacon(currentId, page);
+	});
 </script>
 ```
 

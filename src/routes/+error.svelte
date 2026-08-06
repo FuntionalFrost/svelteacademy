@@ -32,7 +32,7 @@
 		</a>
 
 		<a
-			href={resolve('/learn')}
+			href={resolve('/guides')}
 			class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-xs font-bold text-foreground transition hover:bg-accent"
 		>
 			<span>Browse Guides</span>
