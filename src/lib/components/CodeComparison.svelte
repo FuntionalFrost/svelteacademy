@@ -22,13 +22,16 @@
 
 	// Dynamically import Shiki on demand to code-split it out of the main bundle
 	$effect(() => {
+		const cleanCompeting = competingCode.trim();
+		const cleanSvelte = svelteCode.trim();
+
 		import('shiki').then(({ codeToHtml }) => {
-			codeToHtml(competingCode, {
+			codeToHtml(cleanCompeting, {
 				lang: 'typescript',
 				themes: { light: 'github-light', dark: 'tokyo-night' }
 			}).then((html) => (competingHtml = html));
 
-			codeToHtml(svelteCode, {
+			codeToHtml(cleanSvelte, {
 				lang: 'svelte',
 				themes: { light: 'github-light', dark: 'tokyo-night' }
 			}).then((html) => (svelteHtml = html));
@@ -36,7 +39,7 @@
 	});
 
 	function copyCode() {
-		navigator.clipboard.writeText(svelteCode);
+		navigator.clipboard.writeText(svelteCode.trim());
 		copied = true;
 		setTimeout(() => (copied = false), 2000);
 	}
@@ -74,7 +77,7 @@
 	<!-- Side-by-Side Comparison Grid -->
 	<div class="grid grid-cols-1 divide-y divide-border md:grid-cols-2 md:divide-x md:divide-y-0">
 		<!-- Competitor Panel -->
-		<div class="flex flex-col gap-3 bg-red-500/5 p-5 dark:bg-red-950/10">
+		<div class="flex h-full flex-col gap-3 bg-red-500/5 p-5 dark:bg-red-950/10">
 			<div class="flex items-center justify-between">
 				<span
 					class="inline-flex items-center gap-1.5 rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-red-500"
@@ -84,19 +87,20 @@
 			</div>
 
 			<div
-				class="relative overflow-hidden rounded-xl border border-red-500/20 bg-background/80 shadow-xs"
+				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-background/80 shadow-xs"
 			>
 				{#if competingHtml}
 					{@html competingHtml}
 				{:else}
-					<pre class="p-4 font-mono text-xs text-muted-foreground"><code>{competingCode}</code
+					<pre class="h-full flex-1 p-4 font-mono text-xs text-muted-foreground"><code
+							>{competingCode.trim()}</code
 						></pre>
 				{/if}
 			</div>
 		</div>
 
 		<!-- Svelte 5 Panel -->
-		<div class="flex flex-col gap-3 bg-primary/5 p-5 shadow-inner">
+		<div class="flex h-full flex-col gap-3 bg-primary/5 p-5 shadow-inner">
 			<div class="flex items-center justify-between">
 				<span
 					class="inline-flex items-center gap-1.5 rounded-md border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-bold text-primary"
@@ -107,14 +111,33 @@
 			</div>
 
 			<div
-				class="relative overflow-hidden rounded-xl border border-primary/30 bg-background/90 shadow-md"
+				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-primary/30 bg-background/90 shadow-md"
 			>
 				{#if svelteHtml}
 					{@html svelteHtml}
 				{:else}
-					<pre class="p-4 font-mono text-xs text-foreground"><code>{svelteCode}</code></pre>
+					<pre class="h-full flex-1 p-4 font-mono text-xs text-foreground"><code
+							>{svelteCode.trim()}</code
+						></pre>
 				{/if}
 			</div>
 		</div>
 	</div>
 </div>
+
+<style>
+	/* Force Shiki generated <pre> block to fill parent height with zero top/bottom margin leaks */
+	:global(pre.shiki) {
+		margin: 0 !important;
+		padding: 1rem !important;
+		height: 100% !important;
+		flex: 1 1 0% !important;
+		box-sizing: border-box !important;
+		overflow-x: auto !important;
+	}
+
+	:global(pre.shiki code) {
+		display: block !important;
+		min-height: 100% !important;
+	}
+</style>
