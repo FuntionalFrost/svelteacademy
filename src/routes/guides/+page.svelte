@@ -1,14 +1,15 @@
 <!-- src/routes/guides/+page.svelte -->
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { resolveRoute } from '$app/paths';
 	import SEO from '$lib/components/SEO.svelte';
-	import { ArrowRight, BookOpen, Search, Tag, XCircle } from '@lucide/svelte';
+	import { ArrowRight, BookOpen, CircleX, Search, Tag } from '@lucide/svelte';
 
 	export interface Guide {
 		slug: string;
 		title: string;
 		description: string;
 		category: string;
+		level: 'beginner' | 'intermediate' | 'advanced';
 		readTime: string;
 	}
 
@@ -17,34 +18,43 @@
 		categories: string[];
 	}
 
-	// Explicitly type props to bypass stale SvelteKit generated $types
 	let { data }: { data: CustomPageData } = $props();
 
-	// Safely fallback lists to ensure clean array types
 	let guides = $derived(data?.guides ?? []);
 	let categories = $derived(data?.categories ?? ['All']);
 
 	// Reactive state signals for filters
 	let searchQuery = $state('');
 	let selectedCategory = $state('All');
+	let selectedLevel = $state('All');
 
-	// Instant derived signal filtering
+	const levels = ['All', 'beginner', 'intermediate', 'advanced'];
+
+	const levelStyles = {
+		beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-500',
+		intermediate: 'border-amber-500/30 bg-amber-500/10 text-amber-500',
+		advanced: 'border-purple-500/30 bg-purple-500/10 text-purple-500'
+	};
+
+	// Derived filtered guides
 	let filteredGuides = $derived(
 		guides.filter((guide) => {
 			const matchesCategory = selectedCategory === 'All' || guide.category === selectedCategory;
+			const matchesLevel = selectedLevel === 'All' || guide.level === selectedLevel;
 			const query = searchQuery.toLowerCase().trim();
 			const matchesSearch =
 				!query ||
 				guide.title.toLowerCase().includes(query) ||
 				guide.description.toLowerCase().includes(query);
 
-			return matchesCategory && matchesSearch;
+			return matchesCategory && matchesLevel && matchesSearch;
 		})
 	);
 
 	function resetFilters() {
 		searchQuery = '';
 		selectedCategory = 'All';
+		selectedLevel = 'All';
 	}
 </script>
 
@@ -66,34 +76,53 @@
 	</header>
 
 	<!-- Search & Filter Controls -->
-	<div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-		<!-- Search Input -->
-		<div class="relative max-w-md flex-1">
-			<Search class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" />
-			<input
-				type="text"
-				bind:value={searchQuery}
-				placeholder="Search guides by keyword..."
-				class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-sm text-foreground shadow-xs placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
-			/>
-			{#if searchQuery}
-				<button
-					onclick={() => (searchQuery = '')}
-					class="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-				>
-					<XCircle class="size-4" />
-				</button>
-			{/if}
+	<div class="mb-8 flex flex-col gap-4">
+		<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+			<!-- Search Input -->
+			<div class="relative max-w-md flex-1">
+				<Search class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" />
+				<input
+					type="text"
+					bind:value={searchQuery}
+					placeholder="Search guides by keyword..."
+					class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-sm text-foreground shadow-xs placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+				/>
+				{#if searchQuery}
+					<button
+						onclick={() => (searchQuery = '')}
+						class="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+					>
+						<CircleX class="size-4" />
+					</button>
+				{/if}
+			</div>
+
+			<!-- Difficulty Level Pills -->
+			<div class="flex flex-wrap items-center gap-1.5">
+				<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground">Level:</span>
+				{#each levels as level (level)}
+					<button
+						onclick={() => (selectedLevel = level)}
+						class="rounded-lg px-2.5 py-1 font-mono text-xs font-semibold capitalize transition-all {selectedLevel ===
+						level
+							? 'bg-primary text-primary-foreground shadow-xs'
+							: 'border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground'}"
+					>
+						{level}
+					</button>
+				{/each}
+			</div>
 		</div>
 
 		<!-- Category Filter Pills -->
-		<div class="flex flex-wrap items-center gap-2">
+		<div class="flex flex-wrap items-center gap-2 border-t border-border pt-4">
+			<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground">Category:</span>
 			{#each categories as category (category)}
 				<button
 					onclick={() => (selectedCategory = category)}
-					class="rounded-lg px-3 py-1.5 font-mono text-xs font-semibold transition-all {selectedCategory ===
+					class="rounded-lg px-3 py-1 font-mono text-xs font-semibold transition-all {selectedCategory ===
 					category
-						? 'bg-primary text-primary-foreground shadow-xs'
+						? 'bg-foreground text-background shadow-xs'
 						: 'border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground'}"
 				>
 					{category}
@@ -105,7 +134,7 @@
 	<!-- Results Count Badge -->
 	<div class="mb-6 flex items-center justify-between font-mono text-xs text-muted-foreground">
 		<span>Showing {filteredGuides.length} of {guides.length} guides</span>
-		{#if selectedCategory !== 'All' || searchQuery}
+		{#if selectedCategory !== 'All' || selectedLevel !== 'All' || searchQuery}
 			<button onclick={resetFilters} class="font-semibold text-primary hover:underline">
 				Clear active filters
 			</button>
@@ -117,19 +146,24 @@
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 			{#each filteredGuides as guide (guide.slug)}
 				<a
-					href={resolve('/guides/[slug]', { slug: guide.slug })}
+					href={resolveRoute('/guides/[slug]', { slug: guide.slug })}
 					class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-md"
 				>
 					<div>
-						<div class="mb-3 flex items-center justify-between">
+						<div class="mb-3 flex items-center justify-between gap-2">
 							<span
 								class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-primary"
 							>
 								<Tag class="size-3" />
 								{guide.category}
 							</span>
-							<span class="font-mono text-xs text-muted-foreground">
-								{guide.readTime}
+
+							<span
+								class="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase {levelStyles[
+									guide.level
+								]}"
+							>
+								{guide.level}
 							</span>
 						</div>
 
@@ -144,9 +178,12 @@
 						</p>
 					</div>
 
-					<div class="mt-6 flex items-center gap-1.5 font-mono text-xs font-semibold text-primary">
-						<span>Read guide</span>
-						<ArrowRight class="size-3.5 transition-transform group-hover:translate-x-1" />
+					<div class="mt-6 flex items-center justify-between">
+						<span class="font-mono text-xs text-muted-foreground">{guide.readTime}</span>
+						<div class="flex items-center gap-1.5 font-mono text-xs font-semibold text-primary">
+							<span>Read guide</span>
+							<ArrowRight class="size-3.5 transition-transform group-hover:translate-x-1" />
+						</div>
 					</div>
 				</a>
 			{/each}
@@ -157,7 +194,7 @@
 			<BookOpen class="mx-auto mb-3 size-10 text-muted-foreground/60" />
 			<h3 class="text-base font-bold text-foreground">No guides found</h3>
 			<p class="mt-1 text-sm text-muted-foreground">
-				No matches for "{searchQuery}" under category "{selectedCategory}".
+				Try clearing your search query or selecting a different level/category filter.
 			</p>
 			<button
 				onclick={resetFilters}
