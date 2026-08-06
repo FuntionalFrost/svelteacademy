@@ -2,19 +2,21 @@
 <script lang="ts">
 	import { Check, Copy, Sparkles } from '@lucide/svelte';
 
-	let {
-		title,
-		description,
-		svelteCode,
-		competingCode,
-		competingName = 'React 19'
-	} = $props<{
-		title: string;
-		description: string;
+	interface Props {
+		title?: string;
+		description?: string;
 		svelteCode: string;
-		competingCode: string;
+		competingCode?: string;
 		competingName?: string;
-	}>();
+	}
+
+	let {
+		title = '',
+		description = '',
+		svelteCode,
+		competingCode = '',
+		competingName = 'React 19'
+	}: Props = $props();
 
 	let copied = $state(false);
 	let competingHtml = $state('');
@@ -22,19 +24,25 @@
 
 	// Dynamically import Shiki on demand to code-split it out of the main bundle
 	$effect(() => {
-		const cleanCompeting = competingCode.trim();
-		const cleanSvelte = svelteCode.trim();
+		const cleanSvelte = svelteCode ? svelteCode.trim() : '';
+		const cleanCompeting = competingCode ? competingCode.trim() : '';
+
+		if (!cleanSvelte) return;
 
 		import('shiki').then(({ codeToHtml }) => {
-			codeToHtml(cleanCompeting, {
-				lang: 'typescript',
-				themes: { light: 'github-light', dark: 'tokyo-night' }
-			}).then((html) => (competingHtml = html));
-
 			codeToHtml(cleanSvelte, {
 				lang: 'svelte',
 				themes: { light: 'github-light', dark: 'tokyo-night' }
 			}).then((html) => (svelteHtml = html));
+
+			if (cleanCompeting) {
+				codeToHtml(cleanCompeting, {
+					lang: 'typescript',
+					themes: { light: 'github-light', dark: 'tokyo-night' }
+				}).then((html) => (competingHtml = html));
+			} else {
+				competingHtml = '';
+			}
 		});
 	});
 
@@ -56,8 +64,12 @@
 		class="flex flex-col gap-3 border-b border-border bg-muted/40 p-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between"
 	>
 		<div>
-			<h3 class="text-base font-bold text-foreground">{title}</h3>
-			<p class="text-xs text-muted-foreground">{description}</p>
+			{#if title}
+				<h3 class="text-base font-bold text-foreground">{title}</h3>
+			{/if}
+			{#if description}
+				<p class="text-xs text-muted-foreground">{description}</p>
+			{/if}
 		</div>
 
 		<button
@@ -74,30 +86,37 @@
 		</button>
 	</div>
 
-	<!-- Side-by-Side Comparison Grid -->
-	<div class="grid grid-cols-1 divide-y divide-border md:grid-cols-2 md:divide-x md:divide-y-0">
-		<!-- Competitor Panel -->
-		<div class="flex h-full flex-col gap-3 bg-red-500/5 p-5 dark:bg-red-950/10">
-			<div class="flex items-center justify-between">
-				<span
-					class="inline-flex items-center gap-1.5 rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-red-500"
-				>
-					❌ {competingName}
-				</span>
-			</div>
+	<!-- Comparison or Single Snippet Grid -->
+	<div
+		class="grid grid-cols-1 divide-y divide-border {competingCode
+			? 'md:grid-cols-2 md:divide-x md:divide-y-0'
+			: ''}"
+	>
+		{#if competingCode}
+			<!-- Competitor Panel -->
+			<div class="flex h-full flex-col gap-3 bg-red-500/5 p-5 dark:bg-red-950/10">
+				<div class="flex items-center justify-between">
+					<span
+						class="inline-flex items-center gap-1.5 rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-red-500"
+					>
+						❌ {competingName}
+					</span>
+				</div>
 
-			<div
-				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-background/80 shadow-xs"
-			>
-				{#if competingHtml}
-					{@html competingHtml}
-				{:else}
-					<pre class="h-full flex-1 p-4 font-mono text-xs text-muted-foreground"><code
-							>{competingCode.trim()}</code
-						></pre>
-				{/if}
+				<div
+					class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-background/80 shadow-xs"
+				>
+					{#if competingHtml}
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						{@html competingHtml}
+					{:else}
+						<pre class="h-full flex-1 p-4 font-mono text-xs text-muted-foreground"><code
+								>{competingCode.trim()}</code
+							></pre>
+					{/if}
+				</div>
 			</div>
-		</div>
+		{/if}
 
 		<!-- Svelte 5 Panel -->
 		<div class="flex h-full flex-col gap-3 bg-primary/5 p-5 shadow-inner">
@@ -114,6 +133,7 @@
 				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-primary/30 bg-background/90 shadow-md"
 			>
 				{#if svelteHtml}
+					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html svelteHtml}
 				{:else}
 					<pre class="h-full flex-1 p-4 font-mono text-xs text-foreground"><code

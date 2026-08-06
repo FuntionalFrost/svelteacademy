@@ -1,6 +1,7 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
 	import CodeComparison from '$lib/components/CodeComparison.svelte';
+	import SEO from '$lib/components/SEO.svelte';
 	import { ArrowRight, Sparkles, Zap } from '@lucide/svelte';
 
 	const reactExample = `// React 19: Stateful Counter with Effect
@@ -33,6 +34,11 @@ export function Counter() {
   Count: {count}
 </button>`;
 </script>
+
+<SEO
+	title="SuperSvelte — Code Without Complexity"
+	description="Learn how Svelte 5 Runes and SvelteKit eliminate artificial framework bloat, complex dependency arrays, and build-time codegen."
+/>
 
 <div class="container mx-auto max-w-5xl px-4 py-16">
 	<!-- Hero Section -->
@@ -81,14 +87,16 @@ export function Counter() {
 				<h2 class="text-2xl font-bold tracking-tight">Ready to ship a production business?</h2>
 				<p class="max-w-xl text-xs leading-relaxed text-muted-foreground">
 					Skip 80 hours of wiring up Auth, Neon Postgres, Drizzle ORM, Upstash Redis caching,
-					UploadThing storage, and Hono OpenAPI RPC. **Super Svelte** is the official production
-					starter kit.
+					UploadThing storage, and Hono OpenAPI RPC. <strong class="text-foreground"
+						>Super Svelte</strong
+					> is the official production starter kit.
 				</p>
 			</div>
 
 			<a
 				href="https://supersvelte.netlify.app"
 				target="_blank"
+				rel="noreferrer"
 				class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90"
 			>
 				<span>Explore Super Svelte</span>
