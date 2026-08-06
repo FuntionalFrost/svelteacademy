@@ -24,7 +24,7 @@
 	let competingHtml = $state('');
 	let isReady = $state(false);
 
-	// Singleton highlighter promise created ONCE when the module loads
+	// Singleton highlighter promise created ONCE when module loads
 	const highlighterPromise = createHighlighter({
 		themes: ['github-dark'],
 		langs: ['svelte', 'typescript', 'javascript', 'html', 'css']
@@ -112,12 +112,11 @@
 					class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-[#0d1117] shadow-xs"
 				>
 					{#if isReady && competingHtml}
-						<div class="animate-in duration-150 fade-in">
+						<div class="flex h-full w-full flex-1 animate-in flex-col duration-150 fade-in">
 							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html competingHtml}
 						</div>
 					{:else}
-						<!-- Dark Skeleton Placeholder (Prevents White Text Flicker) -->
 						<div class="flex h-full flex-1 animate-pulse flex-col gap-2.5 bg-[#0d1117] p-4">
 							<div class="h-3.5 w-3/4 rounded bg-slate-800/60"></div>
 							<div class="h-3.5 w-1/2 rounded bg-slate-800/60"></div>
@@ -144,12 +143,11 @@
 				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-primary/30 bg-[#0d1117] shadow-md"
 			>
 				{#if isReady && svelteHtml}
-					<div class="animate-in duration-150 fade-in">
+					<div class="flex h-full w-full flex-1 animate-in flex-col duration-150 fade-in">
 						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 						{@html svelteHtml}
 					</div>
 				{:else}
-					<!-- Dark Skeleton Placeholder -->
 					<div class="flex h-full flex-1 animate-pulse flex-col gap-2.5 bg-[#0d1117] p-4">
 						<div class="h-3.5 w-3/4 rounded bg-slate-800/60"></div>
 						<div class="h-3.5 w-1/2 rounded bg-slate-800/60"></div>
