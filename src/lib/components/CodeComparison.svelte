@@ -32,13 +32,13 @@
 		import('shiki').then(({ codeToHtml }) => {
 			codeToHtml(cleanSvelte, {
 				lang: 'svelte',
-				themes: { light: 'github-light', dark: 'tokyo-night' }
+				theme: 'github-dark'
 			}).then((html) => (svelteHtml = html));
 
 			if (cleanCompeting) {
 				codeToHtml(cleanCompeting, {
 					lang: 'typescript',
-					themes: { light: 'github-light', dark: 'tokyo-night' }
+					theme: 'github-dark'
 				}).then((html) => (competingHtml = html));
 			} else {
 				competingHtml = '';
@@ -104,13 +104,13 @@
 				</div>
 
 				<div
-					class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-background/80 shadow-xs"
+					class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-[#0d1117] shadow-xs"
 				>
 					{#if competingHtml}
 						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 						{@html competingHtml}
 					{:else}
-						<pre class="h-full flex-1 p-4 font-mono text-xs text-muted-foreground"><code
+						<pre class="h-full flex-1 bg-[#0d1117] p-4 font-mono text-xs text-slate-200"><code
 								>{competingCode.trim()}</code
 							></pre>
 					{/if}
@@ -130,13 +130,13 @@
 			</div>
 
 			<div
-				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-primary/30 bg-background/90 shadow-md"
+				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-primary/30 bg-[#0d1117] shadow-md"
 			>
 				{#if svelteHtml}
 					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html svelteHtml}
 				{:else}
-					<pre class="h-full flex-1 p-4 font-mono text-xs text-foreground"><code
+					<pre class="h-full flex-1 bg-[#0d1117] p-4 font-mono text-xs text-slate-200"><code
 							>{svelteCode.trim()}</code
 						></pre>
 				{/if}
@@ -154,6 +154,7 @@
 		flex: 1 1 0% !important;
 		box-sizing: border-box !important;
 		overflow-x: auto !important;
+		background-color: transparent !important;
 	}
 
 	:global(pre.shiki code) {

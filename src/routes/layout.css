@@ -147,63 +147,47 @@
 	}
 }
 
-/* Shiki Dual-Theme Syntax Highlighting */
-.shiki,
-.shiki span {
-	color: var(--shiki-light);
-	background-color: var(--shiki-light-bg);
-}
+/* ==========================================================================
+   MDsveX & Shiki Code Block Styles (Dark Theme & Dark Borders Everywhere)
+   ========================================================================== */
 
-.dark .shiki,
-.dark .shiki span {
-	color: var(--shiki-dark) !important;
-	background-color: var(--shiki-dark-bg) !important;
-}
-
+/* 1. Force dark #0d1117 background and crisp dark border on ALL code blocks */
+.prose pre,
+pre,
 .shiki {
-	padding: 1.25rem;
-	border-radius: 0.75rem;
+	background-color: #0d1117 !important;
+	color: #c9d1d9 !important;
+	border: 1px solid #30363d !important; /* Dark border in both light & dark mode */
+	border-radius: var(--radius);
+	padding: 1rem 1.25rem;
 	overflow-x: auto;
+	margin: 1.25rem 0;
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 	font-size: 0.8125rem;
 	line-height: 1.6;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* ==========================================================================
-   MDsveX Theme-Aware Code Containers & Typography
-   ========================================================================== */
-
-/* 1. Theme-Aware Fenced Code Block Container (<pre>) */
-pre {
-	background-color: var(--muted) !important;
-	color: var(--foreground) !important;
-	border: 1px solid var(--border);
-	border-radius: var(--radius);
-	padding: 1.25rem;
-	overflow-x: auto;
-	margin-top: 1.25rem;
-	margin-bottom: 1.25rem;
-	box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
-}
-
-.dark pre {
-	background-color: var(--card) !important;
-	border-color: var(--border);
-	box-shadow: none;
-}
-
-pre code {
-	font-family:
-		ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-		monospace;
-	font-size: 0.84rem;
-	line-height: 1.6;
+/* 2. Standardize code element resets */
+.prose pre code,
+pre code,
+.shiki code {
 	background: transparent !important;
+	color: inherit !important;
 	padding: 0 !important;
 	border: none !important;
+	font-family: inherit;
+	font-size: inherit;
 }
 
-/* 2. Inline Code Badges (prose text like `$derived()`) */
+/* 3. Keep Shiki syntax token colors active without prose/theme background overrides */
+.prose pre span,
+pre span,
+.shiki span {
+	background-color: transparent !important;
+}
+
+/* 4. Inline Code Badges (prose text like `$derived()`) */
 :not(pre) > code {
 	background-color: var(--accent);
 	color: var(--accent-foreground);
@@ -215,132 +199,26 @@ pre code {
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* 3. Custom Scrollbars for Fenced Code Blocks */
-pre::-webkit-scrollbar {
+/* 5. Custom Scrollbars */
+pre::-webkit-scrollbar,
+.shiki::-webkit-scrollbar {
 	height: 6px;
 }
 
-pre::-webkit-scrollbar-track {
+pre::-webkit-scrollbar-track,
+.shiki::-webkit-scrollbar-track {
 	background: transparent;
 }
 
-pre::-webkit-scrollbar-thumb {
-	background-color: var(--border);
+pre::-webkit-scrollbar-thumb,
+.shiki::-webkit-scrollbar-thumb {
+	background-color: rgba(255, 255, 255, 0.15);
 	border-radius: 9999px;
 }
 
-pre::-webkit-scrollbar-thumb:hover {
-	background-color: var(--muted-foreground);
-}
-
-/* ==========================================================================
-   Dual-Theme Syntax Tokens (Light Mode vs Dark Mode)
-   ========================================================================== */
-
-/* Light Mode Tokens (Crisp high-contrast colors) */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: #656d76;
-	font-style: italic;
-}
-
-.token.punctuation {
-	color: #24292f;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol {
-	color: #0550ae;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin {
-	color: #0a3069;
-}
-
-.token.operator,
-.token.entity,
-.token.url {
-	color: #cf222e;
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-	color: #8250df;
-	font-weight: 600;
-}
-
-.token.function,
-.token.class-name {
-	color: #953800;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-	color: #116329;
-}
-
-/* Dark Mode Tokens (Vibrant neon colors on midnight card background) */
-.dark .token.comment,
-.dark .token.prolog,
-.dark .token.doctype,
-.dark .token.cdata {
-	color: #7d8590;
-}
-
-.dark .token.punctuation {
-	color: #e6edf3;
-}
-
-.dark .token.property,
-.dark .token.tag,
-.dark .token.boolean,
-.dark .token.number,
-.dark .token.constant,
-.dark .token.symbol {
-	color: #79c0ff;
-}
-
-.dark .token.selector,
-.dark .token.attr-name,
-.dark .token.string,
-.dark .token.char,
-.dark .token.builtin {
-	color: #a5d6ff;
-}
-
-.dark .token.operator,
-.dark .token.entity,
-.dark .token.url {
-	color: #ff7b72;
-}
-
-.dark .token.atrule,
-.dark .token.attr-value,
-.dark .token.keyword {
-	color: #d2a8ff;
-}
-
-.dark .token.function,
-.dark .token.class-name {
-	color: #ffa657;
-}
-
-.dark .token.regex,
-.dark .token.important,
-.dark .token.variable {
-	color: #7ee787;
+pre::-webkit-scrollbar-thumb:hover,
+.shiki::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Remove Tailwind Typography auto-injected backtick quotes */
