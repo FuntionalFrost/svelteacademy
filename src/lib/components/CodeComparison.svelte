@@ -1,7 +1,7 @@
 <!-- src/lib/components/CodeComparison.svelte -->
 <script lang="ts">
 	import { Check, Copy, Sparkles } from '@lucide/svelte';
-	import { codeToHtml } from 'shiki';
+	import { createHighlighter } from 'shiki';
 
 	interface Props {
 		title?: string;
@@ -20,20 +20,36 @@
 	}: Props = $props();
 
 	let copied = $state(false);
+	let svelteHtml = $state('');
+	let competingHtml = $state('');
+	let isReady = $state(false);
 
-	// Helper function for SSR + Client syntax highlighting
-	async function highlight(code: string, lang: string) {
-		const clean = code ? code.trim() : '';
-		if (!clean) return '';
-		return await codeToHtml(clean, {
-			lang,
-			theme: 'github-dark'
+	// Singleton highlighter promise created ONCE when the module loads
+	const highlighterPromise = createHighlighter({
+		themes: ['github-dark'],
+		langs: ['svelte', 'typescript', 'javascript', 'html', 'css']
+	});
+
+	$effect(() => {
+		const cleanSvelte = svelteCode ? svelteCode.trim() : '';
+		const cleanCompeting = competingCode ? competingCode.trim() : '';
+
+		highlighterPromise.then((highlighter) => {
+			if (cleanSvelte) {
+				svelteHtml = highlighter.codeToHtml(cleanSvelte, {
+					lang: 'svelte',
+					theme: 'github-dark'
+				});
+			}
+			if (cleanCompeting) {
+				competingHtml = highlighter.codeToHtml(cleanCompeting, {
+					lang: 'typescript',
+					theme: 'github-dark'
+				});
+			}
+			isReady = true;
 		});
-	}
-
-	// Promises derived from props - SvelteKit SSR resolves these on the server before sending HTML
-	let svelteHtmlPromise = $derived(highlight(svelteCode, 'svelte'));
-	let competingHtmlPromise = $derived(highlight(competingCode, 'typescript'));
+	});
 
 	function copyCode() {
 		navigator.clipboard.writeText(svelteCode.trim());
@@ -95,14 +111,20 @@
 				<div
 					class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-[#0d1117] shadow-xs"
 				>
-					{#await competingHtmlPromise}
-						<pre class="h-full flex-1 bg-[#0d1117] p-4 font-mono text-xs text-slate-200"><code
-								>{competingCode.trim()}</code
-							></pre>
-					{:then html}
-						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-						{@html html}
-					{/await}
+					{#if isReady && competingHtml}
+						<div class="animate-in duration-150 fade-in">
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+							{@html competingHtml}
+						</div>
+					{:else}
+						<!-- Dark Skeleton Placeholder (Prevents White Text Flicker) -->
+						<div class="flex h-full flex-1 animate-pulse flex-col gap-2.5 bg-[#0d1117] p-4">
+							<div class="h-3.5 w-3/4 rounded bg-slate-800/60"></div>
+							<div class="h-3.5 w-1/2 rounded bg-slate-800/60"></div>
+							<div class="h-3.5 w-5/6 rounded bg-slate-800/60"></div>
+							<div class="h-3.5 w-2/3 rounded bg-slate-800/60"></div>
+						</div>
+					{/if}
 				</div>
 			</div>
 		{/if}
@@ -121,14 +143,20 @@
 			<div
 				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-primary/30 bg-[#0d1117] shadow-md"
 			>
-				{#await svelteHtmlPromise}
-					<pre class="h-full flex-1 bg-[#0d1117] p-4 font-mono text-xs text-slate-200"><code
-							>{svelteCode.trim()}</code
-						></pre>
-				{:then html}
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-					{@html html}
-				{/await}
+				{#if isReady && svelteHtml}
+					<div class="animate-in duration-150 fade-in">
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						{@html svelteHtml}
+					</div>
+				{:else}
+					<!-- Dark Skeleton Placeholder -->
+					<div class="flex h-full flex-1 animate-pulse flex-col gap-2.5 bg-[#0d1117] p-4">
+						<div class="h-3.5 w-3/4 rounded bg-slate-800/60"></div>
+						<div class="h-3.5 w-1/2 rounded bg-slate-800/60"></div>
+						<div class="h-3.5 w-5/6 rounded bg-slate-800/60"></div>
+						<div class="h-3.5 w-2/3 rounded bg-slate-800/60"></div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>
