@@ -1,8 +1,8 @@
 ---
-title: "React 19 Hooks vs Svelte 5 Runes: Benchmark & Architecture"
-description: "Comparing React 19 Virtual DOM rendering and useActionState against Svelte 5 signals compiler model."
-category: "Framework Comparison"
-readTime: "8 min read"
+title: 'React 19 Hooks vs Svelte 5 Runes: Benchmark & Architecture'
+description: 'Comparing React 19 Virtual DOM rendering and useActionState against Svelte 5 signals compiler model.'
+category: 'Framework Comparison'
+readTime: '8 min read'
 ---
 
 <script>

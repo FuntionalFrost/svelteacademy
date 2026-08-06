@@ -1,8 +1,8 @@
 ---
-title: "Event Handling in Svelte 5: From on:click to onclick"
+title: 'Event Handling in Svelte 5: From on:click to onclick'
 description: "Learn Svelte 5's modern event handling model. Replace createEventDispatcher with callback props, handle DOM events, and support modifier keys."
-category: "Svelte 5"
-readTime: "5 min read"
+category: 'Svelte 5'
+readTime: '5 min read'
 ---
 
 <script>
@@ -31,20 +31,19 @@ Events in Svelte 5 match native DOM element attributes directly:
 
 ```svelte
 <script>
-  let count = $state(0);
+	let count = $state(0);
 
-  function handleClick(event: MouseEvent) {
-    console.log('Clicked element at:', event.clientX, event.clientY);
-    count++;
-  }
+	function handleClick(event: MouseEvent) {
+		console.log('Clicked element at:', event.clientX, event.clientY);
+		count++;
+	}
 </script>
 
 <button onclick={handleClick}>
-  Clicked {count} times
+	Clicked {count} times
 </button>
 
 <input oninput={(e) => console.log(e.currentTarget.value)} />
-
 ```
 
 ---

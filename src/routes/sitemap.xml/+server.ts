@@ -1,40 +1,52 @@
 // src/routes/sitemap.xml/+server.ts
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async () => {
-	const modules = import.meta.glob('/src/lib/content/guides/*.md', { eager: true });
-	const guideSlugs = Object.keys(modules).map((path) => path.split('/').pop()?.replace('.md', ''));
+interface GuideModule {
+	metadata?: {
+		title?: string;
+	};
+}
 
-	const siteUrl = 'https://svelteacademy.netlify.app';
+export const GET: RequestHandler = async ({ url }) => {
+	const origin = url.origin;
 
-	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+	// Static core routes
+	const staticRoutes = ['', '/tracks', '/guides'];
+
+	// Discover dynamic guide slugs from src/lib/content/guides/
+	const guideFiles = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', { eager: true });
+	const guideSlugs = Object.keys(guideFiles)
+		.filter((filepath) => !filepath.includes('/_'))
+		.map((filepath) => filepath.split('/').pop()?.replace('.md', '') || '');
+
+	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	<url>
-		<loc>${siteUrl}/</loc>
-		<changefreq>weekly</changefreq>
-		<priority>1.0</priority>
-	</url>
-	<url>
-		<loc>${siteUrl}/learn</loc>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	${guideSlugs
+  ${staticRoutes
+		.map(
+			(route) => `
+  <url>
+    <loc>${origin}${route}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>${route === '' ? '1.0' : '0.8'}</priority>
+  </url>`
+		)
+		.join('')}
+  ${guideSlugs
 		.map(
 			(slug) => `
-	<url>
-		<loc>${siteUrl}/learn/${slug}</loc>
-		<changefreq>monthly</changefreq>
-		<priority>0.7</priority>
-	</url>`
+  <url>
+    <loc>${origin}/guides/${slug}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`
 		)
 		.join('')}
 </urlset>`.trim();
 
-	return new Response(sitemap, {
+	return new Response(xml, {
 		headers: {
 			'Content-Type': 'application/xml',
-			'Cache-Control': 'max-age=0, s-maxage=3600'
+			'Cache-Control': 'public, max-age=0, s-maxage=3600'
 		}
 	});
 };

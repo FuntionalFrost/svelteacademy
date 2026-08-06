@@ -1,8 +1,8 @@
 ---
-title: "Universal State Management with .svelte.ts Modules"
-description: "Build global state singletons, class-based reactive services, and context-backed stores without external state libraries."
-category: "Architecture"
-readTime: "6 min read"
+title: 'Universal State Management with .svelte.ts Modules'
+description: 'Build global state singletons, class-based reactive services, and context-backed stores without external state libraries.'
+category: 'Architecture'
+readTime: '6 min read'
 ---
 
 One of Svelte 5's biggest features is that **Runes work outside components**. You can place `$state()`, `$derived()`, and `$effect()` inside standard `.svelte.ts` (or `.svelte.js`) files to build reactive application state.
@@ -16,21 +16,20 @@ Using ES6 classes alongside Svelte 5 runes creates self-contained reactive store
 ```typescript
 // src/lib/stores/theme.svelte.ts
 class ThemeManager {
-  current = $state<'light' | 'dark'>('dark');
-  isDark = $derived(this.current === 'dark');
+	current = $state<'light' | 'dark'>('dark');
+	isDark = $derived(this.current === 'dark');
 
-  toggle() {
-    this.current = this.current === 'dark' ? 'light' : 'dark';
-  }
+	toggle() {
+		this.current = this.current === 'dark' ? 'light' : 'dark';
+	}
 
-  setTheme(newTheme: 'light' | 'dark') {
-    this.current = newTheme;
-  }
+	setTheme(newTheme: 'light' | 'dark') {
+		this.current = newTheme;
+	}
 }
 
 // Export a single global instance
 export const theme = new ThemeManager();
-
 ```
 
 ---
@@ -41,13 +40,12 @@ Import the shared instance directly into any Svelte 5 component. UI templates up
 
 ```svelte
 <script>
-  import { theme } from '$lib/stores/theme.svelte.ts';
+	import { theme } from '$lib/stores/theme.svelte.ts';
 </script>
 
 <button onclick={() => theme.toggle()}>
-  Switch to {theme.isDark ? 'Light' : 'Dark'} Mode
+	Switch to {theme.isDark ? 'Light' : 'Dark'} Mode
 </button>
-
 ```
 
 ---
@@ -61,25 +59,24 @@ Global singletons share memory across all users on a server. For SvelteKit Serve
 import { getContext, setContext } from 'svelte';
 
 class UserState {
-  name = $state('Guest');
-  isLoggedIn = $state(false);
+	name = $state('Guest');
+	isLoggedIn = $state(false);
 
-  login(username: string) {
-    this.name = username;
-    this.isLoggedIn = true;
-  }
+	login(username: string) {
+		this.name = username;
+		this.isLoggedIn = true;
+	}
 }
 
 const USER_KEY = Symbol('USER_KEY');
 
 export function initUserState() {
-  return setContext(USER_KEY, new UserState());
+	return setContext(USER_KEY, new UserState());
 }
 
 export function getUserState(): UserState {
-  return getContext(USER_KEY);
+	return getContext(USER_KEY);
 }
-
 ```
 
 ---

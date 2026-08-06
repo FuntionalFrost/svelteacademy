@@ -1,8 +1,8 @@
 ---
-title: "Svelte 5 vs SolidJS vs Vue 3 vs React 19: The Signal Paradigm War"
-description: "A deep architectural benchmark comparing Svelte 5 compiler signals against Vue ref wrappers, SolidJS signal getters, and React Virtual DOM."
-category: "Framework Comparison"
-readTime: "9 min read"
+title: 'Svelte 5 vs SolidJS vs Vue 3 vs React 19: The Signal Paradigm War'
+description: 'A deep architectural benchmark comparing Svelte 5 compiler signals against Vue ref wrappers, SolidJS signal getters, and React Virtual DOM.'
+category: 'Framework Comparison'
+readTime: '9 min read'
 ---
 
 <script>
@@ -59,9 +59,8 @@ const count = ref(0);
 const double = computed(() => count.value * 2); // Must append .value everywhere!
 
 function increment() {
-  count.value++;
+	count.value++;
 }
-
 ```
 
 ```typescript
@@ -70,9 +69,8 @@ let count = $state(0);
 let double = $derived(count * 2); // Clean variable reads!
 
 function increment() {
-  count++;
+	count++;
 }
-
 ```
 
 ---

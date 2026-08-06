@@ -1,8 +1,8 @@
 ---
-title: "Mastering $props and $bindable in Svelte 5"
-description: "Learn component communication with $props(), default values, rest property collection, and two-way state binding using $bindable()."
-category: "Svelte 5"
-readTime: "5 min read"
+title: 'Mastering $props and $bindable in Svelte 5'
+description: 'Learn component communication with $props(), default values, rest property collection, and two-way state binding using $bindable().'
+category: 'Svelte 5'
+readTime: '5 min read'
 ---
 
 Svelte 5 replaces top-level variable exports with the explicit `$props()` rune. Component inputs are now standard JavaScript objects, making destructuring, TypeScript interface typing, and fallback defaults seamless.
@@ -15,20 +15,19 @@ To receive properties from a parent component, declare a destructured object wit
 
 ```svelte
 <script lang="ts">
-  interface Props {
-    title: string;
-    variant?: 'primary' | 'secondary';
-    isDisabled?: boolean;
-  }
+	interface Props {
+		title: string;
+		variant?: 'primary' | 'secondary';
+		isDisabled?: boolean;
+	}
 
-  // Destructure props with TypeScript types and fallback default values
-  let { title, variant = 'primary', isDisabled = false }: Props = $props();
+	// Destructure props with TypeScript types and fallback default values
+	let { title, variant = 'primary', isDisabled = false }: Props = $props();
 </script>
 
 <button class="btn-{variant}" disabled={isDisabled}>
-  {title}
+	{title}
 </button>
-
 ```
 
 ---
@@ -39,14 +38,13 @@ Use rest parameters (`...restProps`) inside `$props()` to forward extra HTML att
 
 ```svelte
 <script>
-  let { label, ...restProps } = $props();
+	let { label, ...restProps } = $props();
 </script>
 
 <label>
-  {label}
-  <input {...restProps} />
+	{label}
+	<input {...restProps} />
 </label>
-
 ```
 
 ---
@@ -58,28 +56,26 @@ By default, props in Svelte 5 flow one-way from parent to child. If a component 
 ```svelte
 <!-- CustomInput.svelte -->
 <script>
-  // Mark value as two-way bindable with a default fallback
-  let { value = $bindable('') } =$props();
+	// Mark value as two-way bindable with a default fallback
+	let { value = $bindable('') } = $props();
 </script>
 
-<input bind:value={value} />
-
+<input bind:value />
 ```
 
 **Parent Usage:**
 
 ```svelte
 <script>
-  import CustomInput from './CustomInput.svelte';
+	import CustomInput from './CustomInput.svelte';
 
-  let search = $state('Svelte 5 Runes');
+	let search = $state('Svelte 5 Runes');
 </script>
 
 <!-- Two-way binding syncs changes between parent and child -->
-<CustomInput bind:value="{search}"/>
+<CustomInput bind:value={search} />
 
 <p>Current search signal: {search}</p>
-
 ```
 
 ---

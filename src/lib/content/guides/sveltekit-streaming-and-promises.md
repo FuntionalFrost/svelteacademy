@@ -1,8 +1,8 @@
 ---
-title: "Data Streaming and Async UI Patterns in SvelteKit"
-description: "Leverage non-blocking server loader streaming and await blocks to render instant layouts with deferred promise resolution."
-category: "SvelteKit"
-readTime: "6 min read"
+title: 'Data Streaming and Async UI Patterns in SvelteKit'
+description: 'Leverage non-blocking server loader streaming and await blocks to render instant layouts with deferred promise resolution.'
+category: 'SvelteKit'
+readTime: '6 min read'
 ---
 
 SvelteKit allows server loaders to stream slow backend data asynchronously without blocking initial HTML rendering. Combined with Svelte's `await` blocks, you can ship fast, responsive UI shell layouts instantly.
@@ -18,20 +18,19 @@ In `+page.server.ts`, return slow data as an un-awaited Promise:
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-  // Fast query - awaited immediately
-  const user = await fetchUserProfile();
+	// Fast query - awaited immediately
+	const user = await fetchUserProfile();
 
-  // Slow query - return promise WITHOUT await to stream to client
-  const analyticsPromise = fetchDeepAnalyticsData();
+	// Slow query - return promise WITHOUT await to stream to client
+	const analyticsPromise = fetchDeepAnalyticsData();
 
-  return {
-    user,
-    streamed: {
-      analytics: analyticsPromise
-    }
-  };
+	return {
+		user,
+		streamed: {
+			analytics: analyticsPromise
+		}
+	};
 };
-
 ```
 
 ---
@@ -42,29 +41,28 @@ In your Svelte 5 component, render the fast data immediately and use `{#await}` 
 
 ```svelte
 <script lang="ts">
-  import type { PageData } from './$types';
+	import type { PageData } from './$types';
 
-  let { data }: { data: PageData } = $props();
+	let { data }: { data: PageData } = $props();
 </script>
 
 <h1>Welcome back, {data.user.name}</h1>
 
 <!-- Streamed promise handles pending, resolved, and rejected states -->
 {#await data.streamed.analytics}
-  <div class="skeleton-loader">
-    <p>Loading analytics calculations...</p>
-  </div>
+	<div class="skeleton-loader">
+		<p>Loading analytics calculations...</p>
+	</div>
 {:then analytics}
-  <div class="stats-grid">
-    <div class="card">Total Views: {analytics.views}</div>
-    <div class="card">Conversions: {analytics.conversions}</div>
-  </div>
+	<div class="stats-grid">
+		<div class="card">Total Views: {analytics.views}</div>
+		<div class="card">Conversions: {analytics.conversions}</div>
+	</div>
 {:catch error}
-  <div class="error-banner">
-    <p>Failed to load analytics: {error.message}</p>
-  </div>
+	<div class="error-banner">
+		<p>Failed to load analytics: {error.message}</p>
+	</div>
 {/await}
-
 ```
 
 ---

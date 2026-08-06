@@ -12,12 +12,7 @@
 	const Content = $derived(data.content);
 </script>
 
-<SEO
-	title={data.meta.title}
-	description={data.meta.description}
-	category={data.meta.category}
-	type="article"
-/>
+<SEO title={data.meta.title} description={data.meta.description} type="article" />
 
 <ProgressBar />
 

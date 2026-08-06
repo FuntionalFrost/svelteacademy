@@ -1,8 +1,8 @@
 ---
-title: "Debugging Svelte 5 Signals with $inspect"
-description: "Learn how to use $inspect() for development logging, trace reactive signal dependency triggers, and run custom inspector callbacks."
-category: "Tooling"
-readTime: "4 min read"
+title: 'Debugging Svelte 5 Signals with $inspect'
+description: 'Learn how to use $inspect() for development logging, trace reactive signal dependency triggers, and run custom inspector callbacks.'
+category: 'Tooling'
+readTime: '4 min read'
 ---
 
 Debugging reactive state in frameworks can be difficult when logs trigger unintended side-effects. Svelte 5 solves this with the `$inspect()` rune, a dedicated development tool designed to track signal updates cleanly.
@@ -15,16 +15,15 @@ Pass reactive signals or variables to `$inspect()`. Svelte automatically logs ch
 
 ```svelte
 <script>
-  let count = $state(0);
-  let user = $state({ name: 'Alex', role: 'Developer' });
+	let count = $state(0);
+	let user = $state({ name: 'Alex', role: 'Developer' });
 
-  // Automatically logs to console when count or user mutates
-  $inspect(count, user);
+	// Automatically logs to console when count or user mutates
+	$inspect(count, user);
 </script>
 
 <button onclick={() => count++}>Count: {count}</button>
-<button onclick={() => user.name = 'Sam'}>Update Name</button>
-
+<button onclick={() => (user.name = 'Sam')}>Update Name</button>
 ```
 
 ---
@@ -35,19 +34,18 @@ Use `$inspect(...).with()` to intercept signal updates and run custom functions 
 
 ```svelte
 <script>
-  let search = $state('');
+	let search = $state('');
 
-  $inspect(search).with((type, value) => {
-    if (type === 'init') {
-      console.log('Search signal initialized:', value);
-    } else {
-      console.trace(`Search signal updated via [${type}]:`, value);
-    }
-  });
+	$inspect(search).with((type, value) => {
+		if (type === 'init') {
+			console.log('Search signal initialized:', value);
+		} else {
+			console.trace(`Search signal updated via [${type}]:`, value);
+		}
+	});
 </script>
 
 <input bind:value={search} placeholder="Search docs..." />
-
 ```
 
 ---

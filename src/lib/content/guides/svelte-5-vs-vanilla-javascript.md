@@ -1,8 +1,8 @@
 ---
-title: "Svelte 5 vs Vanilla HTML, CSS & JS: Why Use a Compiler?"
+title: 'Svelte 5 vs Vanilla HTML, CSS & JS: Why Use a Compiler?'
 description: "Compare manual DOM manipulation and event listeners against Svelte 5's reactive signals and auto-updating UI primitives."
-category: "Framework Comparison"
-readTime: "6 min read"
+category: 'Framework Comparison'
+readTime: '6 min read'
 ---
 
 <script>

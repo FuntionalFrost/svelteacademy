@@ -1,8 +1,8 @@
 ---
-title: "Svelte as an HTML Superset: Zero Synthetic Overhead"
-description: "Why Svelte builds on standard HTML, CSS, and JavaScript rather than inventing proprietary template abstractions like JSX or custom directives."
-category: "Architecture"
-readTime: "6 min read"
+title: 'Svelte as an HTML Superset: Zero Synthetic Overhead'
+description: 'Why Svelte builds on standard HTML, CSS, and JavaScript rather than inventing proprietary template abstractions like JSX or custom directives.'
+category: 'Architecture'
+readTime: '6 min read'
 ---
 
 Many modern frameworks force developers to write HTML inside JavaScript (JSX) or reinvent standard web attributes. Svelte takes the opposite approach: **Svelte is a pure superset of standard HTML**. Any valid HTML file is a valid `.svelte` component.
@@ -18,18 +18,17 @@ Because Svelte compiles directly to native DOM operations, it respects standard 
 <label for="email">Email Address</label>
 <input id="email" class="form-input" autocomplete="email" readonly />
 
-<svg tabindex="0" onclick={handleClick}>
-  <path d="M10 20L20 10" />
+<svg tabindex="0" onclick="{handleClick}">
+	<path d="M10 20L20 10" />
 </svg>
-
 ```
 
 **Compared to React JSX Synthetic Replacements:**
 
-* `class` → forced to use `className`
-* `for` → forced to use `htmlFor`
-* `onclick` → forced to use `onClick`
-* SVG attributes require camelCase translation (`stroke-width` → `strokeWidth`)
+- `class` → forced to use `className`
+- `for` → forced to use `htmlFor`
+- `onclick` → forced to use `onClick`
+- SVG attributes require camelCase translation (`stroke-width` → `strokeWidth`)
 
 ---
 
@@ -39,18 +38,17 @@ In Svelte, CSS styles placed inside a `<style>` tag are scoped automatically to 
 
 ```svelte
 <div class="card">
-  <h2>Scoped Component Header</h2>
+	<h2>Scoped Component Header</h2>
 </div>
 
 <style>
-  /* This rule ONLY applies to .card elements inside THIS component */
-  .card {
-    background-color: var(--card);
-    border: 1px solid var(--border);
-    padding: 1rem;
-  }
+	/* This rule ONLY applies to .card elements inside THIS component */
+	.card {
+		background-color: var(--card);
+		border: 1px solid var(--border);
+		padding: 1rem;
+	}
 </style>
-
 ```
 
 ---
@@ -61,15 +59,14 @@ Instead of wrapping HTML elements inside JavaScript array transformations (`.map
 
 ```svelte
 <script>
-  let items = $state(['Svelte 5', 'Tailwind', 'TypeScript']);
+	let items = $state(['Svelte 5', 'Tailwind', 'TypeScript']);
 </script>
 
 <ul>
-  {#each items as item}
-    <li>{item}</li>
-  {/each}
+	{#each items as item}
+		<li>{item}</li>
+	{/each}
 </ul>
-
 ```
 
 ---

@@ -1,8 +1,8 @@
 ---
-title: "Svelte 5 Snippets and Render: Replaces Slots"
-description: "Master {#snippet} blocks and {@render ...} tags. Learn how Svelte 5 handles component composition, named layouts, and scoped parameters."
-category: "Svelte 5"
-readTime: "6 min read"
+title: 'Svelte 5 Snippets and Render: Replaces Slots'
+description: 'Master {#snippet} blocks and {@render ...} tags. Learn how Svelte 5 handles component composition, named layouts, and scoped parameters.'
+category: 'Svelte 5'
+readTime: '6 min read'
 ---
 
 <script>
@@ -38,20 +38,19 @@ Snippets allow you to define reusable chunks of markup inside a component templa
 
 ```svelte
 <script>
-  let username = $state('Alex');
+	let username = $state('Alex');
 </script>
 
 <!-- Declare a snippet named userBadge -->
 {#snippet userBadge(name)}
-  <div class="badge">
-    <span>User:</span>
-    <strong>{name}</strong>
-  </div>
+	<div class="badge">
+		<span>User:</span>
+		<strong>{name}</strong>
+	</div>
 {/snippet}
 
 <!-- Render the snippet using {@render} -->
 {@render userBadge(username)}
-
 ```
 
 ---
@@ -69,27 +68,25 @@ When a Svelte 5 component wraps nested HTML or child elements, those elements au
 ```svelte
 <!-- Modal.svelte -->
 <script>
-  let { title, children } = $props();
+	let { title, children } = $props();
 </script>
 
 <div class="modal">
-  <h3>{title}</h3>
+	<h3>{title}</h3>
 
-  <!-- Renders whatever is placed inside <Modal>...</Modal> -->
-  {@render children()}
+	<!-- Renders whatever is placed inside <Modal>...</Modal> -->
+	{@render children()}
 </div>
-
 ```
 
 **Usage:**
 
 ```svelte
 <Modal title="Confirm Delete">
-  <p>Are you sure you want to permanently delete this guide?</p>
+	<p>Are you sure you want to permanently delete this guide?</p>
 
-  <button>Delete</button>
+	<button>Delete</button>
 </Modal>
-
 ```
 
 ---

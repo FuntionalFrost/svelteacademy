@@ -1,8 +1,8 @@
 ---
-title: "Svelte 5 Runes: The Complete Developer Guide"
-description: "Master $state, $derived, $effect, and $props. Learn how Svelte 5 delivers zero-boilerplate, fine-grained reactivity using compiler signals."
-category: "Svelte 5"
-readTime: "7 min read"
+title: 'Svelte 5 Runes: The Complete Developer Guide'
+description: 'Master $state, $derived, $effect, and $props. Learn how Svelte 5 delivers zero-boilerplate, fine-grained reactivity using compiler signals.'
+category: 'Svelte 5'
+readTime: '7 min read'
 ---
 
 <script>
@@ -64,13 +64,12 @@ Use `$derived()` to calculate reactive values automatically. Derived signals are
 
 ```svelte
 <script>
-  let count = $state(5);
-  let double = $derived(count * 2);
-  let quad = $derived(double * 2);
+	let count = $state(5);
+	let double = $derived(count * 2);
+	let quad = $derived(double * 2);
 </script>
 
 <p>Count: {count} | Double: {double} | Quad: {quad}</p>
-
 ```
 
 ---
@@ -81,18 +80,17 @@ The `$effect()` rune handles side effects and synchronization with external syst
 
 ```svelte
 <script>
-  let query = $state('');
+	let query = $state('');
 
-  $effect(() => {
-    console.log('Search query updated:', query);
+	$effect(() => {
+		console.log('Search query updated:', query);
 
-    // Optional teardown function runs before effect re-executes
-    return () => {
-      console.log('Cleaning up previous search...');
-    };
-  });
+		// Optional teardown function runs before effect re-executes
+		return () => {
+			console.log('Cleaning up previous search...');
+		};
+	});
 </script>
-
 ```
 
 ---
@@ -104,16 +102,15 @@ Runes aren't restricted to Svelte components. You can declare reactive state in 
 ```typescript
 // src/lib/stores/cart.svelte.ts
 export class CartStore {
-  items = $state<string[]>([]);
-  totalCount = $derived(this.items.length);
+	items = $state<string[]>([]);
+	totalCount = $derived(this.items.length);
 
-  addItem(item: string) {
-    this.items.push(item); // Deep reactivity updates all subscribers
-  }
+	addItem(item: string) {
+		this.items.push(item); // Deep reactivity updates all subscribers
+	}
 }
 
 export const cart = new CartStore();
-
 ```
 
 ---

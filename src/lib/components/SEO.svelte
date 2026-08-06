@@ -2,49 +2,57 @@
 <script lang="ts">
 	import { page } from '$app/state';
 
-	let {
-		title = 'SvelteAcademy — Modern Web Development Without Complexity',
-		description = 'Deep dives into Svelte 5 Runes, SvelteKit architecture, and zero-complexity full-stack web development.',
-		category = 'Development',
-		type = 'website'
-	} = $props<{
+	interface Props {
 		title?: string;
 		description?: string;
-		category?: string;
-		type?: string;
-	}>();
+		type?: 'website' | 'article';
+		image?: string;
+		publishDate?: string;
+	}
 
-	const siteName = 'SvelteAcademy';
-	const url = $derived(`https://svelteacademy.netlify.app${page.url.pathname}`);
-	const ogImage = $derived(
-		`https://svelteacademy.netlify.app/og.png?title=${encodeURIComponent(title)}&category=${encodeURIComponent(category)}`
+	let {
+		title = 'SvelteAcademy | Master Svelte 5 and SvelteKit',
+		description = 'Interactive developer guides, primitives deep-dives, and architectural benchmarks for modern Svelte 5 development.',
+		type = 'website',
+		image,
+		publishDate
+	}: Props = $props();
+
+	let siteUrl = $derived(page.url.origin);
+	let canonicalUrl = $derived(page.url.href);
+
+	let fullTitle = $derived(title.includes('SvelteAcademy') ? title : `${title} — SvelteAcademy`);
+
+	// Fallback to dynamic SVG OG image endpoint if no explicit image is provided
+	let ogImageUrl = $derived(
+		image ||
+			`${siteUrl}/og?title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description)}`
 	);
 </script>
 
 <svelte:head>
-	<!-- Primary Meta Tags -->
-	<title>{title === siteName ? title : `${title} | ${siteName}`}</title>
+	<!-- Primary Search Meta -->
+	<title>{fullTitle}</title>
+	<meta name="title" content={fullTitle} />
 	<meta name="description" content={description} />
-	<meta
-		name="keywords"
-		content="Svelte 5, SvelteKit, Runes, React 19, HTMX, Web Development, TypeScript"
-	/>
-	<link rel="canonical" href={url} />
+	<link rel="canonical" href={canonicalUrl} />
 
-	<!-- Open Graph / Facebook / Discord -->
+	<!-- Open Graph / Facebook / LinkedIn -->
 	<meta property="og:type" content={type} />
-	<meta property="og:url" content={url} />
-	<meta property="og:title" content={title} />
+	<meta property="og:url" content={canonicalUrl} />
+	<meta property="og:title" content={fullTitle} />
 	<meta property="og:description" content={description} />
-	<meta property="og:site_name" content={siteName} />
-	<meta property="og:image" content={ogImage} />
+	<meta property="og:image" content={ogImageUrl} />
+	<meta property="og:site_name" content="SvelteAcademy" />
 
 	<!-- Twitter Cards -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:url" content={url} />
-	<meta name="twitter:title" content={title} />
+	<meta name="twitter:url" content={canonicalUrl} />
+	<meta name="twitter:title" content={fullTitle} />
 	<meta name="twitter:description" content={description} />
-	<meta name="twitter:image" content={ogImage} />
-	<meta name="twitter:label1" content="Category" />
-	<meta name="twitter:data1" content={category} />
+	<meta name="twitter:image" content={ogImageUrl} />
+
+	{#if publishDate}
+		<meta property="article:published_time" content={publishDate} />
+	{/if}
 </svelte:head>

@@ -1,53 +1,56 @@
-// src/routes/og.png/+server.ts
+// src/routes/og/+server.ts
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url }) => {
 	const title = url.searchParams.get('title') || 'SvelteAcademy';
-	const category = url.searchParams.get('category') || 'Svelte 5 & SvelteKit';
+	const desc = url.searchParams.get('desc') || 'Master Svelte 5 and SvelteKit';
 
-	// Truncate long guide titles safely
-	const formattedTitle = title.length > 55 ? title.slice(0, 52) + '...' : title;
+	// Sanitize input text for XML rendering
+	const safeTitle = title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	const safeDesc = desc.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 	const svg = `
-	<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<rect width="1200" height="630" fill="#09090b"/>
-		
-		<!-- Ambient Radial Glows -->
-		<circle cx="150" cy="150" r="300" fill="#ff3e00" opacity="0.18"/>
-		<circle cx="1050" cy="500" r="250" fill="#06b6d4" opacity="0.12"/>
+    <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Dark Theme Background -->
+      <rect width="1200" height="630" fill="#09090b"/>
+      
+      <!-- Ambient Orange Gradient Glow -->
+      <circle cx="1000" cy="100" r="350" fill="#FF3E00" opacity="0.2" filter="blur(100px)"/>
+      <circle cx="150" cy="500" r="250" fill="#FF8A00" opacity="0.12" filter="blur(90px)"/>
 
-		<!-- Top Branding Header -->
-		<g transform="translate(80, 80)">
-			<rect width="44" height="44" rx="12" fill="url(#brandGradient)"/>
-			<text x="60" y="30" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="28" letter-spacing="-0.5">Svelte<tspan fill="#ff3e00">Academy</tspan></text>
-		</g>
+      <!-- Grid Pattern Substrate -->
+      <path d="M0 100H1200M0 200H1200M0 300H1200M0 400H1200M0 500H1200" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+      <path d="M200 0V630M400 0V630M600 0V630M800 0V630M1000 0V630" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
 
-		<!-- Category Pill -->
-		<g transform="translate(80, 210)">
-			<rect width="${category.length * 12 + 36}" height="36" rx="18" fill="#ff3e00" fill-opacity="0.15" stroke="#ff3e00" stroke-opacity="0.4" stroke-width="1.5"/>
-			<text x="18" y="23" fill="#ff6b35" font-family="system-ui, sans-serif" font-weight="700" font-size="14" letter-spacing="1" text-transform="uppercase">${category}</text>
-		</g>
+      <!-- Brand Badge -->
+      <rect x="80" y="80" width="160" height="40" rx="8" fill="#FF3E00" fill-opacity="0.15" stroke="#FF3E00" stroke-opacity="0.4"/>
+      <text x="160" y="105" fill="#FF3E00" font-family="system-ui, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="1">SVELTE 5</text>
 
-		<!-- Title Text -->
-		<text x="80" y="330" fill="#ffffff" font-family="system-ui, sans-serif" font-weight="900" font-size="48" letter-spacing="-1">${formattedTitle}</text>
+      <!-- Main Title -->
+      <text x="80" y="240" fill="#ffffff" font-family="system-ui, sans-serif" font-size="52" font-weight="800" width="1040">
+        <tspan x="80" dy="0">${safeTitle.slice(0, 50)}${safeTitle.length > 50 ? '...' : ''}</tspan>
+      </text>
 
-		<!-- Subtitle / Domain Footer -->
-		<text x="80" y="520" fill="#a1a1aa" font-family="system-ui, sans-serif" font-weight="500" font-size="20">Modern Svelte 5 Runes &amp; SvelteKit Learning Engine</text>
-		<text x="80" y="552" fill="#ff3e00" font-family="system-ui, sans-serif" font-weight="700" font-size="16">svelteacademy.dev</text>
+      <!-- Description -->
+      <text x="80" y="340" fill="#a1a1aa" font-family="system-ui, sans-serif" font-size="26" font-weight="400" width="1040">
+        <tspan x="80" dy="0">${safeDesc.slice(0, 90)}${safeDesc.length > 90 ? '...' : ''}</tspan>
+      </text>
 
-		<defs>
-			<linearGradient id="brandGradient" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-				<stop stop-color="#ff3e00"/>
-				<stop offset="1" stop-color="#f59e0b"/>
-			</linearGradient>
-		</defs>
-	</svg>
-	`.trim();
+      <!-- Footer Branding Lockup -->
+      <rect x="80" y="490" width="1040" height="1" fill="#27272a"/>
+      <text x="80" y="545" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="700">
+        Svelte<tspan fill="#FF3E00">Academy</tspan>
+      </text>
+      <text x="1120" y="545" fill="#71717a" font-family="monospace" font-size="18" text-anchor="end">
+        svelteacademy.dev
+      </text>
+    </svg>
+  `.trim();
 
 	return new Response(svg, {
 		headers: {
 			'Content-Type': 'image/svg+xml',
-			'Cache-Control': 'public, max-age=86400, s-maxage=604800'
+			'Cache-Control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400'
 		}
 	});
 };
