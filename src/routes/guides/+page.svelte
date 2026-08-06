@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { resolveRoute } from '$app/paths';
 	import SEO from '$lib/components/SEO.svelte';
-	import { ArrowRight, BookOpen, CircleX, Search, Tag } from '@lucide/svelte';
+	import { ArrowRight, BookOpen, Search, Tag, XCircle } from '@lucide/svelte';
 
 	export interface Guide {
 		slug: string;
@@ -14,13 +14,39 @@
 	}
 
 	interface CustomPageData {
-		guides: Guide[];
+		guides: Record<string, unknown>[];
 		categories: string[];
 	}
 
 	let { data }: { data: CustomPageData } = $props();
 
-	let guides = $derived(data?.guides ?? []);
+	// Defensive unwrapper with strict typing (no 'any')
+	function normalizeGuide(item: Record<string, unknown>): Guide {
+		const meta = (item?.meta || item?.metadata || {}) as Record<string, unknown>;
+		const slug = String(item?.slug || '');
+		const fallbackTitle = slug
+			? slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
+			: 'Untitled Guide';
+
+		const rawLevel = String(item?.level || meta?.level || 'beginner').toLowerCase();
+		const validLevel: Guide['level'] =
+			rawLevel === 'intermediate'
+				? 'intermediate'
+				: rawLevel === 'advanced'
+					? 'advanced'
+					: 'beginner';
+
+		return {
+			slug,
+			title: String(item?.title || meta?.title || fallbackTitle),
+			description: String(item?.description || meta?.description || 'Explore Svelte 5 patterns.'),
+			category: String(item?.category || meta?.category || 'General'),
+			level: validLevel,
+			readTime: String(item?.readTime || meta?.readTime || '5 min read')
+		};
+	}
+
+	let guides = $derived((data?.guides ?? []).map(normalizeGuide));
 	let categories = $derived(data?.categories ?? ['All']);
 
 	// Reactive state signals for filters
@@ -30,22 +56,28 @@
 
 	const levels = ['All', 'beginner', 'intermediate', 'advanced'];
 
-	const levelStyles = {
+	const levelStyles: Record<string, string> = {
 		beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-500',
 		intermediate: 'border-amber-500/30 bg-amber-500/10 text-amber-500',
 		advanced: 'border-purple-500/30 bg-purple-500/10 text-purple-500'
 	};
 
-	// Derived filtered guides
+	// Safe derived signal filtering
 	let filteredGuides = $derived(
 		guides.filter((guide) => {
-			const matchesCategory = selectedCategory === 'All' || guide.category === selectedCategory;
-			const matchesLevel = selectedLevel === 'All' || guide.level === selectedLevel;
+			const matchesCategory =
+				selectedCategory === 'All' ||
+				guide.category.toLowerCase() === selectedCategory.toLowerCase();
+
+			const matchesLevel =
+				selectedLevel === 'All' || guide.level.toLowerCase() === selectedLevel.toLowerCase();
+
 			const query = searchQuery.toLowerCase().trim();
 			const matchesSearch =
 				!query ||
 				guide.title.toLowerCase().includes(query) ||
-				guide.description.toLowerCase().includes(query);
+				guide.description.toLowerCase().includes(query) ||
+				guide.category.toLowerCase().includes(query);
 
 			return matchesCategory && matchesLevel && matchesSearch;
 		})
@@ -92,7 +124,7 @@
 						onclick={() => (searchQuery = '')}
 						class="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
 					>
-						<CircleX class="size-4" />
+						<XCircle class="size-4" />
 					</button>
 				{/if}
 			</div>
@@ -161,7 +193,7 @@
 							<span
 								class="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase {levelStyles[
 									guide.level
-								]}"
+								] ?? levelStyles.beginner}"
 							>
 								{guide.level}
 							</span>
