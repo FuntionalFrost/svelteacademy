@@ -2,7 +2,6 @@
 title: 'Mastering Svelte 5 Runes: $state & $derived'
 description: 'Learn how Svelte 5 replaces traditional store contracts and reactive declarations with fine-grained compiler runes.'
 category: 'Reactivity'
-level: 'beginner'
 readTime: '4 min read'
 ---
 

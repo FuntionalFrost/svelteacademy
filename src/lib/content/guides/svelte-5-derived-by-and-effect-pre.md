@@ -2,6 +2,7 @@
 title: 'Advanced Rune Primitives: $derived.by and $effect.pre'
 description: 'Handle complex multi-line reactive calculations with $derived.by, execute DOM side-effects prior to updates with $effect.pre, and untrack reads with untrack().'
 category: 'Svelte 5'
+level: 'advanced'
 readTime: '6 min read'
 ---
 

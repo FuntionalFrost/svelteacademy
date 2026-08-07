@@ -2,6 +2,7 @@
 title: 'SvelteKit + Tailwind vs HTMX + Alpine.js + Backend: Architecture Guide'
 description: 'Compare full-stack JavaScript compilation with HTMX hypermedia server rendering across reactivity, backend flexibility, and team velocity.'
 category: 'Architecture'
+level: 'intermediate'
 readTime: '8 min read'
 ---
 

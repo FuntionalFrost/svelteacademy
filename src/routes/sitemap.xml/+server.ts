@@ -11,7 +11,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	const origin = url.origin;
 
 	// Static core routes
-	const staticRoutes = ['', '/tracks', '/guides'];
+	const staticRoutes = ['', '/guides'];
 
 	// Discover dynamic guide slugs from src/lib/content/guides/
 	const guideFiles = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', { eager: true });

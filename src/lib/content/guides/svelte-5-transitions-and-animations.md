@@ -2,6 +2,7 @@
 title: 'Svelte 5 Transitions, Animations, and Gesture State'
 description: 'Animate DOM elements with built-in transition directives (fade, fly, slide) and smooth list reordering using animate:flip.'
 category: 'UI & Animation'
+level: 'intermediate'
 readTime: '5 min read'
 ---
 

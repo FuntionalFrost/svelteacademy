@@ -2,6 +2,7 @@
 title: 'Svelte 5 Snippets and Render: Replaces Slots'
 description: 'Master {#snippet} blocks and {@render ...} tags. Learn how Svelte 5 handles component composition, named layouts, and scoped parameters.'
 category: 'Svelte 5'
+level: 'intermediate'
 readTime: '6 min read'
 ---
 

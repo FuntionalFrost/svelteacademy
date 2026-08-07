@@ -2,6 +2,7 @@
 title: 'Building Custom DOM Actions in Svelte 5'
 description: 'Create lightweight element directives with use:action. Learn how actions integrate with $effect and manage DOM element lifecycles.'
 category: 'Architecture'
+level: 'advanced'
 readTime: '5 min read'
 ---
 

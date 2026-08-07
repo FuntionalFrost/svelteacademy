@@ -2,6 +2,8 @@
 title: 'Data Streaming and Async UI Patterns in SvelteKit'
 description: 'Leverage non-blocking server loader streaming and await blocks to render instant layouts with deferred promise resolution.'
 category: 'SvelteKit'
+level: 'advanced'
+
 readTime: '6 min read'
 ---
 

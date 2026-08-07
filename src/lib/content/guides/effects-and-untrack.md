@@ -2,7 +2,7 @@
 title: 'Managing Side Effects & untrack() in Svelte 5'
 description: 'Understand when to use $effect, how to handle teardowns, and how to read signals without creating reactivity dependencies using untrack().'
 category: 'Reactivity'
-level: 'intermediate'
+level: 'advanced'
 readTime: '6 min read'
 ---
 

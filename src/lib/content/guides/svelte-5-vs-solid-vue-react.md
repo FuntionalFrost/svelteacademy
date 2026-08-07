@@ -2,6 +2,7 @@
 title: 'Svelte 5 vs SolidJS vs Vue 3 vs React 19: The Signal Paradigm War'
 description: 'A deep architectural benchmark comparing Svelte 5 compiler signals against Vue ref wrappers, SolidJS signal getters, and React Virtual DOM.'
 category: 'Framework Comparison'
+level: 'intermediate'
 readTime: '9 min read'
 ---
 

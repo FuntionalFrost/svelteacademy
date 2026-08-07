@@ -2,6 +2,7 @@
 title: 'Full-Stack Form Actions with SvelteKit and Runes'
 description: 'Manage form mutations, pending states, optimistic UI updates, and validation errors using SvelteKit use:enhance and $state signals.'
 category: 'SvelteKit'
+level: 'intermediate'
 readTime: '7 min read'
 ---
 

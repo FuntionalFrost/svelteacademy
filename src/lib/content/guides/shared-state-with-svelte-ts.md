@@ -2,6 +2,7 @@
 title: 'Universal State Management with .svelte.ts Modules'
 description: 'Build global state singletons, class-based reactive services, and context-backed stores without external state libraries.'
 category: 'Architecture'
+level: 'intermediate'
 readTime: '6 min read'
 ---
 

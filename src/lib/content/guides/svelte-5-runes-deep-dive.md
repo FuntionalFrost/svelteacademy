@@ -2,6 +2,7 @@
 title: 'Svelte 5 Runes: The Complete Developer Guide'
 description: 'Master $state, $derived, $effect, and $props. Learn how Svelte 5 delivers zero-boilerplate, fine-grained reactivity using compiler signals.'
 category: 'Svelte 5'
+level: 'advanced'
 readTime: '7 min read'
 ---
 
