@@ -20,6 +20,7 @@
 			const matchesSearch =
 				!query ||
 				item.name.toLowerCase().includes(query) ||
+				item.syntax.toLowerCase().includes(query) ||
 				item.summary.toLowerCase().includes(query) ||
 				item.notes.toLowerCase().includes(query);
 
@@ -39,6 +40,7 @@
 />
 
 <div class="container mx-auto max-w-6xl px-4 py-12">
+	<!-- Page Header -->
 	<header class="mb-10 text-center sm:text-left">
 		<div
 			class="mb-3 inline-flex items-center gap-2 rounded-lg border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-xs font-semibold text-primary"
@@ -55,6 +57,7 @@
 		</p>
 	</header>
 
+	<!-- Search & Filter Controls -->
 	<div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 		<div class="relative max-w-md flex-1">
 			<Search class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -91,6 +94,7 @@
 		</div>
 	</div>
 
+	<!-- Item Counter -->
 	<div class="mb-6 flex items-center justify-between font-mono text-xs text-muted-foreground">
 		<span>Showing {filteredItems.length} of {data.items.length} items</span>
 		{#if selectedCategory !== 'All' || searchQuery}
@@ -100,6 +104,7 @@
 		{/if}
 	</div>
 
+	<!-- Cheatsheet Cards Grid -->
 	{#if filteredItems.length > 0}
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each filteredItems as item (item.id)}
@@ -122,13 +127,15 @@
 
 						<!-- Inline Syntax Signature -->
 						<div
-							class="my-4 rounded-xl border border-border bg-muted/40 p-3 font-mono text-xs font-semibold text-primary"
+							class="mt-4 mb-2 rounded-xl border border-border bg-muted/40 p-3 font-mono text-xs font-semibold text-primary"
 						>
 							<code>{item.syntax}</code>
 						</div>
 
-						<!-- Highlighted Code Example -->
-						<CodeComparison title="{item.name} Usage" svelteCode={item.example} />
+						<!-- Highlighted Code Example (with tight margin override) -->
+						<div class="cheatsheet-snippet">
+							<CodeComparison title="{item.name} Usage" svelteCode={item.example} />
+						</div>
 					</div>
 
 					<div
@@ -141,6 +148,7 @@
 			{/each}
 		</div>
 	{:else}
+		<!-- Empty Filter State -->
 		<div class="rounded-2xl border border-dashed border-border p-12 text-center">
 			<CodeXml class="mx-auto mb-3 size-10 text-muted-foreground/60" />
 			<h3 class="text-base font-bold text-foreground">No cheatsheet entries found</h3>
@@ -156,3 +164,11 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	/* Compact margin override when CodeComparison is used inside cheatsheet cards */
+	:global(.cheatsheet-snippet > div) {
+		margin-top: 0.5rem !important;
+		margin-bottom: 0.5rem !important;
+	}
+</style>

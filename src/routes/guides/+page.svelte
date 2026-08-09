@@ -3,51 +3,9 @@
 	import { resolve } from '$app/paths';
 	import SEO from '$lib/components/SEO.svelte';
 	import { ArrowRight, BookOpen, CircleX, Search, Tag } from '@lucide/svelte';
+	import type { PageData } from './$types';
 
-	export interface Guide {
-		slug: string;
-		title: string;
-		description: string;
-		category: string;
-		level: 'beginner' | 'intermediate' | 'advanced';
-		readTime: string;
-	}
-
-	interface CustomPageData {
-		guides: Record<string, unknown>[];
-		categories: string[];
-	}
-
-	let { data }: { data: CustomPageData } = $props();
-
-	// Defensive unwrapper with strict typing (no 'any')
-	function normalizeGuide(item: Record<string, unknown>): Guide {
-		const meta = (item?.meta || item?.metadata || {}) as Record<string, unknown>;
-		const slug = String(item?.slug || '');
-		const fallbackTitle = slug
-			? slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())
-			: 'Untitled Guide';
-
-		const rawLevel = String(item?.level || meta?.level || 'beginner').toLowerCase();
-		const validLevel: Guide['level'] =
-			rawLevel === 'intermediate'
-				? 'intermediate'
-				: rawLevel === 'advanced'
-					? 'advanced'
-					: 'beginner';
-
-		return {
-			slug,
-			title: String(item?.title || meta?.title || fallbackTitle),
-			description: String(item?.description || meta?.description || 'Explore Svelte 5 patterns.'),
-			category: String(item?.category || meta?.category || 'General'),
-			level: validLevel,
-			readTime: String(item?.readTime || meta?.readTime || '5 min read')
-		};
-	}
-
-	let guides = $derived((data?.guides ?? []).map(normalizeGuide));
-	let categories = $derived(data?.categories ?? ['All']);
+	let { data }: { data: PageData } = $props();
 
 	// Reactive state signals for filters
 	let searchQuery = $state('');
@@ -64,7 +22,7 @@
 
 	// Safe derived signal filtering
 	let filteredGuides = $derived(
-		guides.filter((guide) => {
+		(data.guides ?? []).filter((guide) => {
 			const matchesCategory =
 				selectedCategory === 'All' ||
 				guide.category.toLowerCase() === selectedCategory.toLowerCase();
@@ -149,7 +107,7 @@
 		<!-- Category Filter Pills -->
 		<div class="flex flex-wrap items-center gap-2 border-t border-border pt-4">
 			<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground">Category:</span>
-			{#each categories as category (category)}
+			{#each data.categories as category (category)}
 				<button
 					onclick={() => (selectedCategory = category)}
 					class="rounded-lg px-3 py-1 font-mono text-xs font-semibold transition-all {selectedCategory ===
@@ -165,7 +123,7 @@
 
 	<!-- Results Count Badge -->
 	<div class="mb-6 flex items-center justify-between font-mono text-xs text-muted-foreground">
-		<span>Showing {filteredGuides.length} of {guides.length} guides</span>
+		<span>Showing {filteredGuides.length} of {data.guides.length} guides</span>
 		{#if selectedCategory !== 'All' || selectedLevel !== 'All' || searchQuery}
 			<button onclick={resetFilters} class="font-semibold text-primary hover:underline">
 				Clear active filters
@@ -178,7 +136,7 @@
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 			{#each filteredGuides as guide (guide.slug)}
 				<a
-					href={resolve('/guides/[slug]', { slug: guide.slug })}
+					href={resolve(`/guides/${guide.slug}`)}
 					class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-md"
 				>
 					<div>

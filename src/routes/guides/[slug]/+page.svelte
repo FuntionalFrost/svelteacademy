@@ -2,10 +2,14 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import SEO from '$lib/components/SEO.svelte';
+
 	import { ArrowLeft, Clock, Layers, Tag } from '@lucide/svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+
+	// Derived component instance for Svelte 5 component rendering
+	let Content = $derived(data.content);
 
 	// Scroll Progress Signal
 	let scrollProgress = $state(0);
@@ -22,7 +26,7 @@
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
 
-	const levelStyles = {
+	const levelStyles: Record<string, string> = {
 		beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-500',
 		intermediate: 'border-amber-500/30 bg-amber-500/10 text-amber-500',
 		advanced: 'border-purple-500/30 bg-purple-500/10 text-purple-500'
@@ -62,7 +66,7 @@
 			<span
 				class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-xs font-bold tracking-wider uppercase {levelStyles[
 					data.guide.level
-				]}"
+				] ?? levelStyles.beginner}"
 			>
 				<Layers class="size-3" />
 				{data.guide.level}
@@ -85,14 +89,14 @@
 
 	<!-- Rendered Markdown Component -->
 	<article class="prose max-w-none dark:prose-invert">
-		<data.content />
+		<Content />
 	</article>
 
 	<!-- Bottom Navigation (Prev / Next) -->
 	<div class="mt-16 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2">
 		{#if data.prevGuide}
 			<a
-				href={resolve('/guides/[slug]', { slug: data.prevGuide.slug })}
+				href={resolve(`/guides/${data.prevGuide.slug}`)}
 				class="group flex flex-col gap-1 rounded-xl border border-border bg-card p-4 transition hover:border-primary/40 hover:shadow-sm"
 			>
 				<span class="font-mono text-[10px] font-semibold text-muted-foreground uppercase"
@@ -108,7 +112,7 @@
 
 		{#if data.nextGuide}
 			<a
-				href={resolve('/guides/[slug]', { slug: data.nextGuide.slug })}
+				href={resolve(`/guides/${data.nextGuide.slug}`)}
 				class="group flex flex-col gap-1 rounded-xl border border-border bg-card p-4 text-right transition hover:border-primary/40 hover:shadow-sm"
 			>
 				<span class="font-mono text-[10px] font-semibold text-muted-foreground uppercase"

@@ -56,9 +56,10 @@
 			</a>
 
 			<!-- Desktop Route Links -->
+			<!-- Inside src/routes/+layout.svelte -->
 			<nav class="hidden items-center gap-1 md:flex">
 				{#each navItems as item (item.href)}
-					{@const isActive = page.url.pathname === item.href}
+					{@const isActive = page.url.pathname.startsWith(item.href)}
 					<a
 						href={item.href}
 						class="flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-all {isActive
@@ -111,7 +112,7 @@
 			<div class="border-b border-border bg-background p-4 md:hidden">
 				<nav class="flex flex-col space-y-2">
 					{#each navItems as item (item.href)}
-						{@const isActive = page.url.pathname === item.href}
+						{@const isActive = page.url.pathname.startsWith(item.href)}
 						<a
 							href={item.href}
 							onclick={closeMobileMenu}
