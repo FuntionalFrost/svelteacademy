@@ -2,7 +2,8 @@
 <script lang="ts">
 	import CodeComparison from '$lib/components/CodeComparison.svelte';
 	import SEO from '$lib/components/SEO.svelte';
-	import { ArrowRight, Sparkles, Zap } from '@lucide/svelte';
+	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
+	import { Sparkles } from '@lucide/svelte';
 
 	const reactExample = `// React 19: Stateful Counter with Effect
 import { useState, useEffect } from 'react';
@@ -76,34 +77,6 @@ export function Counter() {
 		/>
 	</section>
 
-	<!-- Super Svelte Banner / Layer 2 Funnel -->
-	<section
-		class="mt-16 rounded-2xl border border-primary/20 bg-linear-to-r from-primary/10 via-emerald-500/5 to-cyan-500/10 p-8 shadow-xs"
-	>
-		<div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-			<div class="space-y-2">
-				<div class="inline-flex items-center gap-1.5 text-xs font-bold text-primary">
-					<Zap class="size-4" />
-					<span>From Learning to Launch</span>
-				</div>
-				<h2 class="text-2xl font-bold tracking-tight">Ready to ship a production business?</h2>
-				<p class="max-w-xl text-xs leading-relaxed text-muted-foreground">
-					Skip 80 hours of wiring up Auth, Neon Postgres, Drizzle ORM, Upstash Redis caching,
-					UploadThing storage, and Hono OpenAPI RPC. <strong class="text-foreground"
-						>Super Svelte</strong
-					> is the official production starter kit.
-				</p>
-			</div>
-
-			<a
-				href="https://supersvelte.netlify.app"
-				target="_blank"
-				rel="noreferrer"
-				class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-xs font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90"
-			>
-				<span>Explore Super Svelte</span>
-				<ArrowRight class="size-4" />
-			</a>
-		</div>
-	</section>
+	<!-- High-Converting Glowing SuperSvelte Banner -->
+	<SuperSvelteBanner />
 </div>

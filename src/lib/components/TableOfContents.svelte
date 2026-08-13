@@ -1,7 +1,6 @@
 <!-- src/lib/components/TableOfContents.svelte -->
 <script lang="ts">
 	import { List } from '@lucide/svelte';
-	import { onMount } from 'svelte';
 
 	interface Heading {
 		id: string;
@@ -12,14 +11,13 @@
 	let headings = $state<Heading[]>([]);
 	let activeId = $state('');
 
-	onMount(() => {
-		// Scan article for h2 and h3 elements
+	// Re-scan DOM headings whenever the component mounts or route context changes
+	$effect(() => {
 		const articleElements = document.querySelectorAll('article h2, article h3');
 		const extracted: Heading[] = [];
 
 		articleElements.forEach((el, index) => {
 			if (!el.id) {
-				// Generate clean id from text content if missing
 				el.id =
 					el.textContent
 						?.toLowerCase()
@@ -36,7 +34,6 @@
 
 		headings = extracted;
 
-		// Scroll observer to update active heading indicator
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {

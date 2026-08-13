@@ -56,7 +56,6 @@
 			</a>
 
 			<!-- Desktop Route Links -->
-			<!-- Inside src/routes/+layout.svelte -->
 			<nav class="hidden items-center gap-1 md:flex">
 				{#each navItems as item (item.href)}
 					{@const isActive = page.url.pathname.startsWith(item.href)}
@@ -80,15 +79,15 @@
 				<!-- Theme Switcher Button -->
 				<ThemeToggle />
 
-				<!-- Conversion Button to SuperSvelte SaaS Kit -->
+				<!-- Conversion Button to SuperSvelte -->
 				<a
 					href="https://supersvelte.netlify.app"
 					target="_blank"
-					rel="noreferrer"
-					class="hidden items-center gap-1.5 rounded-xl bg-primary px-3.5 py-2 text-xs font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90 sm:inline-flex"
+					rel="noopener noreferrer"
+					class="hidden items-center gap-1.5 rounded-xl bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400 px-3.5 py-2 text-xs font-bold text-slate-950 shadow-xs transition hover:brightness-110 sm:inline-flex"
 				>
 					<Rocket class="size-3.5" />
-					<span>Super Svelte Kit</span>
+					<span>SuperSvelte</span>
 					<ExternalLink class="size-3 opacity-70" />
 				</a>
 
@@ -128,12 +127,12 @@
 					<a
 						href="https://supersvelte.netlify.app"
 						target="_blank"
-						rel="noreferrer"
+						rel="noopener noreferrer"
 						onclick={closeMobileMenu}
-						class="flex items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-bold text-primary-foreground shadow-xs"
+						class="flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400 py-3 text-sm font-bold text-slate-950 shadow-xs"
 					>
 						<Rocket class="size-4" />
-						<span>Explore Super Svelte Kit</span>
+						<span>Explore SuperSvelte</span>
 						<ExternalLink class="size-3 opacity-70" />
 					</a>
 				</nav>
@@ -196,10 +195,10 @@
 							<a
 								href="https://supersvelte.netlify.app"
 								target="_blank"
-								rel="noreferrer"
+								rel="noopener noreferrer"
 								class="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline"
 							>
-								<span>Super Svelte Starter Kit</span>
+								<span>SuperSvelte</span>
 								<ExternalLink class="size-3" />
 							</a>
 						</li>
@@ -214,16 +213,16 @@
 							<a
 								href="https://svelte.dev"
 								target="_blank"
-								rel="noreferrer"
+								rel="noopener noreferrer"
 								class="transition hover:text-primary">Svelte Official Documentation</a
 							>
 						</li>
 						<li>
 							<a
-								href="https://svelte.dev/e/runes"
+								href="https://svelte.dev/docs/svelte/what-are-runes"
 								target="_blank"
-								rel="noreferrer"
-								class="transition hover:text-primary">Svelte 5 Runes Overview</a
+								rel="noopener noreferrer"
+								class="transition hover:text-primary">Svelte 5 Runes Docs</a
 							>
 						</li>
 					</ul>

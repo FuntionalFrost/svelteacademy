@@ -55,7 +55,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
 	return new Response(rss, {
 		headers: {
-			'Content-Type': 'application/xml',
+			'Content-Type': 'application/rss+xml; charset=utf-8',
 			'Cache-Control': 'public, max-age=0, s-maxage=3600'
 		}
 	});

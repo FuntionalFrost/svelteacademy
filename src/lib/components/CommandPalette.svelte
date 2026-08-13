@@ -22,6 +22,7 @@
 	let isOpen = $state(false);
 	let searchQuery = $state('');
 	let guides = $state<GuideItem[]>([]);
+	let inputEl = $state<HTMLInputElement | null>(null);
 
 	// Keyboard listener for Cmd+K / Ctrl+K / Escape
 	$effect(() => {
@@ -39,18 +40,25 @@
 		return () => window.removeEventListener('keydown', handleKeyDown);
 	});
 
-	// Load guides when modal opens
+	// Load guides & auto-focus input when palette opens
 	$effect(() => {
-		if (isOpen && guides.length === 0) {
-			const modules = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', {
-				eager: true
+		if (isOpen) {
+			if (guides.length === 0) {
+				const modules = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', {
+					eager: true
+				});
+				guides = Object.entries(modules).map(([path, mod]) => ({
+					slug: path.split('/').pop()?.replace('.md', '') || '',
+					title: mod.metadata?.title || 'Untitled',
+					description: mod.metadata?.description || '',
+					category: mod.metadata?.category || 'Guide'
+				}));
+			}
+
+			// Focus input immediately after DOM paint
+			requestAnimationFrame(() => {
+				inputEl?.focus();
 			});
-			guides = Object.entries(modules).map(([path, mod]) => ({
-				slug: path.split('/').pop()?.replace('.md', '') || '',
-				title: mod.metadata?.title || 'Untitled',
-				description: mod.metadata?.description || '',
-				category: mod.metadata?.category || 'Guide'
-			}));
 		}
 	});
 
@@ -72,23 +80,38 @@
 	}
 </script>
 
+<!-- Visible Trigger Button in Header -->
+<button
+	onclick={() => (isOpen = true)}
+	class="inline-flex items-center gap-2 rounded-xl border border-border bg-card/60 px-3 py-1.5 text-xs text-muted-foreground shadow-xs transition hover:border-primary/40 hover:text-foreground"
+	aria-label="Search Guides"
+>
+	<Search class="size-3.5" />
+	<span class="hidden sm:inline-block">Search guides...</span>
+	<kbd
+		class="hidden rounded border border-border bg-muted/60 px-1.5 font-mono text-[10px] font-semibold text-muted-foreground sm:inline-block"
+	>
+		⌘K
+	</kbd>
+</button>
+
+<!-- Command Palette Modal Overlay -->
 {#if isOpen}
-	<!-- Backdrop -->
+	<!-- Accessible Backdrop -->
 	<div
-		tabindex="-1"
-		role="button"
+		role="presentation"
 		onclick={() => (isOpen = false)}
-		onkeydown={(e) => e.key === 'Escape' && (isOpen = false)}
 		class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm transition-opacity"
 	></div>
 
-	<!-- Modal -->
+	<!-- Modal Box -->
 	<div class="fixed top-1/4 left-1/2 z-50 w-full max-w-xl -translate-x-1/2 p-4">
 		<div class="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
 			<!-- Input Header -->
 			<div class="flex items-center border-b border-border px-4 py-3">
 				<Search class="mr-3 size-4 text-muted-foreground" />
 				<input
+					bind:this={inputEl}
 					type="text"
 					bind:value={searchQuery}
 					placeholder="Search guides, concepts, framework comparisons..."
@@ -136,9 +159,9 @@
 			<div
 				class="flex items-center justify-between border-t border-border bg-muted/30 px-4 py-2 text-[10px] text-muted-foreground"
 			>
-				<span
-					>Press <kbd class="rounded border border-border bg-background px-1 font-mono">ESC</kbd> to close</span
-				>
+				<span>
+					Press <kbd class="rounded border border-border bg-background px-1 font-mono">ESC</kbd> to close
+				</span>
 				<span class="flex items-center gap-1">
 					<Command class="size-3" /> Navigation
 				</span>

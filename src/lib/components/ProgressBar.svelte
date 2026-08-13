@@ -1,14 +1,16 @@
 <!-- src/lib/components/ProgressBar.svelte -->
 <script lang="ts">
-	import { onMount } from 'svelte';
-
 	let progress = $state(0);
 
-	onMount(() => {
+	$effect(() => {
 		const handleScroll = () => {
 			const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-			progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+			progress =
+				totalHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100)) : 0;
 		};
+
+		// Run once on mount
+		handleScroll();
 
 		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => window.removeEventListener('scroll', handleScroll);

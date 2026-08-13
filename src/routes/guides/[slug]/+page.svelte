@@ -1,30 +1,15 @@
 <!-- src/routes/guides/[slug]/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import ProgressBar from '$lib/components/ProgressBar.svelte';
 	import SEO from '$lib/components/SEO.svelte';
-
+	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
+	import TableOfContents from '$lib/components/TableOfContents.svelte';
 	import { ArrowLeft, Clock, Layers, Tag } from '@lucide/svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
-
-	// Derived component instance for Svelte 5 component rendering
 	let Content = $derived(data.content);
-
-	// Scroll Progress Signal
-	let scrollProgress = $state(0);
-
-	$effect(() => {
-		function handleScroll() {
-			const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-			if (totalHeight > 0) {
-				scrollProgress = (window.scrollY / totalHeight) * 100;
-			}
-		}
-
-		window.addEventListener('scroll', handleScroll, { passive: true });
-		return () => window.removeEventListener('scroll', handleScroll);
-	});
 
 	const levelStyles: Record<string, string> = {
 		beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-500',
@@ -35,15 +20,10 @@
 
 <SEO title="{data.guide.title} — Svelte 5 Guide" description={data.guide.description} />
 
-<!-- Scroll Progress Bar -->
-<div class="fixed top-0 left-0 z-50 h-1 w-full bg-muted">
-	<div
-		class="h-full bg-linear-to-r from-cyan-500 via-primary to-emerald-500 transition-all duration-150 ease-out"
-		style="width: {scrollProgress}%"
-	></div>
-</div>
+<!-- Reading Progress Bar -->
+<ProgressBar />
 
-<div class="container mx-auto max-w-4xl px-4 py-12">
+<div class="container mx-auto max-w-6xl px-4 py-12">
 	<!-- Back Link -->
 	<a
 		href={resolve('/guides')}
@@ -53,75 +33,56 @@
 		<span>Back to all guides</span>
 	</a>
 
-	<!-- Article Header -->
-	<header class="mb-10 border-b border-border pb-8">
-		<div class="mb-4 flex flex-wrap items-center gap-2.5">
-			<span
-				class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-primary"
-			>
-				<Tag class="size-3" />
-				{data.guide.category}
-			</span>
+	<div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_240px]">
+		<!-- Main Content Column -->
+		<div>
+			<header class="mb-10 border-b border-border pb-8">
+				<div class="mb-4 flex flex-wrap items-center gap-2.5">
+					<span
+						class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-primary"
+					>
+						<Tag class="size-3" />
+						{data.guide.category}
+					</span>
 
-			<span
-				class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-xs font-bold tracking-wider uppercase {levelStyles[
-					data.guide.level
-				] ?? levelStyles.beginner}"
-			>
-				<Layers class="size-3" />
-				{data.guide.level}
-			</span>
+					<span
+						class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-xs font-bold tracking-wider uppercase {levelStyles[
+							data.guide.level
+						] ?? levelStyles.beginner}"
+					>
+						<Layers class="size-3" />
+						{data.guide.level}
+					</span>
 
-			<span class="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground">
-				<Clock class="size-3" />
-				{data.guide.readTime}
-			</span>
+					<span class="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground">
+						<Clock class="size-3" />
+						{data.guide.readTime}
+					</span>
+				</div>
+
+				<h1 class="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+					{data.guide.title}
+				</h1>
+
+				<p class="mt-4 text-base text-muted-foreground sm:text-lg">
+					{data.guide.description}
+				</p>
+			</header>
+
+			<!-- Article Body -->
+			<article class="prose max-w-none dark:prose-invert">
+				<Content />
+			</article>
+
+			<!-- High-Converting Bottom Banner (Placed inside main column) -->
+			<SuperSvelteBanner />
 		</div>
 
-		<h1 class="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-			{data.guide.title}
-		</h1>
-
-		<p class="mt-4 text-base text-muted-foreground sm:text-lg">
-			{data.guide.description}
-		</p>
-	</header>
-
-	<!-- Rendered Markdown Component -->
-	<article class="prose max-w-none dark:prose-invert">
-		<Content />
-	</article>
-
-	<!-- Bottom Navigation (Prev / Next) -->
-	<div class="mt-16 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2">
-		{#if data.prevGuide}
-			<a
-				href={resolve(`/guides/${data.prevGuide.slug}`)}
-				class="group flex flex-col gap-1 rounded-xl border border-border bg-card p-4 transition hover:border-primary/40 hover:shadow-sm"
-			>
-				<span class="font-mono text-[10px] font-semibold text-muted-foreground uppercase"
-					>Previous Guide</span
-				>
-				<span class="text-sm font-bold text-foreground transition group-hover:text-primary"
-					>{data.prevGuide.title}</span
-				>
-			</a>
-		{:else}
-			<div></div>
-		{/if}
-
-		{#if data.nextGuide}
-			<a
-				href={resolve(`/guides/${data.nextGuide.slug}`)}
-				class="group flex flex-col gap-1 rounded-xl border border-border bg-card p-4 text-right transition hover:border-primary/40 hover:shadow-sm"
-			>
-				<span class="font-mono text-[10px] font-semibold text-muted-foreground uppercase"
-					>Next Guide</span
-				>
-				<span class="text-sm font-bold text-foreground transition group-hover:text-primary"
-					>{data.nextGuide.title}</span
-				>
-			</a>
-		{/if}
+		<!-- Sticky Table of Contents Sidebar -->
+		<aside class="hidden lg:block">
+			<div class="sticky top-24">
+				<TableOfContents />
+			</div>
+		</aside>
 	</div>
 </div>
