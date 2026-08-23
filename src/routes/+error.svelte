@@ -3,7 +3,18 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { ArrowLeft, TriangleAlert } from '@lucide/svelte';
+
+	let errorTitle = $derived(
+		page.status === 404
+			? '404 — Page Not Found | SvelteAcademy'
+			: `${page.status} — An Error Occurred | SvelteAcademy`
+	);
 </script>
+
+<svelte:head>
+	<title>{errorTitle}</title>
+	<meta name="robots" content="noindex, nofollow" />
+</svelte:head>
 
 <div class="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
 	<!-- Glowing Icon Badge -->

@@ -4,7 +4,6 @@
 	import { page } from '$app/state';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
 	import Logo from '$lib/components/Logo.svelte';
-	import SEO from '$lib/components/SEO.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import { BookOpen, CodeXml, ExternalLink, Menu, Rocket, Terminal, X } from '@lucide/svelte';
 	import { ModeWatcher } from 'mode-watcher';
@@ -24,11 +23,8 @@
 	}
 </script>
 
-<!-- Mounts ModeWatcher to physically toggle .dark on <html> for mode-watcher -->
+<!-- Mounts ModeWatcher to physically toggle .dark on <html> -->
 <ModeWatcher defaultMode="dark" />
-
-<!-- Default Site-Wide SEO Fallback -->
-<SEO />
 
 <div
 	class="flex min-h-screen flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary"
@@ -73,13 +69,9 @@
 
 			<!-- Action Items & Conversion Link -->
 			<div class="flex items-center gap-2.5">
-				<!-- Command Search Palette -->
 				<CommandPalette />
-
-				<!-- Theme Switcher Button -->
 				<ThemeToggle />
 
-				<!-- Conversion Button to SuperSvelte -->
 				<a
 					href="https://supersvelte.netlify.app"
 					target="_blank"
@@ -91,7 +83,6 @@
 					<ExternalLink class="size-3 opacity-70" />
 				</a>
 
-				<!-- Mobile Menu Toggle Button -->
 				<button
 					onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
 					class="inline-flex size-9 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition hover:text-foreground md:hidden"
@@ -106,7 +97,7 @@
 			</div>
 		</div>
 
-		<!-- Mobile Navigation Drawer -->
+		<!-- Mobile Drawer -->
 		{#if mobileMenuOpen}
 			<div class="border-b border-border bg-background p-4 md:hidden">
 				<nav class="flex flex-col space-y-2">
@@ -140,16 +131,14 @@
 		{/if}
 	</header>
 
-	<!-- Page Content Viewport -->
 	<main class="flex-1">
 		{@render children()}
 	</main>
 
-	<!-- Global Footer -->
+	<!-- Footer -->
 	<footer class="border-t border-border bg-card/40 py-12 text-xs text-muted-foreground">
 		<div class="container mx-auto max-w-6xl px-4">
 			<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-				<!-- Brand Info -->
 				<div class="space-y-3">
 					<div class="flex items-center gap-2">
 						<Logo />
@@ -161,7 +150,6 @@
 					</p>
 				</div>
 
-				<!-- Site Directory -->
 				<div>
 					<h4 class="mb-3 font-mono text-xs font-bold text-foreground uppercase">
 						Learning Resources
@@ -185,7 +173,6 @@
 					</ul>
 				</div>
 
-				<!-- Product Funnel -->
 				<div>
 					<h4 class="mb-3 font-mono text-xs font-bold text-foreground uppercase">
 						Boilerplate & SaaS
@@ -205,7 +192,6 @@
 					</ul>
 				</div>
 
-				<!-- Official Ecosystem Links -->
 				<div>
 					<h4 class="mb-3 font-mono text-xs font-bold text-foreground uppercase">Official Links</h4>
 					<ul class="space-y-2 font-medium">

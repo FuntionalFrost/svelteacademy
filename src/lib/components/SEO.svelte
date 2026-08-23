@@ -19,11 +19,11 @@
 	}: Props = $props();
 
 	let siteUrl = $derived(page.url.origin);
-	let canonicalUrl = $derived(page.url.href);
+	// Strips URL parameters (?utm_source, etc.) for a clean canonical tag
+	let canonicalUrl = $derived(`${siteUrl}${page.url.pathname}`);
 
 	let fullTitle = $derived(title.includes('SvelteAcademy') ? title : `${title} — SvelteAcademy`);
 
-	// Fallback to dynamic SVG OG image endpoint if no explicit image is provided
 	let ogImageUrl = $derived(
 		image ||
 			`${siteUrl}/og?title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description)}`
