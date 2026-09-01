@@ -1,5 +1,0 @@
-# static/robots.txt
-User-agent: *
-Disallow:
-
-Sitemap: https://svelteacademy.netlify.app/sitemap.xml

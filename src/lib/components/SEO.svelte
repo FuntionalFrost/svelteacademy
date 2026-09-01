@@ -26,7 +26,7 @@
 
 	let ogImageUrl = $derived(
 		image ||
-			`${siteUrl}/og?title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description)}`
+			`${siteUrl}/og.png?title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description)}`
 	);
 </script>
 
