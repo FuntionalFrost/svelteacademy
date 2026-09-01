@@ -22,3 +22,7 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 src/lib/content/guides/_template.md
+
+# AI
+GEMINI.md
+/.gemini
