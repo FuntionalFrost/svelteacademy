@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 # ⚡ SvelteAcademy
 
@@ -59,7 +59,7 @@
 
 ```bash
 # Clone repository
-git clone https://github.com/FuntionalFrost/sveltey.git
+git clone https://github.com/FuntionalFrost/svelteacademy.git
 cd svelteacademy
 
 # Install dependencies

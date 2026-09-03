@@ -73,7 +73,7 @@
 				<ThemeToggle />
 
 				<a
-					href="https://github.com/FuntionalFrost/sveltey"
+					href="https://github.com/FuntionalFrost/svelteacademy"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="inline-flex size-9 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
@@ -207,7 +207,7 @@
 						</li>
 						<li>
 							<a
-								href="https://github.com/FuntionalFrost/sveltey"
+								href="https://github.com/FuntionalFrost/svelteacademy"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="transition hover:text-primary">GitHub Repository</a
@@ -215,7 +215,7 @@
 						</li>
 						<li>
 							<a
-								href="https://github.com/FuntionalFrost/sveltey/blob/main/CONTRIBUTING.md"
+								href="https://github.com/FuntionalFrost/svelteacademy/blob/main/CONTRIBUTING.md"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="transition hover:text-primary">Contributing Guide</a
@@ -223,7 +223,7 @@
 						</li>
 						<li>
 							<a
-								href="https://github.com/FuntionalFrost/sveltey/blob/main/LICENSE"
+								href="https://github.com/FuntionalFrost/svelteacademy/blob/main/LICENSE"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="transition hover:text-primary">MIT License</a

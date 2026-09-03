@@ -123,7 +123,7 @@
 			>
 				<span>Found an issue or want to improve this lesson?</span>
 				<a
-					href="https://github.com/FuntionalFrost/sveltey/blob/main/src/lib/content/guides/{data
+					href="https://github.com/FuntionalFrost/svelteacademy/blob/main/src/lib/content/guides/{data
 						.guide.slug}.md"
 					target="_blank"
 					rel="noopener noreferrer"

@@ -1,4 +1,4 @@
-﻿# Contributing to SvelteAcademy
+# Contributing to SvelteAcademy
 
 Thank you for your interest in contributing to **SvelteAcademy**! 🎉
 
@@ -11,7 +11,7 @@ We welcome contributions of all kinds: from fixing typos and adding code explana
 1. **Fork & Clone the repository:**
 
    ```bash
-   git clone https://github.com/FuntionalFrost/sveltey.git
+   git clone https://github.com/FuntionalFrost/svelteacademy.git
    cd svelteacademy
    ```
 
