@@ -5,7 +5,7 @@
 	import SEO from '$lib/components/SEO.svelte';
 	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
 	import TableOfContents from '$lib/components/TableOfContents.svelte';
-	import { ArrowLeft, ArrowRight, Clock, Layers, Tag } from '@lucide/svelte';
+	import { ArrowLeft, ArrowRight, Clock, GitPullRequest, Layers, Tag } from '@lucide/svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -116,6 +116,23 @@
 			<article class="prose max-w-none dark:prose-invert">
 				<Content />
 			</article>
+
+			<!-- Community Contribution & Edit Link -->
+			<div
+				class="mt-8 flex items-center justify-between border-t border-border/60 pt-4 text-xs text-muted-foreground"
+			>
+				<span>Found an issue or want to improve this lesson?</span>
+				<a
+					href="https://github.com/FuntionalFrost/sveltey/blob/main/src/lib/content/guides/{data
+						.guide.slug}.md"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
+				>
+					<GitPullRequest class="size-3.5" />
+					<span>Edit this page on GitHub</span>
+				</a>
+			</div>
 
 			<!-- Previous / Next Guide Navigation -->
 			{#if data.prevGuide || data.nextGuide}

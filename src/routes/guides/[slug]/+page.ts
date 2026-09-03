@@ -4,6 +4,7 @@ import type { Component } from 'svelte';
 import type { PageLoad } from './$types';
 
 export interface GuideDetail {
+	slug: string;
 	title: string;
 	description: string;
 	category: string;
@@ -74,6 +75,7 @@ export const load: PageLoad = async ({ params }) => {
 	return {
 		content: targetModule.default, // MDsveX component ready for <svelte:component> or direct rendering
 		guide: {
+			slug: params.slug,
 			title: targetModule.metadata?.title ?? 'Untitled Guide',
 			description: targetModule.metadata?.description ?? '',
 			category: targetModule.metadata?.category ?? 'General',
