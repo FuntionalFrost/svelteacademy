@@ -5,7 +5,7 @@
 	import RuneVisualizer from '$lib/components/RuneVisualizer.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
-	import { Cpu, Layers, Sparkles, Terminal } from '@lucide/svelte';
+	import { Cpu, ExternalLink, Layers, Sparkles, Terminal } from '@lucide/svelte';
 </script>
 
 <SEO
@@ -36,6 +36,18 @@
 			>
 			values and schedules <code class="text-primary">$effect</code> observers without Virtual DOM re-renders.
 		</p>
+
+		<div class="pt-2">
+			<a
+				href="https://svelte.dev/playground"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 font-mono text-xs font-semibold text-foreground shadow-xs transition hover:border-primary/50 hover:bg-muted/40 hover:text-primary"
+			>
+				<span>Open Official Svelte 5 Playground</span>
+				<ExternalLink class="size-3.5" />
+			</a>
+		</div>
 	</section>
 
 	<!-- Interactive Demo 1: Basic Counter & Derived Parity Check -->

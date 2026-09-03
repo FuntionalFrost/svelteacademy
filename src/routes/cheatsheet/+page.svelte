@@ -2,7 +2,7 @@
 <script lang="ts">
 	import CodeComparison from '$lib/components/CodeComparison.svelte';
 	import SEO from '$lib/components/SEO.svelte';
-	import { CircleX, CodeXml, Funnel, Search, Sparkles } from '@lucide/svelte';
+	import { CircleX, CodeXml, Funnel, Link, Search, Sparkles } from '@lucide/svelte';
 	import type { PageData } from './$types';
 	import type { CheatsheetItem } from './+page';
 
@@ -109,11 +109,22 @@
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 			{#each filteredItems as item (item.id)}
 				<div
-					class="flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:border-primary/40"
+					id={item.id}
+					class="group/card flex scroll-mt-24 flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:border-primary/40"
 				>
 					<div class="p-6">
 						<div class="mb-3 flex items-center justify-between">
-							<span class="font-mono text-lg font-bold text-primary">{item.name}</span>
+							<div class="flex items-center gap-2">
+								<span class="font-mono text-lg font-bold text-primary">{item.name}</span>
+								<a
+									href="#{item.id}"
+									class="text-muted-foreground opacity-0 transition-opacity group-hover/card:opacity-100 hover:text-primary"
+									aria-label="Direct link to {item.name}"
+									title="Direct link to {item.name}"
+								>
+									<Link class="size-3.5" />
+								</a>
+							</div>
 							<span
 								class="rounded-md border border-border bg-muted/50 px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-wider text-muted-foreground uppercase"
 							>

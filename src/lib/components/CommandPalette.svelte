@@ -1,14 +1,24 @@
 <!-- src/lib/components/CommandPalette.svelte -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { resolve } from '$app/paths';
-	import { BookOpen, Command, Search, X } from '@lucide/svelte';
+	import {
+		BookOpen,
+		CodeXml,
+		Command,
+		ExternalLink,
+		Rocket,
+		Search,
+		Terminal,
+		X
+	} from '@lucide/svelte';
 
-	interface GuideItem {
-		slug: string;
+	interface PaletteItem {
+		id: string;
 		title: string;
 		description: string;
 		category: string;
+		type: 'guide' | 'cheatsheet' | 'page' | 'external';
+		href: string;
 	}
 
 	interface GuideModule {
@@ -21,8 +31,126 @@
 
 	let isOpen = $state(false);
 	let searchQuery = $state('');
-	let guides = $state<GuideItem[]>([]);
+	let allItems = $state<PaletteItem[]>([]);
 	let inputEl = $state<HTMLInputElement | null>(null);
+
+	const corePages: PaletteItem[] = [
+		{
+			id: 'page-cheatsheet',
+			title: 'Svelte 5 Runes Cheatsheet',
+			description: 'Instant searchable reference for all Svelte 5 runes and utilities',
+			category: 'Cheatsheet',
+			type: 'page',
+			href: '/cheatsheet'
+		},
+		{
+			id: 'page-playground',
+			title: 'Signal Sandbox & Playground',
+			description: 'Interactive live demos for $state, $derived, $effect, and class stores',
+			category: 'Playground',
+			type: 'page',
+			href: '/playground'
+		},
+		{
+			id: 'page-guides',
+			title: 'Developer Guides & Tutorials',
+			description: 'Architecture blueprints and rune patterns for production applications',
+			category: 'Guides',
+			type: 'page',
+			href: '/guides'
+		},
+		{
+			id: 'page-supersvelte',
+			title: 'SuperSvelte SaaS Boilerplate',
+			description: 'Batteries-included Edge TypeScript stack with Auth, Neon, and Hono RPC',
+			category: 'Boilerplate',
+			type: 'external',
+			href: 'https://supersvelte.netlify.app'
+		}
+	];
+
+	const cheatsheetItems: PaletteItem[] = [
+		{
+			id: 'rune-state',
+			title: '$state',
+			description: 'Deeply reactive state proxy for variables, objects, and arrays',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#state'
+		},
+		{
+			id: 'rune-state-raw',
+			title: '$state.raw',
+			description: 'Shallow reactive state optimized for immutable datasets and canvas',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#state-raw'
+		},
+		{
+			id: 'rune-derived',
+			title: '$derived',
+			description: 'Pure computed signal that recalculates when read dependencies change',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#derived'
+		},
+		{
+			id: 'rune-derived-by',
+			title: '$derived.by',
+			description: 'Complex multi-line derived signal calculated via closure function',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#derived-by'
+		},
+		{
+			id: 'rune-props',
+			title: '$props',
+			description: 'Declares component input props with TypeScript types and defaults',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#props'
+		},
+		{
+			id: 'rune-bindable',
+			title: '$bindable',
+			description: 'Enables two-way state binding across parent and child components',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#bindable'
+		},
+		{
+			id: 'rune-effect',
+			title: '$effect',
+			description: 'Runs reactive side effects with dependency tracking post-DOM render',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#effect'
+		},
+		{
+			id: 'rune-effect-pre',
+			title: '$effect.pre',
+			description: 'Runs reactive side effects prior to DOM layout and paint updates',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#effect-pre'
+		},
+		{
+			id: 'rune-inspect',
+			title: '$inspect',
+			description: 'Development console logger for tracing reactive signal changes',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#inspect'
+		},
+		{
+			id: 'rune-untrack',
+			title: 'untrack()',
+			description: 'Reads reactive signals inside $effect without creating tracking loops',
+			category: 'Rune',
+			type: 'cheatsheet',
+			href: '/cheatsheet#untrack'
+		}
+	];
 
 	// Keyboard listener for Cmd+K / Ctrl+K / Escape
 	$effect(() => {
@@ -43,16 +171,20 @@
 	// Load guides & auto-focus input when palette opens
 	$effect(() => {
 		if (isOpen) {
-			if (guides.length === 0) {
+			if (allItems.length === 0) {
 				const modules = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', {
 					eager: true
 				});
-				guides = Object.entries(modules).map(([path, mod]) => ({
-					slug: path.split('/').pop()?.replace('.md', '') || '',
+				const guides: PaletteItem[] = Object.entries(modules).map(([path, mod]) => ({
+					id: `guide-${path.split('/').pop()?.replace('.md', '') || ''}`,
 					title: mod.metadata?.title || 'Untitled',
 					description: mod.metadata?.description || '',
-					category: mod.metadata?.category || 'Guide'
+					category: mod.metadata?.category || 'Guide',
+					type: 'guide',
+					href: `/guides/${path.split('/').pop()?.replace('.md', '') || ''}`
 				}));
+
+				allItems = [...cheatsheetItems, ...corePages, ...guides];
 			}
 
 			// Focus input immediately after DOM paint
@@ -62,21 +194,25 @@
 		}
 	});
 
-	const filteredGuides = $derived(
+	const filteredItems = $derived(
 		searchQuery.trim() === ''
-			? guides
-			: guides.filter(
-					(g) =>
-						g.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-						g.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-						g.description.toLowerCase().includes(searchQuery.toLowerCase())
+			? allItems
+			: allItems.filter(
+					(item) =>
+						item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+						item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+						item.description.toLowerCase().includes(searchQuery.toLowerCase())
 				)
 	);
 
-	function navigateTo(slug: string) {
+	function navigateTo(item: PaletteItem) {
 		isOpen = false;
 		searchQuery = '';
-		goto(resolve(`/guides/${slug}`));
+		if (item.type === 'external') {
+			window.open(item.href, '_blank', 'noopener,noreferrer');
+		} else {
+			goto(item.href);
+		}
 	}
 </script>
 
@@ -84,10 +220,10 @@
 <button
 	onclick={() => (isOpen = true)}
 	class="inline-flex items-center gap-2 rounded-xl border border-border bg-card/60 px-3 py-1.5 text-xs text-muted-foreground shadow-xs transition hover:border-primary/40 hover:text-foreground"
-	aria-label="Search Guides"
+	aria-label="Search Academy"
 >
 	<Search class="size-3.5" />
-	<span class="hidden sm:inline-block">Search guides...</span>
+	<span class="hidden sm:inline-block">Search runes, guides...</span>
 	<kbd
 		class="hidden rounded border border-border bg-muted/60 px-1.5 font-mono text-[10px] font-semibold text-muted-foreground sm:inline-block"
 	>
@@ -114,7 +250,7 @@
 					bind:this={inputEl}
 					type="text"
 					bind:value={searchQuery}
-					placeholder="Search guides, concepts, framework comparisons..."
+					placeholder="Search runes ($state, $derived), guides, topics..."
 					class="w-full bg-transparent text-sm text-foreground outline-hidden placeholder:text-muted-foreground"
 				/>
 				<button
@@ -127,28 +263,45 @@
 
 			<!-- Search Results -->
 			<div class="max-h-80 overflow-y-auto p-2">
-				{#if filteredGuides.length === 0}
+				{#if filteredItems.length === 0}
 					<div class="py-8 text-center text-xs text-muted-foreground">
-						No guides found matching "{searchQuery}"
+						No results found matching "{searchQuery}"
 					</div>
 				{:else}
-					{#each filteredGuides as guide (guide.slug)}
+					{#each filteredItems as item (item.id)}
 						<button
-							onclick={() => navigateTo(guide.slug)}
+							onclick={() => navigateTo(item)}
 							class="flex w-full items-start gap-3 rounded-xl p-3 text-left transition hover:bg-accent/60"
 						>
-							<BookOpen class="mt-0.5 size-4 shrink-0 text-primary" />
-							<div>
+							{#if item.type === 'cheatsheet'}
+								<CodeXml class="mt-0.5 size-4 shrink-0 text-amber-500" />
+							{:else if item.type === 'page'}
+								<Terminal class="mt-0.5 size-4 shrink-0 text-cyan-400" />
+							{:else if item.type === 'external'}
+								<Rocket class="mt-0.5 size-4 shrink-0 text-emerald-400" />
+							{:else}
+								<BookOpen class="mt-0.5 size-4 shrink-0 text-primary" />
+							{/if}
+
+							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
-									<span class="text-xs font-bold text-foreground">{guide.title}</span>
+									<span class="font-mono text-xs font-bold text-foreground">{item.title}</span>
 									<span
-										class="rounded-md bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary"
+										class="rounded-md px-1.5 py-0.5 text-[10px] font-semibold {item.type ===
+										'cheatsheet'
+											? 'border border-amber-500/20 bg-amber-500/10 text-amber-500'
+											: item.type === 'external'
+												? 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
+												: 'border border-primary/20 bg-primary/10 text-primary'}"
 									>
-										{guide.category}
+										{item.category}
 									</span>
+									{#if item.type === 'external'}
+										<ExternalLink class="size-3 text-muted-foreground opacity-70" />
+									{/if}
 								</div>
 								<p class="mt-0.5 line-clamp-1 text-xs text-muted-foreground">
-									{guide.description}
+									{item.description}
 								</p>
 							</div>
 						</button>

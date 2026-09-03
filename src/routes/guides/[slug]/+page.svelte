@@ -5,7 +5,7 @@
 	import SEO from '$lib/components/SEO.svelte';
 	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
 	import TableOfContents from '$lib/components/TableOfContents.svelte';
-	import { ArrowLeft, Clock, Layers, Tag } from '@lucide/svelte';
+	import { ArrowLeft, ArrowRight, Clock, Layers, Tag } from '@lucide/svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -16,6 +16,49 @@
 		intermediate: 'border-amber-500/30 bg-amber-500/10 text-amber-500',
 		advanced: 'border-purple-500/30 bg-purple-500/10 text-purple-500'
 	};
+
+	// Attach floating copy buttons to all Shiki code blocks inside article
+	$effect(() => {
+		const preElements = document.querySelectorAll('article pre');
+		const cleanups: (() => void)[] = [];
+
+		preElements.forEach((pre) => {
+			if (pre.querySelector('.code-copy-btn')) return;
+
+			pre.classList.add('relative', 'group/code');
+
+			const btn = document.createElement('button');
+			btn.type = 'button';
+			btn.className =
+				'code-copy-btn absolute top-3 right-3 opacity-0 group-hover/code:opacity-100 transition-all rounded-md border border-white/10 bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 px-2 py-1 text-[11px] font-mono font-medium shadow-sm flex items-center gap-1 cursor-pointer';
+			btn.innerHTML = '<span>Copy</span>';
+			btn.setAttribute('aria-label', 'Copy code to clipboard');
+
+			let timeoutId: number;
+			const onClick = async () => {
+				const code = pre.querySelector('code')?.innerText || (pre as HTMLElement).innerText;
+				await navigator.clipboard.writeText(code.trim());
+				btn.innerHTML = '<span class="text-emerald-400 font-semibold">Copied!</span>';
+				clearTimeout(timeoutId);
+				timeoutId = window.setTimeout(() => {
+					btn.innerHTML = '<span>Copy</span>';
+				}, 2000);
+			};
+
+			btn.addEventListener('click', onClick);
+			pre.appendChild(btn);
+
+			cleanups.push(() => {
+				btn.removeEventListener('click', onClick);
+				clearTimeout(timeoutId);
+				btn.remove();
+			});
+		});
+
+		return () => {
+			cleanups.forEach((c) => c());
+		};
+	});
 </script>
 
 <SEO title="{data.guide.title} — Svelte 5 Guide" description={data.guide.description} />
@@ -73,6 +116,54 @@
 			<article class="prose max-w-none dark:prose-invert">
 				<Content />
 			</article>
+
+			<!-- Previous / Next Guide Navigation -->
+			{#if data.prevGuide || data.nextGuide}
+				<nav
+					class="mt-12 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2"
+					aria-label="Guide Pagination"
+				>
+					{#if data.prevGuide}
+						<a
+							href={resolve(`/guides/${data.prevGuide.slug}`)}
+							class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/50 hover:bg-muted/30"
+						>
+							<div
+								class="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-muted-foreground"
+							>
+								<ArrowLeft class="size-3.5 transition-transform group-hover:-translate-x-1" />
+								<span>Previous Guide</span>
+							</div>
+							<span
+								class="mt-2 text-sm font-bold text-foreground transition-colors group-hover:text-primary"
+							>
+								{data.prevGuide.title}
+							</span>
+						</a>
+					{:else}
+						<div></div>
+					{/if}
+
+					{#if data.nextGuide}
+						<a
+							href={resolve(`/guides/${data.nextGuide.slug}`)}
+							class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/50 hover:bg-muted/30 sm:text-right"
+						>
+							<div
+								class="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-muted-foreground sm:justify-end"
+							>
+								<span>Next Guide</span>
+								<ArrowRight class="size-3.5 transition-transform group-hover:translate-x-1" />
+							</div>
+							<span
+								class="mt-2 text-sm font-bold text-foreground transition-colors group-hover:text-primary"
+							>
+								{data.nextGuide.title}
+							</span>
+						</a>
+					{/if}
+				</nav>
+			{/if}
 
 			<!-- High-Converting Bottom Banner (Placed inside main column) -->
 			<SuperSvelteBanner />
