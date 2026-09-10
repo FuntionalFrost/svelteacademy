@@ -82,14 +82,14 @@
 
 		<button
 			onclick={copyCode}
-			class="inline-flex items-center gap-1.5 self-start rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-semibold text-muted-foreground shadow-xs transition hover:border-primary/50 hover:text-foreground sm:self-auto"
+			class="inline-flex shrink-0 items-center gap-1.5 self-start rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-semibold whitespace-nowrap text-muted-foreground shadow-xs transition hover:border-primary/50 hover:text-foreground sm:self-auto"
 		>
 			{#if copied}
-				<Check class="size-4 text-emerald-500" />
-				<span class="text-emerald-500">Copied Svelte 5</span>
+				<Check class="size-4 shrink-0 text-emerald-500" />
+				<span class="whitespace-nowrap text-emerald-500">Copied Svelte 5</span>
 			{:else}
-				<Copy class="size-4" />
-				<span>Copy Svelte 5</span>
+				<Copy class="size-4 shrink-0" />
+				<span class="whitespace-nowrap">Copy Svelte 5</span>
 			{/if}
 		</button>
 	</div>

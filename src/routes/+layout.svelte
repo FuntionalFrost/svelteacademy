@@ -38,14 +38,14 @@
 			<a
 				href={resolve('/')}
 				onclick={closeMobileMenu}
-				class="flex items-center gap-2.5 transition hover:opacity-90"
+				class="flex shrink-0 items-center gap-2.5 transition hover:opacity-90"
 			>
 				<Logo />
-				<span class="text-lg font-extrabold tracking-tight text-foreground">
+				<span class="text-lg font-extrabold tracking-tight whitespace-nowrap text-foreground">
 					Svelte<span class="text-primary">Academy</span>
 				</span>
 				<span
-					class="hidden rounded-md border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-sm font-bold text-primary sm:inline-block"
+					class="hidden shrink-0 rounded-md border border-primary/30 bg-primary/10 px-2 py-0.5 font-mono text-xs font-bold whitespace-nowrap text-primary sm:inline-block"
 				>
 					Svelte 5
 				</span>
@@ -269,7 +269,7 @@
 				class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 font-mono text-sm sm:flex-row"
 			>
 				<span>&copy; {new Date().getFullYear()} Svelte Academy • MIT Open Source</span>
-				<span>Hosted on Netlify</span>
+				<span>Hosted on Cloudflare Pages</span>
 			</div>
 		</div>
 	</footer>

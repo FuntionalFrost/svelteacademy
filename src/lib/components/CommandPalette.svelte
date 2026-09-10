@@ -219,13 +219,13 @@
 <!-- Visible Trigger Button in Header -->
 <button
 	onclick={() => (isOpen = true)}
-	class="inline-flex items-center gap-2 rounded-xl border border-border bg-card/60 px-3.5 py-1.5 text-sm text-muted-foreground shadow-xs transition hover:border-primary/40 hover:text-foreground"
+	class="inline-flex shrink-0 items-center gap-2 rounded-xl border border-border bg-card/60 px-3.5 py-1.5 text-sm whitespace-nowrap text-muted-foreground shadow-xs transition hover:border-primary/40 hover:text-foreground"
 	aria-label="Search Academy"
 >
-	<Search class="size-4" />
-	<span class="hidden sm:inline-block">Search runes, guides...</span>
+	<Search class="size-4 shrink-0" />
+	<span class="hidden whitespace-nowrap sm:inline-block">Search runes, guides...</span>
 	<kbd
-		class="hidden rounded border border-border bg-muted/60 px-1.5 font-mono text-sm font-semibold text-muted-foreground sm:inline-block"
+		class="hidden shrink-0 rounded border border-border bg-muted/60 px-1.5 font-mono text-xs font-semibold whitespace-nowrap text-muted-foreground sm:inline-block"
 	>
 		⌘K
 	</kbd>

@@ -30,7 +30,7 @@
 			const btn = document.createElement('button');
 			btn.type = 'button';
 			btn.className =
-				'code-copy-btn absolute top-3 right-3 opacity-0 group-hover/code:opacity-100 transition-all rounded-md border border-white/10 bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 px-2.5 py-1 text-sm font-mono font-medium shadow-sm flex items-center gap-1 cursor-pointer';
+				'code-copy-btn absolute top-3 right-3 opacity-0 group-hover/code:opacity-100 transition-all rounded-md border border-white/10 bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 px-2.5 py-1 text-sm font-mono font-medium shadow-sm flex items-center gap-1 cursor-pointer whitespace-nowrap';
 			btn.innerHTML = '<span>Copy</span>';
 			btn.setAttribute('aria-label', 'Copy code to clipboard');
 

@@ -266,10 +266,11 @@
 			</div>
 
 			<div
-				class="flex-1 overflow-hidden rounded-xl border border-border bg-zinc-950 p-4 font-mono text-sm text-zinc-300"
+				class="flex flex-1 flex-col overflow-hidden rounded-xl border border-border bg-zinc-950 p-4 font-mono text-sm text-zinc-300 shadow-inner"
 			>
 				<div class="mb-2 text-sm font-bold text-purple-400">// UserStore Instance State</div>
-				<pre class="overflow-x-auto text-sm leading-relaxed"><code
+				<pre
+					class="m-0! overflow-x-auto border-0! bg-transparent! p-0! font-mono text-sm leading-relaxed shadow-none!"><code
 						>{JSON.stringify(
 							{
 								user: store.user,

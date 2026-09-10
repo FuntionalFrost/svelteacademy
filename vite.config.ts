@@ -1,6 +1,7 @@
 // vite.config.ts
-import adapter from '@sveltejs/adapter-netlify';
+import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
 import { escapeSvelte, mdsvex } from 'mdsvex';
 import { createHighlighter } from 'shiki';
@@ -20,8 +21,14 @@ export default defineConfig({
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
-			adapter: adapter(),
+			adapter: adapter({
+				fallback: '404.html'
+			}),
+			paths: {
+				relative: false
+			},
 			preprocess: [
+				vitePreprocess(),
 				mdsvex({
 					extensions: ['.svx', '.md'],
 					highlight: {
