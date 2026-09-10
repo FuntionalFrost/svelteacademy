@@ -3,11 +3,7 @@
 declare global {
 	namespace App {
 		// interface Error {}
-		interface Locals {
-			db: {
-				getPost: (id: string) => Promise<{ id: string; title: string }>;
-			};
-		}
+		// interface Locals {}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}

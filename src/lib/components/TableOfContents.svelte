@@ -61,13 +61,13 @@
 {#if headings.length > 0}
 	<div class="space-y-3">
 		<div
-			class="flex items-center gap-2 text-xs font-bold tracking-wider text-muted-foreground uppercase"
+			class="flex items-center gap-2 text-sm font-bold tracking-wider text-muted-foreground uppercase"
 		>
-			<List class="size-3.5" />
+			<List class="size-4" />
 			<span>On this page</span>
 		</div>
 
-		<nav class="space-y-1 text-xs">
+		<nav class="space-y-1.5 text-sm">
 			{#each headings as heading (heading.id)}
 				<button
 					onclick={() => scrollToHeading(heading.id)}

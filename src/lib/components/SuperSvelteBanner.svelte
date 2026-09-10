@@ -24,7 +24,7 @@
 				<!-- S5 Badge + Glowing Brand -->
 				<div class="flex items-center gap-2">
 					<div
-						class="flex size-7 items-center justify-center rounded-lg bg-slate-100 font-mono text-xs font-black text-slate-950 shadow-[0_0_15px_rgba(255,255,255,0.4)]"
+						class="flex size-8 items-center justify-center rounded-lg bg-slate-100 font-mono text-sm font-black text-slate-950 shadow-[0_0_15px_rgba(255,255,255,0.4)]"
 					>
 						S5
 					</div>
@@ -38,9 +38,9 @@
 
 				<!-- Glowing SuperSvelte Feature Pill -->
 				<div
-					class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-slate-900/90 px-3 py-1 font-mono text-[11px] text-slate-300 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+					class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-slate-900/90 px-3 py-1 font-mono text-sm text-slate-300 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
 				>
-					<Sparkles class="size-3 text-emerald-400" />
+					<Sparkles class="size-3.5 text-emerald-400" />
 					<span>Svelte 5 + Hono RPC + Neon</span>
 				</div>
 			</div>
@@ -50,15 +50,15 @@
 				The Batteries-Included Edge TS Framework
 			</h3>
 
-			<p class="text-xs leading-relaxed text-slate-400 sm:text-sm">
-				Stop assembling your stack from 15 npm packages. <strong class="text-slate-200"
+			<p class="text-base leading-relaxed text-slate-300">
+				Stop assembling your stack from 15 npm packages. <strong class="text-slate-100"
 					>Super Svelte</strong
 				> ships Auth, Neon DB, Redis SSE, OpenAPI 3.1 Hono RPC, Uploads, and Resend out-of-the-box with
 				sub-10ms edge cold starts.
 			</p>
 
 			<!-- Glowing Feature List -->
-			<div class="grid grid-cols-2 gap-2.5 pt-1 font-mono text-xs font-semibold text-slate-300">
+			<div class="grid grid-cols-2 gap-2.5 pt-1 font-mono text-sm font-semibold text-slate-300">
 				<div class="flex items-center gap-2">
 					<div
 						class="flex size-4 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.3)]"
@@ -107,7 +107,7 @@
 					href="https://supersvelte.netlify.app"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="relative inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-6 py-3 text-xs font-bold text-slate-950 shadow-lg transition active:scale-95"
+					class="relative inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-6 py-3 text-sm font-bold text-slate-950 shadow-lg transition active:scale-95"
 				>
 					<Rocket class="size-4" />
 					<span>Get SuperSvelte!</span>
@@ -119,9 +119,9 @@
 				href="https://supersvelte.netlify.app"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-950/90 px-6 py-3 text-xs font-semibold text-slate-300 transition hover:border-emerald-500/40 hover:text-white hover:shadow-[0_0_20px_rgba(16,185,129,0.15)]"
+				class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-950/90 px-6 py-3 text-sm font-semibold text-slate-300 transition hover:border-emerald-500/40 hover:text-white hover:shadow-[0_0_20px_rgba(16,185,129,0.15)]"
 			>
-				<Terminal class="size-3.5 text-slate-400" />
+				<Terminal class="size-4 text-slate-400" />
 				<span>Live Interactive Sandbox</span>
 			</a>
 		</div>

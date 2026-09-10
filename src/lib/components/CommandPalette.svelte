@@ -219,13 +219,13 @@
 <!-- Visible Trigger Button in Header -->
 <button
 	onclick={() => (isOpen = true)}
-	class="inline-flex items-center gap-2 rounded-xl border border-border bg-card/60 px-3 py-1.5 text-xs text-muted-foreground shadow-xs transition hover:border-primary/40 hover:text-foreground"
+	class="inline-flex items-center gap-2 rounded-xl border border-border bg-card/60 px-3.5 py-1.5 text-sm text-muted-foreground shadow-xs transition hover:border-primary/40 hover:text-foreground"
 	aria-label="Search Academy"
 >
-	<Search class="size-3.5" />
+	<Search class="size-4" />
 	<span class="hidden sm:inline-block">Search runes, guides...</span>
 	<kbd
-		class="hidden rounded border border-border bg-muted/60 px-1.5 font-mono text-[10px] font-semibold text-muted-foreground sm:inline-block"
+		class="hidden rounded border border-border bg-muted/60 px-1.5 font-mono text-sm font-semibold text-muted-foreground sm:inline-block"
 	>
 		⌘K
 	</kbd>
@@ -264,7 +264,7 @@
 			<!-- Search Results -->
 			<div class="max-h-80 overflow-y-auto p-2">
 				{#if filteredItems.length === 0}
-					<div class="py-8 text-center text-xs text-muted-foreground">
+					<div class="py-8 text-center text-sm text-muted-foreground">
 						No results found matching "{searchQuery}"
 					</div>
 				{:else}
@@ -285,10 +285,9 @@
 
 							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
-									<span class="font-mono text-xs font-bold text-foreground">{item.title}</span>
+									<span class="font-mono text-sm font-bold text-foreground">{item.title}</span>
 									<span
-										class="rounded-md px-1.5 py-0.5 text-[10px] font-semibold {item.type ===
-										'cheatsheet'
+										class="rounded-md px-2 py-0.5 text-sm font-semibold {item.type === 'cheatsheet'
 											? 'border border-amber-500/20 bg-amber-500/10 text-amber-500'
 											: item.type === 'external'
 												? 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
@@ -297,10 +296,10 @@
 										{item.category}
 									</span>
 									{#if item.type === 'external'}
-										<ExternalLink class="size-3 text-muted-foreground opacity-70" />
+										<ExternalLink class="size-3.5 text-muted-foreground opacity-70" />
 									{/if}
 								</div>
-								<p class="mt-0.5 line-clamp-1 text-xs text-muted-foreground">
+								<p class="mt-0.5 line-clamp-1 text-sm text-muted-foreground">
 									{item.description}
 								</p>
 							</div>
@@ -310,13 +309,13 @@
 			</div>
 
 			<div
-				class="flex items-center justify-between border-t border-border bg-muted/30 px-4 py-2 text-[10px] text-muted-foreground"
+				class="flex items-center justify-between border-t border-border bg-muted/30 px-4 py-2 text-sm text-muted-foreground"
 			>
 				<span>
 					Press <kbd class="rounded border border-border bg-background px-1 font-mono">ESC</kbd> to close
 				</span>
 				<span class="flex items-center gap-1">
-					<Command class="size-3" /> Navigation
+					<Command class="size-4" /> Navigation
 				</span>
 			</div>
 		</div>

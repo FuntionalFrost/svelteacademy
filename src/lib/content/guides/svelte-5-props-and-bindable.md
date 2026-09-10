@@ -2,6 +2,7 @@
 title: 'Mastering $props and $bindable in Svelte 5'
 description: 'Learn component communication with $props(), default values, rest property collection, and two-way state binding using $bindable().'
 category: 'Svelte 5'
+level: 'beginner'
 readTime: '5 min read'
 ---
 

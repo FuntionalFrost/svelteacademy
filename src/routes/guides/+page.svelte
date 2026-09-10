@@ -75,7 +75,7 @@
 					type="text"
 					bind:value={searchQuery}
 					placeholder="Search guides by keyword..."
-					class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-sm text-foreground shadow-xs placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+					class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-base text-foreground shadow-xs placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
 				/>
 				{#if searchQuery}
 					<button
@@ -89,11 +89,11 @@
 
 			<!-- Difficulty Level Pills -->
 			<div class="flex flex-wrap items-center gap-1.5">
-				<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground">Level:</span>
+				<span class="mr-1 font-mono text-sm font-semibold text-muted-foreground">Level:</span>
 				{#each levels as level (level)}
 					<button
 						onclick={() => (selectedLevel = level)}
-						class="rounded-lg px-2.5 py-1 font-mono text-xs font-semibold capitalize transition-all {selectedLevel ===
+						class="rounded-lg px-2.5 py-1 font-mono text-sm font-semibold capitalize transition-all {selectedLevel ===
 						level
 							? 'bg-primary text-primary-foreground shadow-xs'
 							: 'border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground'}"
@@ -106,11 +106,11 @@
 
 		<!-- Category Filter Pills -->
 		<div class="flex flex-wrap items-center gap-2 border-t border-border pt-4">
-			<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground">Category:</span>
+			<span class="mr-1 font-mono text-sm font-semibold text-muted-foreground">Category:</span>
 			{#each data.categories as category (category)}
 				<button
 					onclick={() => (selectedCategory = category)}
-					class="rounded-lg px-3 py-1 font-mono text-xs font-semibold transition-all {selectedCategory ===
+					class="rounded-lg px-3 py-1 font-mono text-sm font-semibold transition-all {selectedCategory ===
 					category
 						? 'bg-foreground text-background shadow-xs'
 						: 'border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground'}"
@@ -122,7 +122,7 @@
 	</div>
 
 	<!-- Results Count Badge -->
-	<div class="mb-6 flex items-center justify-between font-mono text-xs text-muted-foreground">
+	<div class="mb-6 flex items-center justify-between font-mono text-sm text-muted-foreground">
 		<span>Showing {filteredGuides.length} of {data.guides.length} guides</span>
 		{#if selectedCategory !== 'All' || selectedLevel !== 'All' || searchQuery}
 			<button onclick={resetFilters} class="font-semibold text-primary hover:underline">
@@ -142,14 +142,14 @@
 					<div>
 						<div class="mb-3 flex items-center justify-between gap-2">
 							<span
-								class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-primary"
+								class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-sm font-semibold text-primary"
 							>
-								<Tag class="size-3" />
+								<Tag class="size-3.5" />
 								{guide.category}
 							</span>
 
 							<span
-								class="inline-flex items-center gap-1 rounded-md border px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider uppercase {levelStyles[
+								class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-sm font-bold tracking-wider uppercase {levelStyles[
 									guide.level
 								] ?? levelStyles.beginner}"
 							>
@@ -163,16 +163,16 @@
 							{guide.title}
 						</h2>
 
-						<p class="mt-2 line-clamp-3 text-sm text-muted-foreground">
+						<p class="mt-2 line-clamp-3 text-base text-muted-foreground">
 							{guide.description}
 						</p>
 					</div>
 
 					<div class="mt-6 flex items-center justify-between">
-						<span class="font-mono text-xs text-muted-foreground">{guide.readTime}</span>
-						<div class="flex items-center gap-1.5 font-mono text-xs font-semibold text-primary">
+						<span class="font-mono text-sm text-muted-foreground">{guide.readTime}</span>
+						<div class="flex items-center gap-1.5 font-mono text-sm font-semibold text-primary">
 							<span>Read guide</span>
-							<ArrowRight class="size-3.5 transition-transform group-hover:translate-x-1" />
+							<ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
 						</div>
 					</div>
 				</a>
@@ -183,12 +183,12 @@
 		<div class="rounded-2xl border border-dashed border-border p-12 text-center">
 			<BookOpen class="mx-auto mb-3 size-10 text-muted-foreground/60" />
 			<h3 class="text-base font-bold text-foreground">No guides found</h3>
-			<p class="mt-1 text-sm text-muted-foreground">
+			<p class="mt-1 text-base text-muted-foreground">
 				Try clearing your search query or selecting a different level/category filter.
 			</p>
 			<button
 				onclick={resetFilters}
-				class="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition hover:bg-primary/90"
+				class="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
 			>
 				Reset Filters
 			</button>

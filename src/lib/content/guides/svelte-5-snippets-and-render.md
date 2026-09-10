@@ -31,6 +31,14 @@ readTime: '6 min read'
 
 Svelte 5 completely replaces layout slots with **Snippets** (`{#snippet}`) and the **Render** tag (`{@render}`). Snippets are first-class template primitives that can be passed as component props, invoked like functions, and parameterized with typed arguments.
 
+<CodeComparison
+  title="Component Composition & Children"
+  description="React children and render props vs Svelte 5 snippets and @render."
+  competingName="React 19"
+  competingCode={reactChildrenCode}
+  svelteCode={svelteSnippetCode}
+/>
+
 ---
 
 ## 1. Defining and Rendering Basic Snippets
@@ -38,12 +46,12 @@ Svelte 5 completely replaces layout slots with **Snippets** (`{#snippet}`) and t
 Snippets allow you to define reusable chunks of markup inside a component template:
 
 ```svelte
-<script>
+<script lang="ts">
 	let username = $state('Alex');
 </script>
 
 <!-- Declare a snippet named userBadge -->
-{#snippet userBadge(name)}
+{#snippet userBadge(name: string)}
 	<div class="badge">
 		<span>User:</span>
 		<strong>{name}</strong>
@@ -59,6 +67,63 @@ Snippets allow you to define reusable chunks of markup inside a component templa
 ## 2. Passing Snippets as Component Props
 
 Component composition in Svelte 5 relies on passing snippets as standard props:
+
+**Card Component (`Card.svelte`):**
+
+```svelte
+<!-- Card.svelte -->
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		title: string;
+		header?: Snippet;
+		children: Snippet;
+		footer?: Snippet<[{ actions: string[] }]>;
+	}
+
+	let { title, header, children, footer }: Props = $props();
+</script>
+
+<div class="card">
+	{#if header}
+		<header>{@render header()}</header>
+	{:else}
+		<header><h3>{title}</h3></header>
+	{/if}
+
+	<main>{@render children()}</main>
+
+	{#if footer}
+		<footer>{@render footer({ actions: ['Save', 'Cancel'] })}</footer>
+	{/if}
+</div>
+```
+
+**Parent Component Usage:**
+
+```svelte
+<!-- Parent.svelte -->
+<script lang="ts">
+	import Card from './Card.svelte';
+</script>
+
+<Card title="Project Dashboard">
+	{#snippet header()}
+		<div class="custom-header">✨ Custom Header Content</div>
+	{/snippet}
+
+	<p>This body markup is passed implicitly to the default children snippet.</p>
+
+	{#snippet footer({ actions })}
+		<div class="button-row">
+			{#each actions as action}
+				<button>{action}</button>
+			{/each}
+		</div>
+	{/snippet}
+</Card>
+```
 
 ---
 

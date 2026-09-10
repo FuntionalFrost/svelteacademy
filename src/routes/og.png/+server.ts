@@ -33,7 +33,7 @@ export const GET: RequestHandler = async ({ url }) => {
         Svelte<tspan fill="#FF3E00">Academy</tspan>
       </text>
       <text x="1120" y="545" fill="#71717a" font-family="monospace" font-size="18" text-anchor="end">
-        svelteacademy.dev
+        svelteacademy.netlify.app
       </text>
     </svg>
   `.trim();

@@ -2,6 +2,7 @@
 title: 'Svelte as an HTML Superset: Zero Synthetic Overhead'
 description: 'Why Svelte builds on standard HTML, CSS, and JavaScript rather than inventing proprietary template abstractions like JSX or custom directives.'
 category: 'Architecture'
+level: 'beginner'
 readTime: '6 min read'
 ---
 

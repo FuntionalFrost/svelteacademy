@@ -2,6 +2,7 @@
 title: 'Event Handling in Svelte 5: From on:click to onclick'
 description: "Learn Svelte 5's modern event handling model. Replace createEventDispatcher with callback props, handle DOM events, and support modifier keys."
 category: 'Svelte 5'
+level: 'beginner'
 readTime: '5 min read'
 ---
 
@@ -23,6 +24,14 @@ readTime: '5 min read'
 
 Svelte 5 replaces framework-specific directives like `on:click` with standard HTML event properties (`onclick`, `onkeydown`, `oninput`). Custom component events are now passed as standard function props, eliminating complex event dispatchers.
 
+<CodeComparison
+  title="Event Handlers & Prop Callbacks"
+  description="React onClick props vs Svelte 5 onclick callback props."
+  competingName="React 19"
+  competingCode={reactEventCode}
+  svelteCode={svelteEventCode}
+/>
+
 ---
 
 ## 1. Standard Native DOM Events
@@ -30,7 +39,7 @@ Svelte 5 replaces framework-specific directives like `on:click` with standard HT
 Events in Svelte 5 match native DOM element attributes directly:
 
 ```svelte
-<script>
+<script lang="ts">
 	let count = $state(0);
 
 	function handleClick(event: MouseEvent) {
@@ -52,18 +61,35 @@ Events in Svelte 5 match native DOM element attributes directly:
 
 To send events from a child component to a parent, declare a function property inside `$props()`. Callbacks act as typed, explicit event listeners:
 
+**Child Component (`CustomButton.svelte`):**
+
+```svelte
+<!-- CustomButton.svelte -->
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		onclick?: () => void;
+		children: Snippet;
+	}
+
+	let { onclick, children }: Props = $props();
+</script>
+
+<button {onclick} class="btn">
+	{@render children()}
+</button>
+```
+
 **Consuming the Custom Event in a Parent:**
 
 ```svelte
 <!-- Parent.svelte -->
-<script>
-  import CustomButton from './CustomButton.svelte';
+<script lang="ts">
+	import CustomButton from './CustomButton.svelte';
 </script>
 
-<CustomButton onclick="{()"> console.log('Button clicked in parent!')}>
-  Save Changes
-</CustomButton>
-
+<CustomButton onclick={() => console.log('Button clicked in parent!')}>Save Changes</CustomButton>
 ```
 
 ---

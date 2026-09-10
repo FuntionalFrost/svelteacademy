@@ -2,6 +2,7 @@
 title: 'Debugging Svelte 5 Signals with $inspect'
 description: 'Learn how to use $inspect() for development logging, trace reactive signal dependency triggers, and run custom inspector callbacks.'
 category: 'Tooling'
+level: 'intermediate'
 readTime: '4 min read'
 ---
 

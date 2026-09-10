@@ -28,7 +28,7 @@
 		{page.status}
 	</h1>
 
-	<p class="mt-3 max-w-md text-sm text-muted-foreground">
+	<p class="mt-3 max-w-md text-base text-muted-foreground sm:text-lg">
 		{page.error?.message ||
 			'The page or guide you are looking for does not exist or has been moved.'}
 	</p>
@@ -36,7 +36,7 @@
 	<div class="mt-8 flex items-center gap-4">
 		<a
 			href={resolve('/')}
-			class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-xs font-bold text-primary-foreground shadow-md shadow-primary/20 transition hover:brightness-110"
+			class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-md shadow-primary/20 transition hover:brightness-110"
 		>
 			<ArrowLeft class="size-4" />
 			<span>Return to Homepage</span>
@@ -44,7 +44,7 @@
 
 		<a
 			href={resolve('/guides')}
-			class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-xs font-bold text-foreground transition hover:bg-accent"
+			class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-bold text-foreground transition hover:bg-accent"
 		>
 			<span>Browse Guides</span>
 		</a>

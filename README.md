@@ -117,8 +117,7 @@ svelteacademy/
 │       └── sitemap.xml/              # Dynamic XML sitemap
 ├── CONTRIBUTING.md                   # Community contribution guidelines
 ├── LICENSE                           # MIT License
-├── svelte.config.js                  # SvelteKit & MDsveX config
-└── vite.config.ts                    # Vite 8 build pipeline
+└── vite.config.ts                    # Vite 8 build pipeline & SvelteKit/MDsveX config
 ```
 
 ---

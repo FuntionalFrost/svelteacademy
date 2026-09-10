@@ -45,9 +45,9 @@ export function Counter() {
 	<!-- Hero Section -->
 	<section class="space-y-6 text-center">
 		<div
-			class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary"
+			class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary"
 		>
-			<Sparkles class="size-3.5" />
+			<Sparkles class="size-4" />
 			<span>Web development brought down to earth</span>
 		</div>
 
@@ -58,7 +58,7 @@ export function Counter() {
 			>
 		</h1>
 
-		<p class="mx-auto max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+		<p class="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
 			Eliminate artificial framework bloat and complex dependency arrays with Svelte 5.
 			<span class="mt-1 block font-medium text-foreground/90"
 				>Focus on shipping your ideas, not fighting hooks.</span

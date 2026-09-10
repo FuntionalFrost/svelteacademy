@@ -45,23 +45,23 @@
 					Svelte<span class="text-primary">Academy</span>
 				</span>
 				<span
-					class="hidden rounded-md border border-primary/30 bg-primary/10 px-1.5 py-0.5 font-mono text-[10px] font-bold text-primary sm:inline-block"
+					class="hidden rounded-md border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-sm font-bold text-primary sm:inline-block"
 				>
 					Svelte 5
 				</span>
 			</a>
 
 			<!-- Desktop Route Links -->
-			<nav class="hidden items-center gap-1 md:flex">
+			<nav class="hidden items-center gap-1.5 md:flex">
 				{#each navItems as item (item.href)}
 					{@const isActive = page.url.pathname.startsWith(item.href)}
 					<a
 						href={item.href}
-						class="flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-all {isActive
+						class="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition-all {isActive
 							? 'bg-primary/10 text-primary'
 							: 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'}"
 					>
-						<item.icon class="size-3.5" />
+						<item.icon class="size-4" />
 						<span>{item.label}</span>
 					</a>
 				{/each}
@@ -92,11 +92,11 @@
 					href="https://supersvelte.netlify.app"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="hidden items-center gap-1.5 rounded-xl bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400 px-3.5 py-2 text-xs font-bold text-slate-950 shadow-xs transition hover:brightness-110 sm:inline-flex"
+					class="hidden items-center gap-1.5 rounded-xl bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400 px-3.5 py-2 text-sm font-bold text-slate-950 shadow-xs transition hover:brightness-110 sm:inline-flex"
 				>
-					<Rocket class="size-3.5" />
+					<Rocket class="size-4" />
 					<span>SuperSvelte</span>
-					<ExternalLink class="size-3 opacity-70" />
+					<ExternalLink class="size-3.5 opacity-70" />
 				</a>
 
 				<button
@@ -152,22 +152,22 @@
 	</main>
 
 	<!-- Footer -->
-	<footer class="border-t border-border bg-card/40 py-12 text-xs text-muted-foreground">
+	<footer class="border-t border-border bg-card/40 py-12 text-sm text-muted-foreground">
 		<div class="container mx-auto max-w-6xl px-4">
 			<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
 				<div class="space-y-3">
 					<div class="flex items-center gap-2">
 						<Logo />
-						<span class="text-sm font-bold text-foreground">Svelte Academy</span>
+						<span class="text-base font-bold text-foreground">Svelte Academy</span>
 					</div>
-					<p class="text-xs leading-relaxed text-muted-foreground">
+					<p class="text-sm leading-relaxed text-muted-foreground">
 						Interactive educational platform, signal visualizer, and architectural reference suite
 						for Svelte 5 and SvelteKit.
 					</p>
 				</div>
 
 				<div>
-					<h4 class="mb-3 font-mono text-xs font-bold text-foreground uppercase">
+					<h4 class="mb-3 font-mono text-sm font-bold text-foreground uppercase">
 						Learning Resources
 					</h4>
 					<ul class="space-y-2 font-medium">
@@ -190,7 +190,7 @@
 				</div>
 
 				<div>
-					<h4 class="mb-3 font-mono text-xs font-bold text-foreground uppercase">
+					<h4 class="mb-3 font-mono text-sm font-bold text-foreground uppercase">
 						Open Source & SaaS
 					</h4>
 					<ul class="space-y-2 font-medium">
@@ -202,7 +202,7 @@
 								class="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline"
 							>
 								<span>SuperSvelte Boilerplate</span>
-								<ExternalLink class="size-3" />
+								<ExternalLink class="size-3.5" />
 							</a>
 						</li>
 						<li>
@@ -233,7 +233,7 @@
 				</div>
 
 				<div>
-					<h4 class="mb-3 font-mono text-xs font-bold text-foreground uppercase">
+					<h4 class="mb-3 font-mono text-sm font-bold text-foreground uppercase">
 						Official Ecosystem
 					</h4>
 					<ul class="space-y-2 font-medium">
@@ -266,7 +266,7 @@
 			</div>
 
 			<div
-				class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 font-mono text-[11px] sm:flex-row"
+				class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 font-mono text-sm sm:flex-row"
 			>
 				<span>&copy; {new Date().getFullYear()} Svelte Academy • MIT Open Source</span>
 				<span>Hosted on Netlify</span>

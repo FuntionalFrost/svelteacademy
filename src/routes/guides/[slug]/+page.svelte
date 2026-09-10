@@ -30,7 +30,7 @@
 			const btn = document.createElement('button');
 			btn.type = 'button';
 			btn.className =
-				'code-copy-btn absolute top-3 right-3 opacity-0 group-hover/code:opacity-100 transition-all rounded-md border border-white/10 bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 px-2 py-1 text-[11px] font-mono font-medium shadow-sm flex items-center gap-1 cursor-pointer';
+				'code-copy-btn absolute top-3 right-3 opacity-0 group-hover/code:opacity-100 transition-all rounded-md border border-white/10 bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 px-2.5 py-1 text-sm font-mono font-medium shadow-sm flex items-center gap-1 cursor-pointer';
 			btn.innerHTML = '<span>Copy</span>';
 			btn.setAttribute('aria-label', 'Copy code to clipboard');
 
@@ -70,9 +70,9 @@
 	<!-- Back Link -->
 	<a
 		href={resolve('/guides')}
-		class="mb-8 inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-muted-foreground transition hover:text-primary"
+		class="mb-8 inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-muted-foreground transition hover:text-primary"
 	>
-		<ArrowLeft class="size-3.5" />
+		<ArrowLeft class="size-4" />
 		<span>Back to all guides</span>
 	</a>
 
@@ -82,23 +82,23 @@
 			<header class="mb-10 border-b border-border pb-8">
 				<div class="mb-4 flex flex-wrap items-center gap-2.5">
 					<span
-						class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-semibold text-primary"
+						class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-sm font-semibold text-primary"
 					>
-						<Tag class="size-3" />
+						<Tag class="size-3.5" />
 						{data.guide.category}
 					</span>
 
 					<span
-						class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-xs font-bold tracking-wider uppercase {levelStyles[
+						class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-sm font-bold tracking-wider uppercase {levelStyles[
 							data.guide.level
 						] ?? levelStyles.beginner}"
 					>
-						<Layers class="size-3" />
+						<Layers class="size-3.5" />
 						{data.guide.level}
 					</span>
 
-					<span class="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground">
-						<Clock class="size-3" />
+					<span class="inline-flex items-center gap-1 font-mono text-sm text-muted-foreground">
+						<Clock class="size-3.5" />
 						{data.guide.readTime}
 					</span>
 				</div>
@@ -119,7 +119,7 @@
 
 			<!-- Community Contribution & Edit Link -->
 			<div
-				class="mt-8 flex items-center justify-between border-t border-border/60 pt-4 text-xs text-muted-foreground"
+				class="mt-8 flex items-center justify-between border-t border-border/60 pt-4 text-sm text-muted-foreground"
 			>
 				<span>Found an issue or want to improve this lesson?</span>
 				<a
@@ -129,7 +129,7 @@
 					rel="noopener noreferrer"
 					class="inline-flex items-center gap-1.5 font-medium text-primary hover:underline"
 				>
-					<GitPullRequest class="size-3.5" />
+					<GitPullRequest class="size-4" />
 					<span>Edit this page on GitHub</span>
 				</a>
 			</div>
@@ -146,13 +146,13 @@
 							class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/50 hover:bg-muted/30"
 						>
 							<div
-								class="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-muted-foreground"
+								class="flex items-center gap-1.5 font-mono text-sm font-semibold text-muted-foreground"
 							>
-								<ArrowLeft class="size-3.5 transition-transform group-hover:-translate-x-1" />
+								<ArrowLeft class="size-4 transition-transform group-hover:-translate-x-1" />
 								<span>Previous Guide</span>
 							</div>
 							<span
-								class="mt-2 text-sm font-bold text-foreground transition-colors group-hover:text-primary"
+								class="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-primary"
 							>
 								{data.prevGuide.title}
 							</span>
@@ -167,13 +167,13 @@
 							class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/50 hover:bg-muted/30 sm:text-right"
 						>
 							<div
-								class="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-muted-foreground sm:justify-end"
+								class="flex items-center gap-1.5 font-mono text-sm font-semibold text-muted-foreground sm:justify-end"
 							>
 								<span>Next Guide</span>
-								<ArrowRight class="size-3.5 transition-transform group-hover:translate-x-1" />
+								<ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
 							</div>
 							<span
-								class="mt-2 text-sm font-bold text-foreground transition-colors group-hover:text-primary"
+								class="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-primary"
 							>
 								{data.nextGuide.title}
 							</span>

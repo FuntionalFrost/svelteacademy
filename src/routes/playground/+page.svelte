@@ -17,9 +17,9 @@
 	<!-- Hero Section -->
 	<section class="space-y-4 text-center">
 		<div
-			class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary"
+			class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary"
 		>
-			<Terminal class="size-3.5" />
+			<Terminal class="size-4" />
 			<span>Interactive Runes Sandbox</span>
 		</div>
 
@@ -30,7 +30,7 @@
 			>
 		</h1>
 
-		<p class="mx-auto max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+		<p class="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
 			Mutate signals in real time to observe how Svelte 5 recalculates <code class="text-primary"
 				>$derived</code
 			>
@@ -42,17 +42,17 @@
 				href="https://svelte.dev/playground"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 font-mono text-xs font-semibold text-foreground shadow-xs transition hover:border-primary/50 hover:bg-muted/40 hover:text-primary"
+				class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 font-mono text-sm font-semibold text-foreground shadow-xs transition hover:border-primary/50 hover:bg-muted/40 hover:text-primary"
 			>
 				<span>Open Official Svelte 5 Playground</span>
-				<ExternalLink class="size-3.5" />
+				<ExternalLink class="size-4" />
 			</a>
 		</div>
 	</section>
 
 	<!-- Interactive Demo 1: Basic Counter & Derived Parity Check -->
 	<section class="mt-12 space-y-3">
-		<div class="flex items-center gap-2 font-mono text-xs font-bold text-primary uppercase">
+		<div class="flex items-center gap-2 font-mono text-sm font-bold text-primary uppercase">
 			<Sparkles class="size-4" />
 			<span>1. Basic Signal Mutation & Derivation</span>
 		</div>
@@ -61,7 +61,7 @@
 
 	<!-- Interactive Demo 2: Deep Rune Execution Log & Untrack() -->
 	<section class="mt-12 space-y-3">
-		<div class="flex items-center gap-2 font-mono text-xs font-bold text-cyan-400 uppercase">
+		<div class="flex items-center gap-2 font-mono text-sm font-bold text-cyan-400 uppercase">
 			<Cpu class="size-4" />
 			<span>2. Effect Execution & Dependency Tracking</span>
 		</div>
@@ -70,7 +70,7 @@
 
 	<!-- Interactive Demo 3: Shared Class State & Context Store -->
 	<section class="mt-12 space-y-3">
-		<div class="flex items-center gap-2 font-mono text-xs font-bold text-purple-400 uppercase">
+		<div class="flex items-center gap-2 font-mono text-sm font-bold text-purple-400 uppercase">
 			<Layers class="size-4" />
 			<span>3. Encapsulated Class State Inspector</span>
 		</div>

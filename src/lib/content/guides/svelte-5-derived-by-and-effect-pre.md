@@ -42,10 +42,9 @@ When derived state requires loops, conditions, or intermediate variables, use `$
 Standard `$effect()` runs **after** the DOM has been updated. If you need to read scroll positions or element dimensions _before_ the browser repaints, use `$effect.pre()`:
 
 ```svelte
-<script>
+<script lang="ts">
 	let messages = $state<string[]>([]);
-	let container = $state < HTMLElement;
-	null |> null;
+	let container = $state<HTMLElement | null>(null);
 
 	// Runs right BEFORE the DOM updates with new items
 	$effect.pre(() => {

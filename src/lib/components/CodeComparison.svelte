@@ -1,7 +1,16 @@
 <!-- src/lib/components/CodeComparison.svelte -->
+<script module lang="ts">
+	import { createHighlighter } from 'shiki';
+
+	// Singleton highlighter promise created ONCE when module loads
+	const highlighterPromise = createHighlighter({
+		themes: ['github-dark'],
+		langs: ['svelte', 'typescript', 'javascript', 'html', 'css']
+	});
+</script>
+
 <script lang="ts">
 	import { Check, Copy, Sparkles } from '@lucide/svelte';
-	import { createHighlighter } from 'shiki';
 
 	interface Props {
 		title?: string;
@@ -23,12 +32,6 @@
 	let svelteHtml = $state('');
 	let competingHtml = $state('');
 	let isReady = $state(false);
-
-	// Singleton highlighter promise created ONCE when module loads
-	const highlighterPromise = createHighlighter({
-		themes: ['github-dark'],
-		langs: ['svelte', 'typescript', 'javascript', 'html', 'css']
-	});
 
 	$effect(() => {
 		const cleanSvelte = svelteCode ? svelteCode.trim() : '';
@@ -70,22 +73,22 @@
 	>
 		<div>
 			{#if title}
-				<h3 class="text-base font-bold text-foreground">{title}</h3>
+				<h3 class="text-base font-bold text-foreground sm:text-lg">{title}</h3>
 			{/if}
 			{#if description}
-				<p class="text-xs text-muted-foreground">{description}</p>
+				<p class="text-sm text-muted-foreground">{description}</p>
 			{/if}
 		</div>
 
 		<button
 			onclick={copyCode}
-			class="inline-flex items-center gap-1.5 self-start rounded-lg border border-border bg-background px-3 py-1.5 text-xs font-semibold text-muted-foreground shadow-xs transition hover:border-primary/50 hover:text-foreground sm:self-auto"
+			class="inline-flex items-center gap-1.5 self-start rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-semibold text-muted-foreground shadow-xs transition hover:border-primary/50 hover:text-foreground sm:self-auto"
 		>
 			{#if copied}
-				<Check class="size-3.5 text-emerald-500" />
+				<Check class="size-4 text-emerald-500" />
 				<span class="text-emerald-500">Copied Svelte 5</span>
 			{:else}
-				<Copy class="size-3.5" />
+				<Copy class="size-4" />
 				<span>Copy Svelte 5</span>
 			{/if}
 		</button>
@@ -102,7 +105,7 @@
 			<div class="flex h-full flex-col gap-3 bg-red-500/5 p-5 dark:bg-red-950/10">
 				<div class="flex items-center justify-between">
 					<span
-						class="inline-flex items-center gap-1.5 rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-red-500"
+						class="inline-flex items-center gap-1.5 rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-0.5 font-mono text-sm font-bold text-red-500"
 					>
 						❌ {competingName}
 					</span>
@@ -132,9 +135,9 @@
 		<div class="flex h-full flex-col gap-3 bg-primary/5 p-5 shadow-inner">
 			<div class="flex items-center justify-between">
 				<span
-					class="inline-flex items-center gap-1.5 rounded-md border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-xs font-bold text-primary"
+					class="inline-flex items-center gap-1.5 rounded-md border border-primary/30 bg-primary/10 px-2.5 py-0.5 font-mono text-sm font-bold text-primary"
 				>
-					<Sparkles class="size-3" />
+					<Sparkles class="size-3.5" />
 					✨ Svelte 5 (Runes)
 				</span>
 			</div>
