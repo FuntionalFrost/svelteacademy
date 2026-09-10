@@ -21,12 +21,15 @@ export default defineConfig({
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
+
 			adapter: adapter({
 				fallback: '404.html'
 			}),
+
 			paths: {
 				relative: false
 			},
+
 			preprocess: [
 				vitePreprocess(),
 				mdsvex({
