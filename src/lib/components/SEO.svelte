@@ -14,19 +14,20 @@
 		title = 'SvelteAcademy | Master Svelte 5 and SvelteKit',
 		description = 'Interactive developer guides, primitives deep-dives, and architectural benchmarks for modern Svelte 5 development.',
 		type = 'website',
-		image,
+		image = '/og-image.svg',
 		publishDate
 	}: Props = $props();
 
-	let siteUrl = $derived(page.url.origin);
+	const siteUrl = 'https://svelteacademy.netlify.app';
 	// Strips URL parameters (?utm_source, etc.) for a clean canonical tag
 	let canonicalUrl = $derived(`${siteUrl}${page.url.pathname}`);
 
 	let fullTitle = $derived(title.includes('SvelteAcademy') ? title : `${title} — SvelteAcademy`);
 
 	let ogImageUrl = $derived(
-		image ||
-			`${siteUrl}/og.png?title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description)}`
+		image.startsWith('http')
+			? image
+			: `${siteUrl}${image.startsWith('/') ? image : '/' + image}`
 	);
 </script>
 

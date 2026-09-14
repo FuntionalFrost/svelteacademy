@@ -31,7 +31,7 @@
 - **📜 Sticky Table of Contents:** `IntersectionObserver`-driven reading companion that tracks headings in real-time.
 - **📊 Scroll Reading Progress:** Viewport-aware progress indicator for long-form tutorials.
 - **🌗 Zero-Flash Dark Mode:** Powered by `mode-watcher` with system theme synchronization.
-- **🌐 SEO & Web Feeds:** Prerendered Edge HTML, dynamic XML sitemaps, RSS feeds, and OpenGraph PNG card generation via `@resvg/resvg-js`.
+- **🌐 SEO & Web Feeds:** Prerendered HTML, dynamic XML sitemaps, RSS feeds, and OpenGraph static vector/raster preview cards.
 - **🚀 SuperSvelte SaaS Integration:** Top-of-funnel funnel to the [SuperSvelte](https://supersvelte.netlify.app) enterprise TypeScript stack.
 
 ---
@@ -110,7 +110,6 @@ svelteacademy/
 │       ├── +page.svelte              # Landing page hero & comparison showcase
 │       ├── cheatsheet/               # Svelte 5 Runes reference guide
 │       ├── guides/                   # Guide catalog & dynamic reader ([slug])
-│       ├── og.png/                   # Dynamic OpenGraph SVG/PNG image generator
 │       ├── playground/               # Live interactive signal sandbox
 │       ├── robots.txt/               # Dynamic robots.txt endpoint
 │       ├── rss.xml/                  # Syndication RSS feed

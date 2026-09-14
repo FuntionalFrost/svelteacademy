@@ -5,12 +5,14 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
 import { escapeSvelte, mdsvex } from 'mdsvex';
 import { createHighlighter } from 'shiki';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
 import { defineConfig } from 'vite';
 
-// Initialize Shiki highlighter at top-level
+// Initialize Shiki highlighter with pure JavaScript regex engine (zero WASM)
 const highlighter = await createHighlighter({
 	themes: ['github-dark'],
-	langs: ['javascript', 'typescript', 'css', 'html', 'svelte', 'bash', 'json', 'sql', 'yaml']
+	langs: ['javascript', 'typescript', 'css', 'html', 'svelte', 'bash', 'json', 'sql', 'yaml'],
+	engine: createJavaScriptRegexEngine()
 });
 
 export default defineConfig({
@@ -60,8 +62,5 @@ export default defineConfig({
 			],
 			extensions: ['.svelte', '.svx', '.md']
 		})
-	],
-	ssr: {
-		noExternal: ['mdsvex', 'shiki']
-	}
+	]
 });
