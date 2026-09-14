@@ -25,9 +25,7 @@
 	let fullTitle = $derived(title.includes('SvelteAcademy') ? title : `${title} — SvelteAcademy`);
 
 	let ogImageUrl = $derived(
-		image.startsWith('http')
-			? image
-			: `${siteUrl}${image.startsWith('/') ? image : '/' + image}`
+		image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? image : '/' + image}`
 	);
 </script>
 
