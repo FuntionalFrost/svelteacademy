@@ -1,16 +1,7 @@
 <!-- src/lib/components/CodeComparison.svelte -->
-<script module lang="ts">
-	import { createHighlighter } from 'shiki';
-
-	// Singleton highlighter promise created ONCE when module loads
-	const highlighterPromise = createHighlighter({
-		themes: ['github-dark'],
-		langs: ['svelte', 'typescript', 'javascript', 'html', 'css']
-	});
-</script>
-
 <script lang="ts">
-	import { Check, Copy, Sparkles } from '@lucide/svelte';
+	import { Sparkles } from '@lucide/svelte';
+	import { CodeBlock } from 'yaxa-svelte';
 
 	interface Props {
 		title?: string;
@@ -27,38 +18,6 @@
 		competingCode = '',
 		competingName = 'React 19'
 	}: Props = $props();
-
-	let copied = $state(false);
-	let svelteHtml = $state('');
-	let competingHtml = $state('');
-	let isReady = $state(false);
-
-	$effect(() => {
-		const cleanSvelte = svelteCode ? svelteCode.trim() : '';
-		const cleanCompeting = competingCode ? competingCode.trim() : '';
-
-		highlighterPromise.then((highlighter) => {
-			if (cleanSvelte) {
-				svelteHtml = highlighter.codeToHtml(cleanSvelte, {
-					lang: 'svelte',
-					theme: 'github-dark'
-				});
-			}
-			if (cleanCompeting) {
-				competingHtml = highlighter.codeToHtml(cleanCompeting, {
-					lang: 'typescript',
-					theme: 'github-dark'
-				});
-			}
-			isReady = true;
-		});
-	});
-
-	function copyCode() {
-		navigator.clipboard.writeText(svelteCode.trim());
-		copied = true;
-		setTimeout(() => (copied = false), 2000);
-	}
 </script>
 
 <div
@@ -68,31 +27,16 @@
 	<div class="h-1 w-full bg-linear-to-r from-cyan-500 via-primary to-emerald-500"></div>
 
 	<!-- Header Bar -->
-	<div
-		class="flex flex-col gap-3 border-b border-border bg-muted/40 p-5 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between"
-	>
-		<div>
+	{#if title || description}
+		<div class="border-b border-border bg-muted/40 p-5 backdrop-blur-md">
 			{#if title}
 				<h3 class="text-base font-bold text-foreground sm:text-lg">{title}</h3>
 			{/if}
 			{#if description}
-				<p class="text-sm text-muted-foreground">{description}</p>
+				<p class="mt-1 text-sm text-muted-foreground">{description}</p>
 			{/if}
 		</div>
-
-		<button
-			onclick={copyCode}
-			class="inline-flex shrink-0 items-center gap-1.5 self-start rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-semibold whitespace-nowrap text-muted-foreground shadow-xs transition hover:border-primary/50 hover:text-foreground sm:self-auto"
-		>
-			{#if copied}
-				<Check class="size-4 shrink-0 text-emerald-500" />
-				<span class="whitespace-nowrap text-emerald-500">Copied Svelte 5</span>
-			{:else}
-				<Copy class="size-4 shrink-0" />
-				<span class="whitespace-nowrap">Copy Svelte 5</span>
-			{/if}
-		</button>
-	</div>
+	{/if}
 
 	<!-- Comparison or Single Snippet Grid -->
 	<div
@@ -111,23 +55,12 @@
 					</span>
 				</div>
 
-				<div
-					class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-red-500/20 bg-[#0d1117] shadow-xs"
-				>
-					{#if isReady && competingHtml}
-						<div class="flex h-full w-full flex-1 animate-in flex-col duration-150 fade-in">
-							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-							{@html competingHtml}
-						</div>
-					{:else}
-						<div class="flex h-full flex-1 animate-pulse flex-col gap-2.5 bg-[#0d1117] p-4">
-							<div class="h-3.5 w-3/4 rounded bg-slate-800/60"></div>
-							<div class="h-3.5 w-1/2 rounded bg-slate-800/60"></div>
-							<div class="h-3.5 w-5/6 rounded bg-slate-800/60"></div>
-							<div class="h-3.5 w-2/3 rounded bg-slate-800/60"></div>
-						</div>
-					{/if}
-				</div>
+				<CodeBlock
+					code={competingCode.trim()}
+					language="typescript"
+					filename="{competingName} Implementation"
+					class="m-0! flex-1 border-red-500/20! bg-[#0d1117]!"
+				/>
 			</div>
 		{/if}
 
@@ -142,41 +75,12 @@
 				</span>
 			</div>
 
-			<div
-				class="relative flex flex-1 flex-col overflow-hidden rounded-xl border border-primary/30 bg-[#0d1117] shadow-md"
-			>
-				{#if isReady && svelteHtml}
-					<div class="flex h-full w-full flex-1 animate-in flex-col duration-150 fade-in">
-						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-						{@html svelteHtml}
-					</div>
-				{:else}
-					<div class="flex h-full flex-1 animate-pulse flex-col gap-2.5 bg-[#0d1117] p-4">
-						<div class="h-3.5 w-3/4 rounded bg-slate-800/60"></div>
-						<div class="h-3.5 w-1/2 rounded bg-slate-800/60"></div>
-						<div class="h-3.5 w-5/6 rounded bg-slate-800/60"></div>
-						<div class="h-3.5 w-2/3 rounded bg-slate-800/60"></div>
-					</div>
-				{/if}
-			</div>
+			<CodeBlock
+				code={svelteCode.trim()}
+				language="svelte"
+				filename="Svelte 5 Runes"
+				class="m-0! flex-1 border-primary/30! bg-[#0d1117]!"
+			/>
 		</div>
 	</div>
 </div>
-
-<style>
-	/* Force Shiki generated <pre> block to fill parent height with zero top/bottom margin leaks */
-	:global(pre.shiki) {
-		margin: 0 !important;
-		padding: 1rem !important;
-		height: 100% !important;
-		flex: 1 1 0% !important;
-		box-sizing: border-box !important;
-		overflow-x: auto !important;
-		background-color: transparent !important;
-	}
-
-	:global(pre.shiki code) {
-		display: block !important;
-		min-height: 100% !important;
-	}
-</style>

@@ -3,64 +3,31 @@ import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
-import { escapeSvelte, mdsvex } from 'mdsvex';
-import { createHighlighter } from 'shiki';
-import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import { mdsvex } from 'mdsvex';
 import { defineConfig } from 'vite';
-
-// Initialize Shiki highlighter with pure JavaScript regex engine (zero WASM)
-const highlighter = await createHighlighter({
-	themes: ['github-dark'],
-	langs: ['javascript', 'typescript', 'css', 'html', 'svelte', 'bash', 'json', 'sql', 'yaml'],
-	engine: createJavaScriptRegexEngine()
-});
+import { yaxa } from 'yaxa-svelte/vite';
+import { renderHighlightedCode } from './src/lib/highlighter.ts';
 
 export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		sveltekit({
+			adapter: adapter({ fallback: '404.html' }),
+			paths: { relative: false },
 			compilerOptions: {
-				runes: ({ filename }) =>
-					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
+				runes: ({ filename }) => (filename.includes('node_modules') ? undefined : true),
+				warningFilter: (warning) =>
+					!(warning.code === 'script_context_deprecated' && warning.filename?.endsWith('.md'))
 			},
-
-			adapter: adapter({
-				fallback: '404.html'
-			}),
-
-			paths: {
-				relative: false
-			},
-
 			preprocess: [
 				vitePreprocess(),
 				mdsvex({
 					extensions: ['.svx', '.md'],
-					highlight: {
-						highlighter: async (code, lang = 'text') => {
-							let html: string;
-							try {
-								html = escapeSvelte(
-									highlighter.codeToHtml(code, {
-										lang: lang || 'text',
-										theme: 'github-dark'
-									})
-								);
-							} catch {
-								// Fallback for unloaded languages to prevent build failures
-								html = escapeSvelte(
-									highlighter.codeToHtml(code, {
-										lang: 'text',
-										theme: 'github-dark'
-									})
-								);
-							}
-							return `{@html \`${html}\`}`;
-						}
-					}
+					highlight: { highlighter: renderHighlightedCode }
 				})
 			],
 			extensions: ['.svelte', '.svx', '.md']
-		})
+		}),
+		yaxa()
 	]
 });
