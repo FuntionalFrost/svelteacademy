@@ -1,18 +1,38 @@
 <!-- src/routes/guides/[slug]/+page.svelte -->
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import ProgressBar from '$lib/components/ProgressBar.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
 	import TableOfContents from '$lib/components/TableOfContents.svelte';
-	import { levelBadgeStyles } from '$lib/content/guides';
 	import { ArrowLeft, ArrowRight, Clock, GitPullRequest, Layers, Tag } from '@lucide/svelte';
+	import { Badge, Kbd } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 	let Content = $derived(data.content);
 
-	// Attach floating copy buttons to all Shiki code blocks inside article
+	// Keyboard pagination: '[' for previous guide, ']' for next guide
+	$effect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			// Do not trigger if typing in an input/textarea
+			if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) return;
+
+			if (e.key === '[' && data.prevGuide) {
+				e.preventDefault();
+				goto(`/guides/${data.prevGuide.slug}`);
+			} else if (e.key === ']' && data.nextGuide) {
+				e.preventDefault();
+				goto(`/guides/${data.nextGuide.slug}`);
+			}
+		};
+
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	});
+
+	// Attach floating copy buttons to all code blocks inside article
 	$effect(() => {
 		const preElements = document.querySelectorAll('article pre');
 		const cleanups: (() => void)[] = [];
@@ -56,7 +76,12 @@
 	});
 </script>
 
-<SEO title="{data.guide.title} — Svelte 5 Guide" description={data.guide.description} />
+<SEO
+	title="{data.guide.title} — Svelte 5 Guide"
+	description={data.guide.description}
+	type="article"
+	publishDate={data.guide.date}
+/>
 
 <!-- Reading Progress Bar -->
 <ProgressBar />
@@ -76,21 +101,23 @@
 		<div>
 			<header class="mb-10 border-b border-border pb-8">
 				<div class="mb-4 flex flex-wrap items-center gap-2.5">
-					<span
-						class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-sm font-semibold text-primary"
-					>
+					<Badge size="md" variant="subtle" color="primary">
 						<Tag class="size-3.5" />
-						{data.guide.category}
-					</span>
+						<span>{data.guide.category}</span>
+					</Badge>
 
-					<span
-						class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-sm font-bold tracking-wider uppercase {levelBadgeStyles[
-							data.guide.level
-						] ?? levelBadgeStyles.beginner}"
+					<Badge
+						size="md"
+						variant="subtle"
+						color={data.guide.level === 'advanced'
+							? 'error'
+							: data.guide.level === 'intermediate'
+								? 'warning'
+								: 'success'}
 					>
 						<Layers class="size-3.5" />
-						{data.guide.level}
-					</span>
+						<span>{data.guide.level}</span>
+					</Badge>
 
 					<span class="inline-flex items-center gap-1 font-mono text-sm text-muted-foreground">
 						<Clock class="size-3.5" />
@@ -141,10 +168,13 @@
 							class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/50 hover:bg-muted/30"
 						>
 							<div
-								class="flex items-center gap-1.5 font-mono text-sm font-semibold text-muted-foreground"
+								class="flex items-center justify-between font-mono text-sm font-semibold text-muted-foreground"
 							>
-								<ArrowLeft class="size-4 transition-transform group-hover:-translate-x-1" />
-								<span>Previous Guide</span>
+								<div class="flex items-center gap-1.5">
+									<ArrowLeft class="size-4 transition-transform group-hover:-translate-x-1" />
+									<span>Previous Guide</span>
+								</div>
+								<Kbd size="xs">[</Kbd>
 							</div>
 							<span
 								class="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-primary"
@@ -162,10 +192,13 @@
 							class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/50 hover:bg-muted/30 sm:text-right"
 						>
 							<div
-								class="flex items-center gap-1.5 font-mono text-sm font-semibold text-muted-foreground sm:justify-end"
+								class="flex items-center justify-between font-mono text-sm font-semibold text-muted-foreground sm:flex-row-reverse"
 							>
-								<span>Next Guide</span>
-								<ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
+								<div class="flex items-center gap-1.5">
+									<span>Next Guide</span>
+									<ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
+								</div>
+								<Kbd size="xs">]</Kbd>
 							</div>
 							<span
 								class="mt-2 text-base font-bold text-foreground transition-colors group-hover:text-primary"

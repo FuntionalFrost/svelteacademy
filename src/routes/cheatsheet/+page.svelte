@@ -3,6 +3,7 @@
 	import CodeComparison from '$lib/components/CodeComparison.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import { CircleX, CodeXml, Funnel, Link, Search, Sparkles } from '@lucide/svelte';
+	import { Badge, Kbd } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 	import type { CheatsheetItem } from './+page';
 
@@ -10,8 +11,21 @@
 
 	let searchQuery = $state('');
 	let selectedCategory = $state<string>('All');
+	let searchInputEl = $state<HTMLInputElement | null>(null);
 
 	const categories = ['All', 'Runes', 'Props & Binding', 'Effects & Utilities'];
+
+	// Quick hotkey: press '/' to focus search input
+	$effect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === '/' && document.activeElement !== searchInputEl) {
+				e.preventDefault();
+				searchInputEl?.focus();
+			}
+		};
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	});
 
 	let filteredItems = $derived(
 		data.items.filter((item: CheatsheetItem) => {
@@ -62,10 +76,11 @@
 		<div class="relative max-w-md flex-1">
 			<Search class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" />
 			<input
+				bind:this={searchInputEl}
 				type="text"
 				bind:value={searchQuery}
-				placeholder="Filter runes by keyword (e.g. $state, prop, untrack)..."
-				class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-base text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+				placeholder="Filter runes by keyword (press '/' to focus)..."
+				class="w-full rounded-xl border border-border bg-background py-2.5 pr-10 pl-10 text-base text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
 			/>
 			{#if searchQuery}
 				<button
@@ -75,6 +90,12 @@
 				>
 					<CircleX class="size-4" />
 				</button>
+			{:else}
+				<span
+					class="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 sm:inline-block"
+				>
+					<Kbd size="xs">/</Kbd>
+				</span>
 			{/if}
 		</div>
 
@@ -125,11 +146,9 @@
 									<Link class="size-4" />
 								</a>
 							</div>
-							<span
-								class="rounded-md border border-border bg-muted/50 px-2.5 py-0.5 font-mono text-sm font-semibold tracking-wider text-muted-foreground uppercase"
-							>
+							<Badge size="xs" variant="subtle" color="neutral">
 								{item.category}
-							</span>
+							</Badge>
 						</div>
 
 						<p class="text-base leading-relaxed font-medium text-foreground/90">

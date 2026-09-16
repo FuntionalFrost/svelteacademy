@@ -13,6 +13,7 @@
 		Terminal,
 		X
 	} from '@lucide/svelte';
+	import { Badge, Kbd } from 'yaxa-svelte';
 
 	interface PaletteItem {
 		id: string;
@@ -25,7 +26,6 @@
 
 	let isOpen = $state(false);
 	let searchQuery = $state('');
-	let allItems = $state<PaletteItem[]>([]);
 	let inputEl = $state<HTMLInputElement | null>(null);
 
 	const corePages: PaletteItem[] = [
@@ -71,6 +71,26 @@
 		}
 	];
 
+	const allItems: PaletteItem[] = [
+		...cheatsheetItems.map((item) => ({
+			id: `rune-${item.id}`,
+			title: item.name,
+			description: item.summary,
+			category: item.category,
+			type: 'cheatsheet' as const,
+			href: `/cheatsheet#${item.id}`
+		})),
+		...corePages,
+		...getAllGuides().map((guide) => ({
+			id: `guide-${guide.slug}`,
+			title: guide.title,
+			description: guide.description,
+			category: guide.category,
+			type: 'guide' as const,
+			href: `/guides/${guide.slug}`
+		}))
+	];
+
 	// Keyboard listener for Cmd+K / Ctrl+K / Escape
 	$effect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -87,32 +107,9 @@
 		return () => window.removeEventListener('keydown', handleKeyDown);
 	});
 
-	// Load items & auto-focus input when palette opens
+	// Auto-focus input when palette opens
 	$effect(() => {
 		if (isOpen) {
-			if (allItems.length === 0) {
-				const runes: PaletteItem[] = cheatsheetItems.map((item) => ({
-					id: `rune-${item.id}`,
-					title: item.name,
-					description: item.summary,
-					category: item.category,
-					type: 'cheatsheet',
-					href: `/cheatsheet#${item.id}`
-				}));
-
-				const guides: PaletteItem[] = getAllGuides().map((guide) => ({
-					id: `guide-${guide.slug}`,
-					title: guide.title,
-					description: guide.description,
-					category: guide.category,
-					type: 'guide',
-					href: `/guides/${guide.slug}`
-				}));
-
-				allItems = [...runes, ...corePages, ...guides];
-			}
-
-			// Focus input immediately after DOM paint
 			requestAnimationFrame(() => {
 				inputEl?.focus();
 			});
@@ -149,11 +146,9 @@
 >
 	<Search class="size-4 shrink-0" />
 	<span class="hidden whitespace-nowrap sm:inline-block">Search runes, guides...</span>
-	<kbd
-		class="hidden shrink-0 rounded border border-border bg-muted/60 px-1.5 font-mono text-xs font-semibold whitespace-nowrap text-muted-foreground sm:inline-block"
-	>
-		⌘K
-	</kbd>
+	<span class="hidden sm:inline-block">
+		<Kbd size="xs">⌘K</Kbd>
+	</span>
 </button>
 
 <!-- Command Palette Modal Overlay -->
@@ -211,15 +206,17 @@
 							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
 									<span class="font-mono text-sm font-bold text-foreground">{item.title}</span>
-									<span
-										class="rounded-md px-2 py-0.5 text-sm font-semibold {item.type === 'cheatsheet'
-											? 'border border-amber-500/20 bg-amber-500/10 text-amber-500'
+									<Badge
+										size="xs"
+										variant="subtle"
+										color={item.type === 'cheatsheet'
+											? 'warning'
 											: item.type === 'external'
-												? 'border border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
-												: 'border border-primary/20 bg-primary/10 text-primary'}"
+												? 'success'
+												: 'primary'}
 									>
 										{item.category}
-									</span>
+									</Badge>
 									{#if item.type === 'external'}
 										<ExternalLink class="size-3.5 text-muted-foreground opacity-70" />
 									{/if}
@@ -236,8 +233,8 @@
 			<div
 				class="flex items-center justify-between border-t border-border bg-muted/30 px-4 py-2 text-sm text-muted-foreground"
 			>
-				<span>
-					Press <kbd class="rounded border border-border bg-background px-1 font-mono">ESC</kbd> to close
+				<span class="inline-flex items-center gap-1.5">
+					Press <Kbd size="xs">ESC</Kbd> to close
 				</span>
 				<span class="flex items-center gap-1">
 					<Command class="size-4" /> Navigation

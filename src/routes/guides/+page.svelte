@@ -2,8 +2,8 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import SEO from '$lib/components/SEO.svelte';
-	import { levelBadgeStyles } from '$lib/content/guides';
 	import { ArrowRight, BookOpen, CircleX, Search, Tag } from '@lucide/svelte';
+	import { Badge, Kbd, MetricCard } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -12,8 +12,21 @@
 	let searchQuery = $state('');
 	let selectedCategory = $state('All');
 	let selectedLevel = $state('All');
+	let searchInputEl = $state<HTMLInputElement | null>(null);
 
 	const levels = ['All', 'beginner', 'intermediate', 'advanced'];
+
+	// Quick hotkey: press '/' to focus search input
+	$effect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === '/' && document.activeElement !== searchInputEl) {
+				e.preventDefault();
+				searchInputEl?.focus();
+			}
+		};
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	});
 
 	// Safe derived signal filtering
 	let filteredGuides = $derived(
@@ -50,7 +63,7 @@
 
 <div class="container mx-auto max-w-6xl px-4 py-12">
 	<!-- Page Header -->
-	<header class="mb-10 text-center sm:text-left">
+	<header class="mb-8 text-center sm:text-left">
 		<h1 class="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl">
 			Developer Guides
 		</h1>
@@ -60,6 +73,28 @@
 		</p>
 	</header>
 
+	<!-- Curriculum Overview Metrics -->
+	<div class="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+		<MetricCard
+			title="Total Architecture Lessons"
+			value={data.guides.length}
+			variant="outline"
+			class="border-border bg-card shadow-xs"
+		/>
+		<MetricCard
+			title="Curriculum Tracks"
+			value="{data.categories.length - 1} Categories"
+			variant="outline"
+			class="border-border bg-card shadow-xs"
+		/>
+		<MetricCard
+			title="Runtime Target"
+			value="Svelte 5 & Kit 2"
+			variant="outline"
+			class="border-border bg-card shadow-xs"
+		/>
+	</div>
+
 	<!-- Search & Filter Controls -->
 	<div class="mb-8 flex flex-col gap-4">
 		<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -67,18 +102,26 @@
 			<div class="relative max-w-md flex-1">
 				<Search class="absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" />
 				<input
+					bind:this={searchInputEl}
 					type="text"
 					bind:value={searchQuery}
-					placeholder="Search guides by keyword..."
-					class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-base text-foreground shadow-xs placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+					placeholder="Search guides by keyword (press '/' to focus)..."
+					class="w-full rounded-xl border border-border bg-background py-2.5 pr-10 pl-10 text-base text-foreground shadow-xs placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
 				/>
 				{#if searchQuery}
 					<button
 						onclick={() => (searchQuery = '')}
 						class="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+						aria-label="Clear search query"
 					>
 						<CircleX class="size-4" />
 					</button>
+				{:else}
+					<span
+						class="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 sm:inline-block"
+					>
+						<Kbd size="xs">/</Kbd>
+					</span>
 				{/if}
 			</div>
 
@@ -136,20 +179,22 @@
 				>
 					<div>
 						<div class="mb-3 flex items-center justify-between gap-2">
-							<span
-								class="inline-flex items-center gap-1 rounded-md border border-primary/20 bg-primary/10 px-2.5 py-0.5 font-mono text-sm font-semibold text-primary"
-							>
-								<Tag class="size-3.5" />
-								{guide.category}
-							</span>
+							<Badge size="sm" variant="subtle" color="primary">
+								<Tag class="size-3" />
+								<span>{guide.category}</span>
+							</Badge>
 
-							<span
-								class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-sm font-bold tracking-wider uppercase {levelBadgeStyles[
-									guide.level
-								] ?? levelBadgeStyles.beginner}"
+							<Badge
+								size="sm"
+								variant="subtle"
+								color={guide.level === 'advanced'
+									? 'error'
+									: guide.level === 'intermediate'
+										? 'warning'
+										: 'success'}
 							>
 								{guide.level}
-							</span>
+							</Badge>
 						</div>
 
 						<h2

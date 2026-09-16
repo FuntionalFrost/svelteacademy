@@ -23,11 +23,12 @@
 ### ✨ Key Features
 
 - **⚡ Svelte 5 Runes Native:** Fine-grained reactivity powered by `$state`, `$derived`, `$derived.by`, `$effect`, `$effect.pre`, `$props`, `$bindable`, and `untrack()`.
+- **🎨 Built With & Powered By Yaxa UI:** High-performance Svelte 5 UI primitives, zero-WASM syntax tokenization, and pre-bundled design system from [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.8.0).
 - **🔍 Universal ⌘K Command Palette:** Keyboard-first instant search modal (`Cmd+K` / `Ctrl+K`) that searches runes, architectural guides, and platform tools.
 - **🧪 Interactive Signal Sandbox:** Live `/playground` route featuring interactive state mutations, derived signal trees, and class-based reactive service visualizers.
 - **📑 19 In-Depth Guides:** Production architecture walkthroughs, React 19 vs Svelte 5 benchmarks, form action patterns, and SSR streaming guides.
 - **📋 Deep-Linked Runes Cheatsheet:** Searchable syntax reference with copyable anchors (`#state`, `#derived`, `#effect`).
-- **🎨 Shiki Code Highlighting & Clipboard Copy:** Dual-theme syntax highlighting with floating copy action buttons on all code blocks.
+- **⚡ Zero-WASM Code Highlighting & Copy:** Fast, compile-time syntax tokenization matching Yaxa UI with floating copy buttons.
 - **📜 Sticky Table of Contents:** `IntersectionObserver`-driven reading companion that tracks headings in real-time.
 - **📊 Scroll Reading Progress:** Viewport-aware progress indicator for long-form tutorials.
 - **🌗 Zero-Flash Dark Mode:** Powered by `mode-watcher` with system theme synchronization.
@@ -39,10 +40,10 @@
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/)
-- **UI Primitives & Design System:** [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.5.2) + [Bits UI](https://bits-ui.com/)
+- **UI Primitives & Design System:** Powered by [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.8.0)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/), `@tailwindcss/typography`, OKLCH palette
 - **Content Engine:** [MDsveX](https://mdsvex.pngwn.io/)
-- **Syntax Highlighting:** [Shiki](https://shiki.style/)
+- **Syntax Highlighting:** Pure JavaScript Zero-WASM Multi-Language Tokenizer
 - **Theme Management:** [mode-watcher](https://github.com/sainthkh/mode-watcher)
 - **Icons:** [@lucide/svelte](https://lucide.dev/guide/packages/lucide-svelte)
 - **Deployment Adapter:** `@sveltejs/adapter-static`

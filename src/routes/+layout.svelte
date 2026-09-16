@@ -164,6 +164,17 @@
 						Interactive educational platform, signal visualizer, and architectural reference suite
 						for Svelte 5 and SvelteKit.
 					</p>
+					<div class="pt-1">
+						<a
+							href="https://yaxa.vercel.app"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary/5 px-2.5 py-1 font-mono text-xs font-semibold text-primary transition hover:border-primary/40 hover:bg-primary/10"
+						>
+							<span>Powered by Yaxa UI</span>
+							<ExternalLink class="size-3 opacity-70" />
+						</a>
+					</div>
 				</div>
 
 				<div>
@@ -212,7 +223,7 @@
 								rel="noopener noreferrer"
 								class="inline-flex items-center gap-1.5 transition hover:text-primary"
 							>
-								<span>Yaxa UI (Svelte 5 Components)</span>
+								<span>Built with Yaxa UI (v1.8.0)</span>
 								<ExternalLink class="size-3.5 opacity-70" />
 							</a>
 						</li>
@@ -279,7 +290,16 @@
 			<div
 				class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 font-mono text-sm sm:flex-row"
 			>
-				<span>&copy; {new Date().getFullYear()} Svelte Academy • MIT Open Source</span>
+				<span
+					>&copy; {new Date().getFullYear()} Svelte Academy • Built with
+					<a
+						href="https://yaxa.vercel.app"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="font-semibold text-foreground underline decoration-primary/40 underline-offset-4 transition hover:text-primary"
+						>Yaxa UI</a
+					></span
+				>
 				<span>Hosted on Cloudflare Pages</span>
 			</div>
 		</div>
