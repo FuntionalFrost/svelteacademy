@@ -60,6 +60,14 @@
 			category: 'Boilerplate',
 			type: 'external',
 			href: 'https://supersvelte.netlify.app'
+		},
+		{
+			id: 'page-yaxa',
+			title: 'Yaxa UI Component Library',
+			description: 'Svelte 5 & Tailwind CSS v4 component suite (Nuxt UI v4 equivalent)',
+			category: 'Ecosystem',
+			type: 'external',
+			href: 'https://yaxa.vercel.app'
 		}
 	];
 

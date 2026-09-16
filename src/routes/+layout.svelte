@@ -207,6 +207,17 @@
 						</li>
 						<li>
 							<a
+								href="https://yaxa.vercel.app"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1.5 transition hover:text-primary"
+							>
+								<span>Yaxa UI (Svelte 5 Components)</span>
+								<ExternalLink class="size-3.5 opacity-70" />
+							</a>
+						</li>
+						<li>
+							<a
 								href="https://github.com/FuntionalFrost/svelteacademy"
 								target="_blank"
 								rel="noopener noreferrer"

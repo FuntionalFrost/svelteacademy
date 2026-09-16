@@ -10,7 +10,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8.svg?logo=tailwindcss)](https://tailwindcss.com)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[Live Platform](https://svelteacademy.netlify.app) • [Interactive Sandbox](https://svelteacademy.netlify.app/playground) • [Runes Cheatsheet](https://svelteacademy.netlify.app/cheatsheet) • [Guides](https://svelteacademy.netlify.app/guides) • [SuperSvelte Boilerplate](https://supersvelte.netlify.app)
+[Live Platform](https://svelteacademy.netlify.app) • [Interactive Sandbox](https://svelteacademy.netlify.app/playground) • [Runes Cheatsheet](https://svelteacademy.netlify.app/cheatsheet) • [Guides](https://svelteacademy.netlify.app/guides) • [Yaxa UI](https://yaxa.vercel.app) • [SuperSvelte Boilerplate](https://supersvelte.netlify.app)
 
 </div>
 
@@ -39,12 +39,13 @@
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/)
+- **UI Primitives & Design System:** [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.5.2) + [Bits UI](https://bits-ui.com/)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/), `@tailwindcss/typography`, OKLCH palette
 - **Content Engine:** [MDsveX](https://mdsvex.pngwn.io/)
 - **Syntax Highlighting:** [Shiki](https://shiki.style/)
 - **Theme Management:** [mode-watcher](https://github.com/sainthkh/mode-watcher)
 - **Icons:** [@lucide/svelte](https://lucide.dev/guide/packages/lucide-svelte)
-- **Deployment Adapter:** `@sveltejs/adapter-netlify`
+- **Deployment Adapter:** `@sveltejs/adapter-static`
 
 ---
 
