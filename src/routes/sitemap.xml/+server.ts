@@ -1,11 +1,6 @@
 // src/routes/sitemap.xml/+server.ts
+import { getAllGuides } from '$lib/content/guides';
 import type { RequestHandler } from './$types';
-
-interface GuideModule {
-	metadata?: {
-		title?: string;
-	};
-}
 
 export const GET: RequestHandler = async ({ url }) => {
 	const origin = url.origin;
@@ -13,11 +8,8 @@ export const GET: RequestHandler = async ({ url }) => {
 	// Static core routes
 	const staticRoutes = ['', '/guides', '/cheatsheet', '/playground'];
 
-	// Discover dynamic guide slugs from src/lib/content/guides/
-	const guideFiles = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', { eager: true });
-	const guideSlugs = Object.keys(guideFiles)
-		.filter((filepath) => !filepath.includes('/_'))
-		.map((filepath) => filepath.split('/').pop()?.replace('.md', '') || '');
+	// Discover dynamic guide slugs from canonical content provider
+	const guides = getAllGuides();
 
 	const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -31,11 +23,11 @@ export const GET: RequestHandler = async ({ url }) => {
   </url>`
 		)
 		.join('')}
-  ${guideSlugs
+  ${guides
 		.map(
-			(slug) => `
+			(guide) => `
   <url>
-    <loc>${origin}/guides/${slug}</loc>
+    <loc>${origin}/guides/${guide.slug}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`

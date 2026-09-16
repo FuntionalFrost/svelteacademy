@@ -1,6 +1,8 @@
 <!-- src/lib/components/CommandPalette.svelte -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { cheatsheetItems } from '$lib/content/cheatsheet';
+	import { getAllGuides } from '$lib/content/guides';
 	import {
 		BookOpen,
 		CodeXml,
@@ -19,14 +21,6 @@
 		category: string;
 		type: 'guide' | 'cheatsheet' | 'page' | 'external';
 		href: string;
-	}
-
-	interface GuideModule {
-		metadata?: {
-			title?: string;
-			description?: string;
-			category?: string;
-		};
 	}
 
 	let isOpen = $state(false);
@@ -69,89 +63,6 @@
 		}
 	];
 
-	const cheatsheetItems: PaletteItem[] = [
-		{
-			id: 'rune-state',
-			title: '$state',
-			description: 'Deeply reactive state proxy for variables, objects, and arrays',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#state'
-		},
-		{
-			id: 'rune-state-raw',
-			title: '$state.raw',
-			description: 'Shallow reactive state optimized for immutable datasets and canvas',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#state-raw'
-		},
-		{
-			id: 'rune-derived',
-			title: '$derived',
-			description: 'Pure computed signal that recalculates when read dependencies change',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#derived'
-		},
-		{
-			id: 'rune-derived-by',
-			title: '$derived.by',
-			description: 'Complex multi-line derived signal calculated via closure function',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#derived-by'
-		},
-		{
-			id: 'rune-props',
-			title: '$props',
-			description: 'Declares component input props with TypeScript types and defaults',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#props'
-		},
-		{
-			id: 'rune-bindable',
-			title: '$bindable',
-			description: 'Enables two-way state binding across parent and child components',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#bindable'
-		},
-		{
-			id: 'rune-effect',
-			title: '$effect',
-			description: 'Runs reactive side effects with dependency tracking post-DOM render',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#effect'
-		},
-		{
-			id: 'rune-effect-pre',
-			title: '$effect.pre',
-			description: 'Runs reactive side effects prior to DOM layout and paint updates',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#effect-pre'
-		},
-		{
-			id: 'rune-inspect',
-			title: '$inspect',
-			description: 'Development console logger for tracing reactive signal changes',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#inspect'
-		},
-		{
-			id: 'rune-untrack',
-			title: 'untrack()',
-			description: 'Reads reactive signals inside $effect without creating tracking loops',
-			category: 'Rune',
-			type: 'cheatsheet',
-			href: '/cheatsheet#untrack'
-		}
-	];
-
 	// Keyboard listener for Cmd+K / Ctrl+K / Escape
 	$effect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -168,23 +79,29 @@
 		return () => window.removeEventListener('keydown', handleKeyDown);
 	});
 
-	// Load guides & auto-focus input when palette opens
+	// Load items & auto-focus input when palette opens
 	$effect(() => {
 		if (isOpen) {
 			if (allItems.length === 0) {
-				const modules = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', {
-					eager: true
-				});
-				const guides: PaletteItem[] = Object.entries(modules).map(([path, mod]) => ({
-					id: `guide-${path.split('/').pop()?.replace('.md', '') || ''}`,
-					title: mod.metadata?.title || 'Untitled',
-					description: mod.metadata?.description || '',
-					category: mod.metadata?.category || 'Guide',
-					type: 'guide',
-					href: `/guides/${path.split('/').pop()?.replace('.md', '') || ''}`
+				const runes: PaletteItem[] = cheatsheetItems.map((item) => ({
+					id: `rune-${item.id}`,
+					title: item.name,
+					description: item.summary,
+					category: item.category,
+					type: 'cheatsheet',
+					href: `/cheatsheet#${item.id}`
 				}));
 
-				allItems = [...cheatsheetItems, ...corePages, ...guides];
+				const guides: PaletteItem[] = getAllGuides().map((guide) => ({
+					id: `guide-${guide.slug}`,
+					title: guide.title,
+					description: guide.description,
+					category: guide.category,
+					type: 'guide',
+					href: `/guides/${guide.slug}`
+				}));
+
+				allItems = [...runes, ...corePages, ...guides];
 			}
 
 			// Focus input immediately after DOM paint

@@ -5,17 +5,12 @@
 	import SEO from '$lib/components/SEO.svelte';
 	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
 	import TableOfContents from '$lib/components/TableOfContents.svelte';
+	import { levelBadgeStyles } from '$lib/content/guides';
 	import { ArrowLeft, ArrowRight, Clock, GitPullRequest, Layers, Tag } from '@lucide/svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 	let Content = $derived(data.content);
-
-	const levelStyles: Record<string, string> = {
-		beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-500',
-		intermediate: 'border-amber-500/30 bg-amber-500/10 text-amber-500',
-		advanced: 'border-purple-500/30 bg-purple-500/10 text-purple-500'
-	};
 
 	// Attach floating copy buttons to all Shiki code blocks inside article
 	$effect(() => {
@@ -89,9 +84,9 @@
 					</span>
 
 					<span
-						class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-sm font-bold tracking-wider uppercase {levelStyles[
+						class="inline-flex items-center gap-1 rounded-md border px-2.5 py-0.5 font-mono text-sm font-bold tracking-wider uppercase {levelBadgeStyles[
 							data.guide.level
-						] ?? levelStyles.beginner}"
+						] ?? levelBadgeStyles.beginner}"
 					>
 						<Layers class="size-3.5" />
 						{data.guide.level}

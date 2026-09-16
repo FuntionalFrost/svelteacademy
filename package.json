@@ -47,6 +47,7 @@
 	},
 	"dependencies": {
 		"mode-watcher": "^1.1.0",
-		"shiki": "^4.4.2"
+		"shiki": "^4.4.2",
+		"yaxa-svelte": "^1.5.2"
 	}
 }

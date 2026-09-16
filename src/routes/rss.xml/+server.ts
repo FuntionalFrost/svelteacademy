@@ -1,33 +1,16 @@
 // src/routes/rss.xml/+server.ts
+import { getAllGuides } from '$lib/content/guides';
 import type { RequestHandler } from './$types';
-
-interface GuideModule {
-	metadata?: {
-		title?: string;
-		description?: string;
-		category?: string;
-		date?: string;
-	};
-}
 
 export const GET: RequestHandler = async ({ url }) => {
 	const origin = url.origin;
-	const modules = import.meta.glob<GuideModule>('/src/lib/content/guides/*.md', { eager: true });
-
-	const guides = Object.entries(modules)
-		.filter(([path]) => !path.includes('/_'))
-		.map(([path, mod]) => {
-			const slug = path.split('/').pop()?.replace('.md', '') || '';
-			return {
-				slug,
-				title: mod.metadata?.title || slug.replace(/[-_]/g, ' '),
-				description: mod.metadata?.description || 'Learn Svelte 5 with SvelteAcademy.',
-				category: mod.metadata?.category || 'General',
-				date: mod.metadata?.date
-					? new Date(mod.metadata.date).toUTCString()
-					: new Date().toUTCString()
-			};
-		});
+	const guides = getAllGuides().map((guide) => ({
+		slug: guide.slug,
+		title: guide.title,
+		description: guide.description,
+		category: guide.category,
+		date: guide.date ? new Date(guide.date).toUTCString() : new Date().toUTCString()
+	}));
 
 	const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
