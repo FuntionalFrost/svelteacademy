@@ -7,29 +7,22 @@
 	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
 	import TableOfContents from '$lib/components/TableOfContents.svelte';
 	import { ArrowLeft, ArrowRight, Clock, GitPullRequest, Layers, Tag } from '@lucide/svelte';
-	import { Badge, Kbd } from 'yaxa-svelte';
+	import { Badge, Kbd, useShortcuts } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 	let Content = $derived(data.content);
 
-	// Keyboard pagination: '[' for previous guide, ']' for next guide
+	// Keyboard pagination via Svelte 5 rune composable
 	$effect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			// Do not trigger if typing in an input/textarea
-			if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) return;
-
-			if (e.key === '[' && data.prevGuide) {
-				e.preventDefault();
-				goto(`/guides/${data.prevGuide.slug}`);
-			} else if (e.key === ']' && data.nextGuide) {
-				e.preventDefault();
-				goto(`/guides/${data.nextGuide.slug}`);
+		return useShortcuts({
+			'[': () => {
+				if (data.prevGuide) goto(`/guides/${data.prevGuide.slug}`);
+			},
+			']': () => {
+				if (data.nextGuide) goto(`/guides/${data.nextGuide.slug}`);
 			}
-		};
-
-		window.addEventListener('keydown', handleKeyDown);
-		return () => window.removeEventListener('keydown', handleKeyDown);
+		});
 	});
 
 	// Attach floating copy buttons to all code blocks inside article
@@ -81,6 +74,7 @@
 	description={data.guide.description}
 	type="article"
 	publishDate={data.guide.date}
+	tag={data.guide.category}
 />
 
 <!-- Reading Progress Bar -->

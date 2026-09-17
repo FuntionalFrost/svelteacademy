@@ -3,7 +3,7 @@
 	import CodeComparison from '$lib/components/CodeComparison.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import { CircleX, CodeXml, Funnel, Link, Search, Sparkles } from '@lucide/svelte';
-	import { Badge, Kbd } from 'yaxa-svelte';
+	import { Badge, Kbd, useDebounce, useShortcuts } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 	import type { CheatsheetItem } from './+page';
 
@@ -15,22 +15,20 @@
 
 	const categories = ['All', 'Runes', 'Props & Binding', 'Effects & Utilities'];
 
+	// Debounced search query for silky-smooth filtering
+	const debouncedSearch = useDebounce(() => searchQuery, 150);
+
 	// Quick hotkey: press '/' to focus search input
 	$effect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if (e.key === '/' && document.activeElement !== searchInputEl) {
-				e.preventDefault();
-				searchInputEl?.focus();
-			}
-		};
-		window.addEventListener('keydown', handleKeyDown);
-		return () => window.removeEventListener('keydown', handleKeyDown);
+		return useShortcuts({
+			'/': () => searchInputEl?.focus()
+		});
 	});
 
 	let filteredItems = $derived(
 		data.items.filter((item: CheatsheetItem) => {
 			const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
-			const query = searchQuery.toLowerCase().trim();
+			const query = debouncedSearch.value.toLowerCase().trim();
 			const matchesSearch =
 				!query ||
 				item.name.toLowerCase().includes(query) ||

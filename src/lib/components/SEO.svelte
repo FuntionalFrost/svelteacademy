@@ -1,10 +1,11 @@
 <!-- src/lib/components/SEO.svelte -->
 <script lang="ts">
 	import { page } from '$app/state';
+	import { siteConfig } from '$lib/site';
 	import {
-		defineSiteConfig,
 		generateArticleSchema,
 		generateBreadcrumbSchema,
+		generateSoftwareSourceCodeSchema,
 		generateWebSiteSchema
 	} from 'yaxa-svelte';
 
@@ -14,44 +15,34 @@
 		type?: 'website' | 'article';
 		image?: string;
 		publishDate?: string;
+		tag?: string;
 	}
 
 	let {
 		title = 'SvelteAcademy | Master Svelte 5 and SvelteKit',
 		description = 'Interactive developer guides, primitives deep-dives, and architectural benchmarks for modern Svelte 5 development.',
 		type = 'website',
-		image = '/og-image.svg',
-		publishDate
+		image,
+		publishDate,
+		tag
 	}: Props = $props();
 
-	const siteUrl = 'https://svelteacademy.netlify.app';
+	const siteUrl = siteConfig.url || 'https://svelteacademy.netlify.app';
 	// Strips URL parameters (?utm_source, etc.) for a clean canonical tag
 	let canonicalUrl = $derived(`${siteUrl}${page.url.pathname}`);
 
 	let fullTitle = $derived(title.includes('SvelteAcademy') ? title : `${title} — SvelteAcademy`);
 
-	let ogImageUrl = $derived(
-		image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? image : '/' + image}`
-	);
-
-	const siteConfig = defineSiteConfig({
-		name: 'SvelteAcademy',
-		title: 'SvelteAcademy | Master Svelte 5 and SvelteKit',
-		description:
-			'Interactive developer guides, primitives deep-dives, and architectural benchmarks for modern Svelte 5 development.',
-		url: siteUrl,
-		logo: `${siteUrl}/favicon.svg`,
-		author: {
-			name: 'SvelteAcademy Team',
-			url: siteUrl,
-			github: 'https://github.com/FuntionalFrost/svelteacademy'
-		},
-		project: {
-			license: 'MIT',
-			type: 'open-source',
-			repositoryUrl: 'https://github.com/FuntionalFrost/svelteacademy',
-			isAccessibleForFree: true
+	let ogImageUrl = $derived.by(() => {
+		if (image) {
+			return image.startsWith('http')
+				? image
+				: `${siteUrl}${image.startsWith('/') ? image : '/' + image}`;
 		}
+		if (type === 'article') {
+			return `${siteUrl}/api/og?title=${encodeURIComponent(title)}&tag=${encodeURIComponent(tag || 'Guide')}&badge=Svelte%205`;
+		}
+		return `${siteUrl}/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&badge=Svelte%205`;
 	});
 
 	let articleSchema = $derived(
@@ -75,6 +66,10 @@
 					{ name: title, url: canonicalUrl }
 				])
 			: null
+	);
+
+	let sourceCodeSchema = $derived(
+		type === 'article' ? generateSoftwareSourceCodeSchema(siteConfig) : null
 	);
 
 	let websiteSchema = $derived(type === 'website' ? generateWebSiteSchema(siteConfig) : null);
@@ -113,6 +108,9 @@
 	{/if}
 	{#if breadcrumbSchema}
 		{@html `<script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</` + `script>`}
+	{/if}
+	{#if sourceCodeSchema}
+		{@html `<script type="application/ld+json">${JSON.stringify(sourceCodeSchema)}</` + `script>`}
 	{/if}
 	{#if websiteSchema}
 		{@html `<script type="application/ld+json">${JSON.stringify(websiteSchema)}</` + `script>`}

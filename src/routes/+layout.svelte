@@ -223,7 +223,7 @@
 								rel="noopener noreferrer"
 								class="inline-flex items-center gap-1.5 transition hover:text-primary"
 							>
-								<span>Built with Yaxa UI (v1.8.0)</span>
+								<span>Built with Yaxa UI (v1.10.0)</span>
 								<ExternalLink class="size-3.5 opacity-70" />
 							</a>
 						</li>

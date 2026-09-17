@@ -41,6 +41,6 @@
 	},
 	"dependencies": {
 		"mode-watcher": "^1.1.0",
-		"yaxa-svelte": "^1.8.0"
+		"yaxa-svelte": "^1.10.0"
 	}
 }

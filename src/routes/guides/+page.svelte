@@ -3,7 +3,7 @@
 	import { resolve } from '$app/paths';
 	import SEO from '$lib/components/SEO.svelte';
 	import { ArrowRight, BookOpen, CircleX, Search, Tag } from '@lucide/svelte';
-	import { Badge, Kbd, MetricCard } from 'yaxa-svelte';
+	import { Badge, Kbd, MetricCard, useDebounce, useShortcuts } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -16,16 +16,14 @@
 
 	const levels = ['All', 'beginner', 'intermediate', 'advanced'];
 
+	// Debounced search query for silky-smooth filtering
+	const debouncedSearch = useDebounce(() => searchQuery, 150);
+
 	// Quick hotkey: press '/' to focus search input
 	$effect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if (e.key === '/' && document.activeElement !== searchInputEl) {
-				e.preventDefault();
-				searchInputEl?.focus();
-			}
-		};
-		window.addEventListener('keydown', handleKeyDown);
-		return () => window.removeEventListener('keydown', handleKeyDown);
+		return useShortcuts({
+			'/': () => searchInputEl?.focus()
+		});
 	});
 
 	// Safe derived signal filtering
@@ -38,7 +36,7 @@
 			const matchesLevel =
 				selectedLevel === 'All' || guide.level.toLowerCase() === selectedLevel.toLowerCase();
 
-			const query = searchQuery.toLowerCase().trim();
+			const query = debouncedSearch.value.toLowerCase().trim();
 			const matchesSearch =
 				!query ||
 				guide.title.toLowerCase().includes(query) ||

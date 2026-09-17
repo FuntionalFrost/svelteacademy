@@ -23,7 +23,7 @@
 ### ✨ Key Features
 
 - **⚡ Svelte 5 Runes Native:** Fine-grained reactivity powered by `$state`, `$derived`, `$derived.by`, `$effect`, `$effect.pre`, `$props`, `$bindable`, and `untrack()`.
-- **🎨 Built With & Powered By Yaxa UI:** High-performance Svelte 5 UI primitives, zero-WASM syntax tokenization, and pre-bundled design system from [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.8.0).
+- **🎨 Built With & Powered By Yaxa UI:** High-performance Svelte 5 UI primitives, zero-WASM syntax tokenization, and pre-bundled design system from [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.10.0).
 - **🔍 Universal ⌘K Command Palette:** Keyboard-first instant search modal (`Cmd+K` / `Ctrl+K`) that searches runes, architectural guides, and platform tools.
 - **🧪 Interactive Signal Sandbox:** Live `/playground` route featuring interactive state mutations, derived signal trees, and class-based reactive service visualizers.
 - **📑 19 In-Depth Guides:** Production architecture walkthroughs, React 19 vs Svelte 5 benchmarks, form action patterns, and SSR streaming guides.
@@ -40,7 +40,7 @@
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/)
-- **UI Primitives & Design System:** Powered by [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.8.0)
+- **UI Primitives & Design System:** Powered by [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.10.0)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/), `@tailwindcss/typography`, OKLCH palette
 - **Content Engine:** [MDsveX](https://mdsvex.pngwn.io/)
 - **Syntax Highlighting:** Pure JavaScript Zero-WASM Multi-Language Tokenizer

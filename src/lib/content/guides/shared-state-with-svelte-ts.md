@@ -6,7 +6,13 @@ level: 'intermediate'
 readTime: '6 min read'
 ---
 
+<script>
+  import ClassStateVisualizer from '$lib/components/ClassStateVisualizer.svelte';
+</script>
+
 One of Svelte 5's biggest features is that **Runes work outside components**. You can place `$state()`, `$derived()`, and `$effect()` inside standard `.svelte.ts` (or `.svelte.js`) files to build reactive application state.
+
+<ClassStateVisualizer />
 
 ---
 

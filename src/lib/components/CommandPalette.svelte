@@ -13,7 +13,7 @@
 		Terminal,
 		X
 	} from '@lucide/svelte';
-	import { Badge, Kbd } from 'yaxa-svelte';
+	import { Badge, Kbd, useShortcuts } from 'yaxa-svelte';
 
 	interface PaletteItem {
 		id: string;
@@ -91,20 +91,12 @@
 		}))
 	];
 
-	// Keyboard listener for Cmd+K / Ctrl+K / Escape
+	// Keyboard listener via Svelte 5 rune composable
 	$effect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-				e.preventDefault();
-				isOpen = !isOpen;
-			}
-			if (e.key === 'Escape') {
-				isOpen = false;
-			}
-		};
-
-		window.addEventListener('keydown', handleKeyDown);
-		return () => window.removeEventListener('keydown', handleKeyDown);
+		return useShortcuts({
+			meta_k: () => (isOpen = !isOpen),
+			escape: () => (isOpen = false)
+		});
 	});
 
 	// Auto-focus input when palette opens
