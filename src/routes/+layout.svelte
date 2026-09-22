@@ -1,7 +1,7 @@
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { page } from '$app/state';
+	import { navigating, page } from '$app/state';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
@@ -57,6 +57,7 @@
 					{@const isActive = page.url.pathname.startsWith(item.href)}
 					<a
 						href={item.href}
+						aria-current={isActive ? 'page' : undefined}
 						class="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition-all {isActive
 							? 'bg-primary/10 text-primary'
 							: 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'}"
@@ -121,6 +122,7 @@
 						{@const isActive = page.url.pathname.startsWith(item.href)}
 						<a
 							href={item.href}
+							aria-current={isActive ? 'page' : undefined}
 							onclick={closeMobileMenu}
 							class="flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm font-semibold transition {isActive
 								? 'bg-primary/10 text-primary'
@@ -146,6 +148,13 @@
 			</div>
 		{/if}
 	</header>
+
+	{#if navigating !== null}
+		<div
+			class="fixed top-0 left-0 z-60 h-0.5 w-full origin-left animate-pulse bg-primary"
+			aria-hidden="true"
+		></div>
+	{/if}
 
 	<main class="flex-1">
 		{@render children()}

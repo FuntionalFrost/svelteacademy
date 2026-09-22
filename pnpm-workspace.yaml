@@ -1,3 +1,4 @@
+preferFrozenLockfile: true
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:

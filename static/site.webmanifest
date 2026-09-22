@@ -1,0 +1,27 @@
+{
+  "name": "SvelteAcademy",
+  "short_name": "Academy",
+  "description": "Interactive developer guides and architectural reference for Svelte 5 and SvelteKit.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#ff3e00",
+  "background_color": "#0f0f11",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}
