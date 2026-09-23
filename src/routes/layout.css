@@ -147,16 +147,19 @@
 }
 
 /* ==========================================================================
-   MDsveX & Shiki Code Block Styles (Dark Theme & Dark Borders Everywhere)
+   MDsveX & Standalone Code Block Styles (Dark Theme & Crisp Borders)
    ========================================================================== */
 
-/* 1. Force dark #0d1117 background and crisp dark border on ALL code blocks */
+/* ==========================================================================
+   CodeBlock & Syntax Token Colors (Bulletproof in Light & Dark Mode)
+   ========================================================================== */
+
+/* Standalone prose & shiki code blocks */
 .prose pre,
-pre,
 .shiki {
 	background-color: #0d1117 !important;
-	color: #c9d1d9 !important;
-	border: 1px solid #30363d !important; /* Dark border in both light & dark mode */
+	color: #e6edf3 !important;
+	border: 1px solid #30363d !important;
 	border-radius: var(--radius);
 	padding: 1rem 1.25rem;
 	overflow-x: auto;
@@ -167,9 +170,13 @@ pre,
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 2. Standardize code element resets */
+/* Scroll offset for sticky navigation header */
+.prose :is(h1, h2, h3, h4, h5, h6) {
+	scroll-margin-top: 5rem;
+}
+
+/* Standardize code element resets */
 .prose pre code,
-pre code,
 .shiki code {
 	background: transparent !important;
 	color: inherit !important;
@@ -179,15 +186,118 @@ pre code,
 	font-size: inherit;
 }
 
-/* 3. Keep Shiki syntax token colors active without prose/theme background overrides */
+/* Keep Shiki syntax token colors active */
 .prose pre span,
-pre span,
 .shiki span {
 	background-color: transparent !important;
 }
 
-/* 4. Inline Code Badges (prose text like `$derived()`) */
-:not(pre) > code {
+/* Ensure all CodeBlock containers have a rich dark editor theme in both Light & Dark modes */
+[class*='bg-neutral-950'],
+[class*='bg-[#0d1117]'] {
+	background-color: #0d1117 !important;
+	border-color: #30363d !important;
+	color: #e6edf3 !important;
+}
+
+[class*='bg-neutral-950'] > div:first-child,
+[class*='bg-[#0d1117]'] > div:first-child {
+	background-color: #161b22 !important;
+	border-bottom-color: #30363d !important;
+}
+
+[class*='bg-neutral-950'] .text-neutral-200,
+[class*='bg-[#0d1117]'] .text-neutral-200 {
+	color: #e6edf3 !important;
+}
+
+[class*='bg-neutral-950'] .text-neutral-300,
+[class*='bg-[#0d1117]'] .text-neutral-300 {
+	color: #d1d5db !important;
+}
+
+[class*='bg-neutral-950'] .text-neutral-400,
+[class*='bg-[#0d1117]'] .text-neutral-400 {
+	color: #8b949e !important;
+}
+
+[class*='bg-neutral-950'] .text-neutral-500,
+[class*='bg-[#0d1117]'] .text-neutral-500 {
+	color: #8b949e !important;
+}
+
+[class*='bg-neutral-950'] pre,
+[class*='bg-[#0d1117]'] pre {
+	color: #e6edf3 !important;
+	background-color: #0d1117 !important;
+	margin: 0 !important;
+}
+
+[class*='bg-neutral-950'] pre code,
+[class*='bg-[#0d1117]'] pre code {
+	color: #e6edf3 !important;
+	background-color: transparent !important;
+}
+
+/* Fix copy icon in CodeBlock buttons */
+[class*='bg-neutral-950'] svg,
+[class*='bg-[#0d1117]'] svg {
+	width: 0.875rem !important;
+	height: 0.875rem !important;
+	max-width: 0.875rem !important;
+	max-height: 0.875rem !important;
+	display: inline-block !important;
+	flex-shrink: 0 !important;
+}
+
+/* High-Contrast, Vibrant Syntax Highlighting Tokens (Tested on dark backgrounds) */
+.text-primary-400 {
+	color: #ff7b72 !important; /* Keywords: import, export, function, const, let, return */
+	font-weight: 600 !important;
+}
+
+.text-emerald-400 {
+	color: #7ee787 !important; /* Strings */
+}
+
+.text-neutral-500 {
+	color: #8b949e !important; /* Comments */
+	font-style: italic !important;
+}
+
+.text-rose-400 {
+	color: #7ee787 !important; /* HTML/Svelte Tags: <script>, <button>, </button> */
+	font-weight: 600 !important;
+}
+
+.text-amber-400 {
+	color: #ffa657 !important; /* Directives */
+	font-weight: 500 !important;
+}
+
+.text-amber-300 {
+	color: #79c0ff !important; /* Attributes: lang=, onclick= */
+}
+
+.text-sky-400 {
+	color: #79c0ff !important; /* Function calls: console.log, setCount */
+}
+
+.text-indigo-400 {
+	color: #d2a8ff !important; /* Svelte Runes & React Hooks: $state, $effect, useState */
+	font-weight: 600 !important;
+}
+
+.text-purple-400 {
+	color: #79c0ff !important; /* Numbers: 0, 1, 10 */
+}
+
+.text-neutral-400 {
+	color: #c9d1d9 !important; /* Punctuation: {}, (), => */
+}
+
+/* Inline Code Badges */
+:not(pre):not(.syntax-box) > code {
 	background-color: var(--accent);
 	color: var(--accent-foreground);
 	border: 1px solid var(--border);
@@ -198,26 +308,37 @@ pre span,
 	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* 5. Custom Scrollbars */
-pre::-webkit-scrollbar,
-.shiki::-webkit-scrollbar {
+.syntax-box code {
+	background-color: transparent !important;
+	border: none !important;
+	padding: 0 !important;
+	color: inherit !important;
+	font-size: inherit !important;
+	font-weight: inherit !important;
+}
+
+/* Universal Modern Sleek Scrollbars */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #30363d transparent;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
 	height: 6px;
 }
 
-pre::-webkit-scrollbar-track,
-.shiki::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
 	background: transparent;
 }
 
-pre::-webkit-scrollbar-thumb,
-.shiki::-webkit-scrollbar-thumb {
-	background-color: rgba(255, 255, 255, 0.15);
+::-webkit-scrollbar-thumb {
+	background-color: #30363d;
 	border-radius: 9999px;
 }
 
-pre::-webkit-scrollbar-thumb:hover,
-.shiki::-webkit-scrollbar-thumb:hover {
-	background-color: rgba(255, 255, 255, 0.3);
+::-webkit-scrollbar-thumb:hover {
+	background-color: #8b949e;
 }
 
 /* Remove Tailwind Typography auto-injected backtick quotes */

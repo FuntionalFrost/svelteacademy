@@ -227,17 +227,6 @@
 						</li>
 						<li>
 							<a
-								href="https://yaxa.vercel.app"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="inline-flex items-center gap-1.5 transition hover:text-primary"
-							>
-								<span>Built with Yaxa UI (v1.10.0)</span>
-								<ExternalLink class="size-3.5 opacity-70" />
-							</a>
-						</li>
-						<li>
-							<a
 								href="https://github.com/FuntionalFrost/svelteacademy"
 								target="_blank"
 								rel="noopener noreferrer"
@@ -299,16 +288,7 @@
 			<div
 				class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 font-mono text-sm sm:flex-row"
 			>
-				<span
-					>&copy; {new Date().getFullYear()} Svelte Academy • Built with
-					<a
-						href="https://yaxa.vercel.app"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="font-semibold text-foreground underline decoration-primary/40 underline-offset-4 transition hover:text-primary"
-						>Yaxa UI</a
-					></span
-				>
+				<span>&copy; {new Date().getFullYear()} Svelte Academy</span>
 				<span>Hosted on Cloudflare Pages</span>
 			</div>
 		</div>

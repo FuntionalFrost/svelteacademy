@@ -1,9 +1,8 @@
 <!-- src/routes/cheatsheet/+page.svelte -->
 <script lang="ts">
-	import CodeComparison from '$lib/components/CodeComparison.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import { CircleX, CodeXml, Funnel, Link, Search, Sparkles } from '@lucide/svelte';
-	import { Badge, Kbd, useDebounce, useShortcuts } from 'yaxa-svelte';
+	import { Badge, CodeBlock, Kbd, useDebounce, useShortcuts } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 	import type { CheatsheetItem } from './+page';
 
@@ -155,14 +154,19 @@
 
 						<!-- Inline Syntax Signature -->
 						<div
-							class="mt-4 mb-2 rounded-xl border border-border bg-muted/40 p-3 font-mono text-sm font-semibold text-primary"
+							class="syntax-box mt-4 mb-3 rounded-xl border border-primary/20 bg-primary/5 px-3.5 py-2.5 font-mono text-sm font-semibold text-primary"
 						>
 							<code>{item.syntax}</code>
 						</div>
 
-						<!-- Highlighted Code Example (with tight margin override) -->
-						<div class="cheatsheet-snippet">
-							<CodeComparison title="{item.name} Usage" svelteCode={item.example} />
+						<!-- Example Code Snippet -->
+						<div class="mt-3">
+							<CodeBlock
+								code={item.example.trim()}
+								language="svelte"
+								filename="{item.name} Usage"
+								class="my-0! border-[#30363d]! bg-[#0d1117]!"
+							/>
 						</div>
 					</div>
 
@@ -192,11 +196,3 @@
 		</div>
 	{/if}
 </div>
-
-<style>
-	/* Compact margin override when CodeComparison is used inside cheatsheet cards */
-	:global(.cheatsheet-snippet > div) {
-		margin-top: 0.5rem !important;
-		margin-bottom: 0.5rem !important;
-	}
-</style>

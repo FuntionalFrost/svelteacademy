@@ -69,6 +69,56 @@
 		store.addNotification(newNotificationText.trim());
 		newNotificationText = '';
 	}
+
+	interface JsonToken {
+		text: string;
+		type: 'key' | 'string' | 'number' | 'boolean' | 'null' | 'punctuation' | 'whitespace';
+	}
+
+	function tokenizeJson(json: string): JsonToken[] {
+		const tokens: JsonToken[] = [];
+		const regex =
+			/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?|[{}[\],:]|\s+|[^\s{}[\],:]+)/g;
+		let match: RegExpExecArray | null;
+
+		while ((match = regex.exec(json)) !== null) {
+			const str = match[0];
+			if (/^"/.test(str)) {
+				if (/:$/.test(str)) {
+					tokens.push({ text: str.slice(0, -1), type: 'key' });
+					tokens.push({ text: ':', type: 'punctuation' });
+				} else {
+					tokens.push({ text: str, type: 'string' });
+				}
+			} else if (/^(?:true|false)$/.test(str)) {
+				tokens.push({ text: str, type: 'boolean' });
+			} else if (str === 'null') {
+				tokens.push({ text: str, type: 'null' });
+			} else if (/^-?\d/.test(str)) {
+				tokens.push({ text: str, type: 'number' });
+			} else if (/^[{}[\],:]$/.test(str)) {
+				tokens.push({ text: str, type: 'punctuation' });
+			} else {
+				tokens.push({ text: str, type: 'whitespace' });
+			}
+		}
+
+		return tokens;
+	}
+
+	let jsonString = $derived(
+		JSON.stringify(
+			{
+				user: store.user,
+				unreadCount: store.unreadCount,
+				notifications: store.notifications
+			},
+			null,
+			2
+		)
+	);
+
+	let jsonTokens = $derived(tokenizeJson(jsonString));
 </script>
 
 <div class="not-prose my-8 overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
@@ -153,20 +203,20 @@
 					<span class="block font-mono text-sm font-semibold text-muted-foreground">
 						Push to $state Array
 					</span>
-					<div class="flex gap-2">
+					<div class="flex items-center gap-2">
 						<input
 							type="text"
 							bind:value={newNotificationText}
 							placeholder="New notification..."
 							aria-label="New notification message"
-							class="flex-1 rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
+							class="min-w-0 flex-1 rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
 						/>
 						<button
 							type="submit"
-							class="inline-flex shrink-0 items-center gap-1 rounded-lg bg-primary px-3.5 py-2 font-mono text-sm font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90 active:scale-95"
+							class="inline-flex shrink-0 items-center gap-1 rounded-lg bg-primary px-3 py-2 font-mono text-xs font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90 active:scale-95"
 						>
-							<Plus class="size-4" />
-							Push
+							<Plus class="size-3.5" />
+							<span>Push</span>
 						</button>
 					</div>
 				</form>
@@ -286,26 +336,28 @@
 			</div>
 
 			<div
-				class="flex flex-1 flex-col justify-between overflow-hidden rounded-xl border border-purple-500/20 bg-zinc-950 p-4 font-mono text-sm text-zinc-300 shadow-inner"
+				class="flex flex-1 flex-col justify-between overflow-hidden rounded-xl border border-[#30363d] bg-[#0d1117] p-4 font-mono text-sm text-[#e6edf3] shadow-sm"
 			>
 				<div>
 					<div class="mb-2 text-sm font-bold text-purple-400">// UserStore Instance State</div>
 					<pre
-						class="m-0! max-h-72 overflow-x-auto border-0! bg-transparent! p-0! font-mono text-sm leading-relaxed text-zinc-300 shadow-none!"><code
-							>{JSON.stringify(
-								{
-									user: store.user,
-									unreadCount: store.unreadCount,
-									notifications: store.notifications
-								},
-								null,
-								2
-							)}</code
+						class="m-0! max-h-72 overflow-x-auto overflow-y-auto border-0! bg-transparent! p-0! font-mono text-sm leading-relaxed text-[#e6edf3] shadow-none!"><code
+							>{#each jsonTokens as token, idx (idx)}{#if token.type === 'key'}<span
+										class="font-semibold text-[#ff7b72]">{token.text}</span
+									>{:else if token.type === 'string'}<span class="text-[#7ee787]">{token.text}</span
+									>{:else if token.type === 'number'}<span class="text-[#79c0ff]">{token.text}</span
+									>{:else if token.type === 'boolean'}<span class="font-semibold text-[#d2a8ff]"
+										>{token.text}</span
+									>{:else if token.type === 'null'}<span class="text-[#8b949e] italic"
+										>{token.text}</span
+									>{:else if token.type === 'punctuation'}<span class="text-[#c9d1d9]"
+										>{token.text}</span
+									>{:else}<span>{token.text}</span>{/if}{/each}</code
 						></pre>
 				</div>
 
 				<div
-					class="mt-3 flex items-center justify-between border-t border-zinc-800/80 pt-2.5 text-xs text-purple-300/60"
+					class="mt-3 flex items-center justify-between border-t border-[#30363d] pt-2.5 text-xs text-purple-300/60"
 				>
 					<span>✨ Deep $state proxy</span>
 					<span>Auto-synced</span>
