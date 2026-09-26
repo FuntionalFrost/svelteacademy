@@ -2,12 +2,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { cheatsheetItems } from '$lib/content/cheatsheet';
+	import { getAllLessons } from '$lib/content/curriculum';
 	import { getAllGuides } from '$lib/content/guides';
 	import {
 		BookOpen,
 		CodeXml,
 		Command,
 		ExternalLink,
+		GraduationCap,
 		Rocket,
 		Search,
 		Terminal,
@@ -20,7 +22,7 @@
 		title: string;
 		description: string;
 		category: string;
-		type: 'guide' | 'cheatsheet' | 'page' | 'external';
+		type: 'lesson' | 'guide' | 'cheatsheet' | 'page' | 'external';
 		href: string;
 	}
 
@@ -29,6 +31,14 @@
 	let inputEl = $state<HTMLInputElement | null>(null);
 
 	const corePages: PaletteItem[] = [
+		{
+			id: 'page-learn',
+			title: 'Svelte 5 & SvelteKit Curriculum',
+			description: '35 structured lessons covering basic and advanced Svelte & SvelteKit',
+			category: 'Learn',
+			type: 'page',
+			href: '/learn'
+		},
 		{
 			id: 'page-cheatsheet',
 			title: 'Svelte 5 Runes Cheatsheet',
@@ -72,6 +82,14 @@
 	];
 
 	const allItems: PaletteItem[] = [
+		...getAllLessons().map((lesson) => ({
+			id: `lesson-${lesson.trackId}-${lesson.slug}`,
+			title: `${lesson.order}. ${lesson.title}`,
+			description: lesson.description,
+			category: lesson.trackTitle,
+			type: 'lesson' as const,
+			href: `/learn/${lesson.trackId}/${lesson.slug}`
+		})),
 		...cheatsheetItems.map((item) => ({
 			id: `rune-${item.id}`,
 			title: item.name,
@@ -153,7 +171,9 @@
 	></div>
 
 	<!-- Modal Box -->
-	<div class="fixed top-1/4 left-1/2 z-50 w-full max-w-xl -translate-x-1/2 p-4">
+	<div
+		class="fixed top-1/4 left-1/2 z-50 w-full max-w-xl -translate-x-1/2 animate-in p-4 duration-200 zoom-in-95 fade-in"
+	>
 		<div class="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
 			<!-- Input Header -->
 			<div class="flex items-center border-b border-border px-4 py-3">
@@ -187,6 +207,8 @@
 						>
 							{#if item.type === 'cheatsheet'}
 								<CodeXml class="mt-0.5 size-4 shrink-0 text-amber-500" />
+							{:else if item.type === 'lesson'}
+								<GraduationCap class="mt-0.5 size-4 shrink-0 text-emerald-400" />
 							{:else if item.type === 'page'}
 								<Terminal class="mt-0.5 size-4 shrink-0 text-cyan-400" />
 							{:else if item.type === 'external'}

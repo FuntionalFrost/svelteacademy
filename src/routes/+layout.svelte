@@ -1,18 +1,41 @@
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
+	import { onNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { navigating, page } from '$app/state';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import { BookOpen, CodeXml, ExternalLink, Menu, Rocket, Terminal, X } from '@lucide/svelte';
+	import {
+		BookOpen,
+		CodeXml,
+		ExternalLink,
+		GraduationCap,
+		Menu,
+		Rocket,
+		Terminal,
+		X
+	} from '@lucide/svelte';
 	import { ModeWatcher } from 'mode-watcher';
 	import './layout.css';
 
 	let { children } = $props();
 	let mobileMenuOpen = $state(false);
 
+	// Native Hardware-Accelerated SvelteKit View Transitions
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return;
+
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
+
 	const navItems = [
+		{ href: resolve('/learn'), label: 'Learn', icon: GraduationCap },
 		{ href: resolve('/cheatsheet'), label: 'Cheatsheet', icon: CodeXml },
 		{ href: resolve('/playground'), label: 'Playground', icon: Terminal },
 		{ href: resolve('/guides'), label: 'Guides', icon: BookOpen }
@@ -43,11 +66,6 @@
 				<Logo />
 				<span class="text-lg font-extrabold tracking-tight whitespace-nowrap text-foreground">
 					Svelte<span class="text-primary">Academy</span>
-				</span>
-				<span
-					class="hidden shrink-0 rounded-md border border-primary/30 bg-primary/10 px-2 py-0.5 font-mono text-xs font-bold whitespace-nowrap text-primary sm:inline-block"
-				>
-					Svelte 5
 				</span>
 			</a>
 
@@ -149,7 +167,7 @@
 		{/if}
 	</header>
 
-	{#if navigating !== null}
+	{#if navigating.to !== null}
 		<div
 			class="fixed top-0 left-0 z-60 h-0.5 w-full origin-left animate-pulse bg-primary"
 			aria-hidden="true"
@@ -283,13 +301,6 @@
 						</li>
 					</ul>
 				</div>
-			</div>
-
-			<div
-				class="mt-8 flex flex-col items-center justify-between gap-4 border-t border-border/60 pt-8 font-mono text-sm sm:flex-row"
-			>
-				<span>&copy; {new Date().getFullYear()} Svelte Academy</span>
-				<span>Hosted on Cloudflare Pages</span>
 			</div>
 		</div>
 	</footer>
