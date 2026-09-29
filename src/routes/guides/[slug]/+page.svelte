@@ -7,7 +7,7 @@
 	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
 	import TableOfContents from '$lib/components/TableOfContents.svelte';
 	import { ArrowLeft, ArrowRight, Clock, GitPullRequest, Layers, Tag } from '@lucide/svelte';
-	import { Badge, Kbd, useShortcuts } from 'yaxa-svelte';
+	import { Badge, Kbd, toast, useShortcuts } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -42,15 +42,10 @@
 			btn.innerHTML = '<span>Copy</span>';
 			btn.setAttribute('aria-label', 'Copy code to clipboard');
 
-			let timeoutId: number;
 			const onClick = async () => {
 				const code = pre.querySelector('code')?.innerText || (pre as HTMLElement).innerText;
 				await navigator.clipboard.writeText(code.trim());
-				btn.innerHTML = '<span class="text-emerald-400 font-semibold">Copied!</span>';
-				clearTimeout(timeoutId);
-				timeoutId = window.setTimeout(() => {
-					btn.innerHTML = '<span>Copy</span>';
-				}, 2000);
+				toast.success('Code copied to clipboard');
 			};
 
 			btn.addEventListener('click', onClick);
@@ -58,7 +53,6 @@
 
 			cleanups.push(() => {
 				btn.removeEventListener('click', onClick);
-				clearTimeout(timeoutId);
 				btn.remove();
 			});
 		});

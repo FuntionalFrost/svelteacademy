@@ -16,7 +16,7 @@
 		Terminal,
 		X
 	} from '@lucide/svelte';
-	import { ModeWatcher } from 'mode-watcher';
+	import { Toaster } from 'yaxa-svelte';
 	import './layout.css';
 
 	let { children } = $props();
@@ -46,8 +46,8 @@
 	}
 </script>
 
-<!-- Mounts ModeWatcher to physically toggle .dark on <html> -->
-<ModeWatcher defaultMode="dark" />
+<!-- Global Toast Notification Center -->
+<Toaster position="bottom-right" richColors />
 
 <div
 	class="flex min-h-screen flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary"

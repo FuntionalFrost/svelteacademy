@@ -172,7 +172,7 @@
 
 	<!-- Modal Box -->
 	<div
-		class="fixed top-1/4 left-1/2 z-50 w-full max-w-xl -translate-x-1/2 animate-in p-4 duration-200 zoom-in-95 fade-in"
+		class="animate-in zoom-in-95 fade-in fixed top-1/4 left-1/2 z-50 w-full max-w-xl -translate-x-1/2 p-4 duration-200"
 	>
 		<div class="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
 			<!-- Input Header -->

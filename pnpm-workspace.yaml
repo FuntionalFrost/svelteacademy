@@ -2,4 +2,4 @@ preferFrozenLockfile: true
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
-  - yaxa-svelte@1.5.2 || 1.8.0 || 1.10.0
+  - yaxa-svelte@1.5.2 || 1.8.0 || 1.10.0 || 1.13.2

@@ -1,5 +1,7 @@
 <!-- src/lib/components/ProgressBar.svelte -->
 <script lang="ts">
+	import { Progress } from 'yaxa-svelte';
+
 	let scrollY = $state(0);
 	let innerHeight = $state(0);
 
@@ -12,9 +14,12 @@
 
 <svelte:window bind:scrollY bind:innerHeight />
 
-<div class="fixed top-0 left-0 z-50 h-1 w-full bg-primary/10">
-	<div
-		class="h-full bg-linear-to-r from-primary via-orange-500 to-amber-500 transition-all duration-75"
-		style="width: {progress}%"
-	></div>
+<div class="fixed top-0 left-0 z-50 w-full">
+	<Progress
+		value={progress}
+		max={100}
+		size="xs"
+		color="primary"
+		class="rounded-none bg-transparent"
+	/>
 </div>

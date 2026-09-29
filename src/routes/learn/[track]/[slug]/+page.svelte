@@ -7,8 +7,8 @@
 	import LessonNavigation from '$lib/components/learn/LessonNavigation.svelte';
 	import SEO from '$lib/components/SEO.svelte';
 	import { learningStore } from '$lib/stores/learningStore.svelte';
-	import { CheckCircle2, ChevronRight, Clock, GraduationCap, PanelLeft, X } from '@lucide/svelte';
-	import { Badge } from 'yaxa-svelte';
+	import { CheckCircle2, ChevronRight, Clock, GraduationCap, PanelLeft } from '@lucide/svelte';
+	import { Badge, Slideover } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -35,6 +35,19 @@
 <!-- Celebration Modal on Track Completion -->
 <CelebrationModal bind:isOpen={celebrationModalOpen} track={data.track} />
 
+<!-- Mobile Curriculum Slideover Drawer -->
+<Slideover bind:open={mobileSidebarOpen} side="left" class="max-w-xs p-0">
+	{#snippet header()}
+		<div class="flex items-center gap-2 border-b border-border px-4 py-3 font-bold text-foreground">
+			<GraduationCap class="size-4 text-primary" />
+			<span>Curriculum Tracks</span>
+		</div>
+	{/snippet}
+	<div class="h-full overflow-y-auto">
+		<CurriculumSidebar currentTrackId={data.lesson.trackId} currentSlug={data.lesson.slug} />
+	</div>
+</Slideover>
+
 <div class="relative flex min-h-[calc(100vh-4rem)] flex-col lg:flex-row">
 	<!-- Ambient Background Glow for Active Track -->
 	<div
@@ -47,43 +60,6 @@
 			<CurriculumSidebar currentTrackId={data.lesson.trackId} currentSlug={data.lesson.slug} />
 		</div>
 	</div>
-
-	<!-- Mobile Sidebar Drawer Overlay -->
-	{#if mobileSidebarOpen}
-		<div
-			class="fixed inset-0 z-50 flex bg-background/80 backdrop-blur-md lg:hidden"
-			role="dialog"
-			aria-modal="true"
-		>
-			<div class="relative flex w-5/6 max-w-sm flex-col bg-background shadow-2xl">
-				<div class="flex items-center justify-between border-b border-border p-4">
-					<div class="flex items-center gap-2 font-bold text-foreground">
-						<GraduationCap class="size-4 text-primary" />
-						<span>Curriculum Tracks</span>
-					</div>
-					<button
-						type="button"
-						class="rounded-lg p-1 text-muted-foreground hover:bg-muted"
-						onclick={() => (mobileSidebarOpen = false)}
-						aria-label="Close Menu"
-					>
-						<X class="size-5" />
-					</button>
-				</div>
-				<div class="flex-1 overflow-y-auto">
-					<CurriculumSidebar currentTrackId={data.lesson.trackId} currentSlug={data.lesson.slug} />
-				</div>
-			</div>
-			<div
-				class="flex-1 cursor-pointer"
-				onclick={() => (mobileSidebarOpen = false)}
-				role="button"
-				tabindex="0"
-				onkeydown={(e) => e.key === 'Escape' && (mobileSidebarOpen = false)}
-				aria-label="Close backdrop"
-			></div>
-		</div>
-	{/if}
 
 	<!-- Main Lesson Content Area -->
 	<main class="flex-1 overflow-y-auto px-4 py-8 sm:px-8 lg:px-12">
@@ -160,9 +136,7 @@
 			</header>
 
 			<!-- Interactive Micro-Simulator Widget -->
-			<section
-				class="rounded-3xl border border-border/80 bg-card/70 p-1 shadow-sm backdrop-blur-md"
-			>
+			<section>
 				<InteractiveLessonDemo lesson={data.lesson} />
 			</section>
 

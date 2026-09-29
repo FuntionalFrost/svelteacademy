@@ -121,46 +121,50 @@
 	let jsonTokens = $derived(tokenizeJson(jsonString));
 </script>
 
-<div class="not-prose my-8 overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
+<div class="not-prose my-8 overflow-hidden rounded-2xl bg-zinc-950 text-zinc-100 shadow-2xl">
 	<!-- Top Header Accent -->
-	<div class="h-1 w-full bg-linear-to-r from-cyan-500 via-primary to-emerald-500"></div>
+	<div class="h-1 w-full bg-linear-to-r from-cyan-500 via-orange-500 to-emerald-500"></div>
 
 	<!-- Component Title Bar -->
-	<div class="flex items-center justify-between border-b border-border bg-muted/40 p-4 sm:p-5">
+	<div class="flex items-center justify-between border-b border-zinc-800/80 p-4 pb-4 sm:p-5">
 		<div class="flex items-center gap-2.5">
-			<div class="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
+			<div
+				class="flex size-9 items-center justify-center rounded-xl border border-orange-500/30 bg-orange-500/10 text-orange-400"
+			>
 				<Share2 class="size-5" />
 			</div>
 			<div>
-				<h3 class="text-base font-bold text-foreground sm:text-lg">
+				<h3 class="text-base font-bold text-zinc-100 sm:text-lg">
 					Svelte 5 Class State & Context Inspector
 				</h3>
-				<p class="text-sm text-muted-foreground">
+				<p class="text-sm text-zinc-400">
 					Demonstrating shared object reactivity across components via class instance
 				</p>
 			</div>
 		</div>
 		<button
 			onclick={() => store.reset()}
-			class="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-border bg-background px-3 py-1.5 text-sm font-semibold whitespace-nowrap text-muted-foreground transition hover:border-primary/50 hover:text-foreground"
+			class="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100"
 		>
-			<RotateCcw class="size-4" />
+			<RotateCcw class="size-3.5" />
 			<span>Reset Class State</span>
 		</button>
 	</div>
 
-	<div class="grid grid-cols-1 divide-y divide-border lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+	<div
+		class="grid grid-cols-1 divide-y divide-zinc-800/60 lg:grid-cols-3 lg:divide-x lg:divide-y-0"
+	>
 		<!-- Component A: State Producer / Provider -->
 		<div class="flex flex-col justify-between gap-4 p-5">
 			<div class="flex items-center justify-between">
 				<span
-					class="flex items-center gap-1.5 font-mono text-sm font-bold tracking-wider text-cyan-500 uppercase"
+					class="flex items-center gap-1.5 font-mono text-xs font-bold tracking-wider text-cyan-400 uppercase"
 				>
 					<Layers class="size-4" />
 					Component A (Provider)
 				</span>
 				<span
-					class="rounded-md bg-cyan-500/10 px-2.5 py-0.5 font-mono text-sm font-bold text-cyan-500"
+					class="rounded-md bg-cyan-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-cyan-400"
 				>
 					setContext()
 				</span>
@@ -168,27 +172,26 @@
 
 			<div class="flex flex-1 flex-col justify-between gap-4">
 				<!-- Profile Mutations -->
-				<div class="space-y-3 rounded-xl border border-border bg-background/60 p-4 shadow-xs">
-					<span class="block font-mono text-sm font-semibold text-muted-foreground">
+				<div class="space-y-3">
+					<span class="block font-mono text-xs font-semibold text-zinc-400 uppercase">
 						Mutate $state Object
 					</span>
 
-					<!-- Control directly nested inside label -->
-					<label class="block space-y-1.5 text-sm text-muted-foreground">
+					<label class="block space-y-1.5 text-xs text-zinc-400">
 						<span>Name</span>
 						<input
 							type="text"
 							value={store.user.name}
 							oninput={(e) => store.updateName(e.currentTarget.value)}
-							class="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium text-foreground focus:border-primary focus:outline-none"
+							class="focus:bg-zinc-850 w-full rounded-lg bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-100 focus:outline-none"
 						/>
 					</label>
 
 					<div class="flex items-center justify-between pt-1">
-						<span class="text-sm text-muted-foreground">Status Flag</span>
+						<span class="text-xs text-zinc-400">Status Flag</span>
 						<button
 							onclick={() => store.toggleStatus()}
-							class="rounded-md border border-border bg-muted/50 px-2.5 py-1 font-mono text-sm font-bold transition hover:bg-muted active:scale-95"
+							class="rounded-lg bg-zinc-900 px-3 py-1.5 font-mono text-xs font-bold text-zinc-200 transition hover:bg-zinc-800 active:scale-95"
 						>
 							Toggle ({store.user.status})
 						</button>
@@ -196,11 +199,8 @@
 				</div>
 
 				<!-- Add Notification Trigger -->
-				<form
-					onsubmit={handleAddNotification}
-					class="space-y-3 rounded-xl border border-border bg-background/60 p-4 shadow-xs"
-				>
-					<span class="block font-mono text-sm font-semibold text-muted-foreground">
+				<form onsubmit={handleAddNotification} class="space-y-2 pt-2">
+					<span class="block font-mono text-xs font-semibold text-zinc-400 uppercase">
 						Push to $state Array
 					</span>
 					<div class="flex items-center gap-2">
@@ -209,11 +209,11 @@
 							bind:value={newNotificationText}
 							placeholder="New notification..."
 							aria-label="New notification message"
-							class="min-w-0 flex-1 rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground focus:border-primary focus:outline-none"
+							class="focus:bg-zinc-850 min-w-0 flex-1 rounded-lg bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none"
 						/>
 						<button
 							type="submit"
-							class="inline-flex shrink-0 items-center gap-1 rounded-lg bg-primary px-3 py-2 font-mono text-xs font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90 active:scale-95"
+							class="inline-flex shrink-0 items-center gap-1 rounded-lg bg-cyan-500 px-3 py-2 font-mono text-xs font-bold text-zinc-950 shadow-xs transition hover:bg-cyan-400 active:scale-95"
 						>
 							<Plus class="size-3.5" />
 							<span>Push</span>
@@ -224,16 +224,16 @@
 		</div>
 
 		<!-- Component B: State Consumer (Child) -->
-		<div class="flex flex-col justify-between gap-4 bg-muted/10 p-5">
+		<div class="flex flex-col justify-between gap-4 p-5">
 			<div class="flex items-center justify-between">
 				<span
-					class="flex items-center gap-1.5 font-mono text-sm font-bold tracking-wider text-emerald-500 uppercase"
+					class="flex items-center gap-1.5 font-mono text-xs font-bold tracking-wider text-emerald-400 uppercase"
 				>
 					<Sparkles class="size-4" />
 					Component B (Consumer)
 				</span>
 				<span
-					class="rounded-md bg-emerald-500/10 px-2.5 py-0.5 font-mono text-sm font-bold text-emerald-500"
+					class="rounded-md bg-emerald-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-emerald-400"
 				>
 					getContext()
 				</span>
@@ -241,41 +241,37 @@
 
 			<div class="flex flex-1 flex-col justify-between gap-4">
 				<!-- Reactive Output Card -->
-				<div
-					class="space-y-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 shadow-xs"
-				>
+				<div class="space-y-2 rounded-xl bg-emerald-500/10 p-3.5">
 					<div class="flex items-center justify-between">
 						<div class="flex items-center gap-2">
-							<User class="size-4 text-emerald-500" />
-							<span class="text-sm font-bold text-foreground">{store.user.name}</span>
+							<User class="size-4 text-emerald-400" />
+							<span class="text-sm font-bold text-zinc-100">{store.user.name}</span>
 						</div>
 						<span
-							class="rounded-md px-2.5 py-0.5 font-mono text-sm font-bold {store.user.status ===
+							class="rounded-md px-2 py-0.5 font-mono text-xs font-bold {store.user.status ===
 							'Active'
-								? 'bg-emerald-500/20 text-emerald-500'
-								: 'bg-amber-500/20 text-amber-500'}"
+								? 'bg-emerald-500/20 text-emerald-400'
+								: 'bg-amber-500/20 text-amber-400'}"
 						>
 							{store.user.status}
 						</span>
 					</div>
-					<p class="font-mono text-sm text-muted-foreground">{store.user.role}</p>
+					<p class="font-mono text-xs text-zinc-400">{store.user.role}</p>
 				</div>
 
 				<!-- Live Notification Feed -->
-				<div
-					class="flex flex-1 flex-col justify-between rounded-xl border border-border bg-background/60 p-4 shadow-xs"
-				>
-					<div class="mb-2.5 flex items-center justify-between">
+				<div class="flex flex-1 flex-col justify-between">
+					<div class="mb-2 flex items-center justify-between">
 						<div class="flex items-center gap-1.5">
-							<Bell class="size-4 text-muted-foreground" />
-							<span class="font-mono text-sm font-semibold text-muted-foreground">
+							<Bell class="size-4 text-zinc-400" />
+							<span class="font-mono text-xs font-semibold text-zinc-400">
 								Derived Unread ({store.unreadCount})
 							</span>
 						</div>
 						{#if store.notifications.length > 0}
 							<button
 								onclick={() => store.clearAll()}
-								class="flex items-center gap-1 font-mono text-sm text-muted-foreground hover:text-red-400"
+								class="flex items-center gap-1 font-mono text-xs text-zinc-400 hover:text-red-400"
 							>
 								<Trash2 class="size-3.5" />
 								Clear
@@ -283,25 +279,25 @@
 						{/if}
 					</div>
 
-					<div class="max-h-48 flex-1 space-y-2 overflow-y-auto">
+					<div class="max-h-44 flex-1 space-y-1.5 overflow-y-auto">
 						{#each store.notifications as notification (notification.id)}
 							<div
-								class="flex items-center justify-between rounded-lg border border-border bg-card p-2.5 text-sm transition {notification.read
-									? 'opacity-60'
+								class="flex items-center justify-between rounded-lg bg-zinc-900/60 p-2.5 text-xs transition {notification.read
+									? 'opacity-50'
 									: ''}"
 							>
-								<span class="font-medium text-foreground">{notification.text}</span>
+								<span class="font-medium text-zinc-200">{notification.text}</span>
 								{#if !notification.read}
 									<button
 										onclick={() => store.markAsRead(notification.id)}
-										class="p-1 text-emerald-500 hover:text-emerald-400"
+										class="p-1 text-emerald-400 hover:text-emerald-300"
 										title="Mark as read"
 										aria-label="Mark notification as read"
 									>
 										<CircleCheck class="size-4" />
 									</button>
 								{:else}
-									<span class="p-1 text-muted-foreground/40" title="Read">
+									<span class="p-1 text-zinc-600" title="Read">
 										<CircleCheck class="size-4" />
 									</span>
 								{/if}
@@ -309,7 +305,7 @@
 						{/each}
 						{#if store.notifications.length === 0}
 							<div
-								class="rounded-lg border border-dashed border-border p-4 text-center font-mono text-sm text-muted-foreground"
+								class="rounded-lg bg-zinc-900/30 p-4 text-center font-mono text-xs text-zinc-500"
 							>
 								No notifications in class state
 							</div>
@@ -323,25 +319,27 @@
 		<div class="flex flex-col justify-between gap-4 p-5">
 			<div class="flex items-center justify-between">
 				<span
-					class="flex items-center gap-1.5 font-mono text-sm font-bold tracking-wider text-purple-400 uppercase"
+					class="flex items-center gap-1.5 font-mono text-xs font-bold tracking-wider text-purple-400 uppercase"
 				>
 					<Terminal class="size-4" />
 					Class Instance Dump
 				</span>
 				<span
-					class="rounded-md bg-purple-500/10 px-2.5 py-0.5 font-mono text-sm font-bold text-purple-400"
+					class="rounded-md bg-purple-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-purple-400"
 				>
 					Reactive Proxy
 				</span>
 			</div>
 
 			<div
-				class="flex flex-1 flex-col justify-between overflow-hidden rounded-xl border border-[#30363d] bg-[#0d1117] p-4 font-mono text-sm text-[#e6edf3] shadow-sm"
+				class="flex flex-1 flex-col justify-between overflow-hidden rounded-xl bg-black/60 p-4 font-mono text-xs text-zinc-100 shadow-sm"
 			>
 				<div>
-					<div class="mb-2 text-sm font-bold text-purple-400">// UserStore Instance State</div>
+					<div class="mb-2 font-mono text-xs font-bold text-purple-400">
+						// UserStore Instance State
+					</div>
 					<pre
-						class="m-0! max-h-72 overflow-x-auto overflow-y-auto border-0! bg-transparent! p-0! font-mono text-sm leading-relaxed text-[#e6edf3] shadow-none!"><code
+						class="m-0! max-h-72 overflow-x-auto overflow-y-auto border-0! bg-transparent! p-0! font-mono text-xs leading-relaxed text-[#e6edf3] shadow-none!"><code
 							>{#each jsonTokens as token, idx (idx)}{#if token.type === 'key'}<span
 										class="font-semibold text-[#ff7b72]">{token.text}</span
 									>{:else if token.type === 'string'}<span class="text-[#7ee787]">{token.text}</span
@@ -357,7 +355,7 @@
 				</div>
 
 				<div
-					class="mt-3 flex items-center justify-between border-t border-[#30363d] pt-2.5 text-xs text-purple-300/60"
+					class="mt-3 flex items-center justify-between border-t border-zinc-800 pt-2.5 text-[11px] text-purple-300/70"
 				>
 					<span>✨ Deep $state proxy</span>
 					<span>Auto-synced</span>

@@ -10,13 +10,13 @@
 	let isEven = $derived(count % 2 === 0);
 </script>
 
-<div class="my-8 rounded-2xl border border-primary/20 bg-muted/30 p-6 shadow-xs">
-	<div class="flex items-center justify-between border-b border-border pb-4">
+<div class="my-8 rounded-2xl bg-zinc-950 p-6 text-zinc-100 shadow-2xl">
+	<div class="flex items-center justify-between border-b border-zinc-800/80 pb-4">
 		<div>
-			<span class="font-mono text-sm font-bold tracking-wider text-primary uppercase">
+			<span class="font-mono text-xs font-bold tracking-wider text-orange-400 uppercase">
 				Live Svelte 5 Playground
 			</span>
-			<h4 class="text-base font-bold text-foreground sm:text-lg">
+			<h4 class="text-base font-bold text-zinc-100 sm:text-lg">
 				Interactive $state & $derived Demo
 			</h4>
 		</div>
@@ -25,47 +25,49 @@
 				count = 0;
 				step = 1;
 			}}
-			class="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition hover:text-foreground"
+			class="inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100"
 		>
-			<RefreshCw class="size-4" />
+			<RefreshCw class="size-3.5" />
 			<span>Reset</span>
 		</button>
 	</div>
 
-	<div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+	<div
+		class="mt-4 grid grid-cols-1 divide-y divide-zinc-800/60 sm:grid-cols-2 sm:divide-x sm:divide-y-0"
+	>
 		<!-- Live Counter Controls -->
-		<div class="space-y-4 rounded-xl border border-border bg-card p-4">
+		<div class="space-y-4 p-4 sm:pr-6">
 			<div class="flex items-center justify-between">
-				<span class="text-sm font-semibold text-muted-foreground">Count Value</span>
-				<span class="font-mono text-2xl font-black text-primary">{count}</span>
+				<span class="text-xs font-bold text-zinc-400 uppercase">Count Value</span>
+				<span class="font-mono text-3xl font-black text-orange-400">{count}</span>
 			</div>
 
 			<div class="flex gap-2">
 				<button
 					onclick={() => (count -= step)}
-					class="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-border bg-background py-2 text-sm font-bold text-foreground transition hover:bg-accent"
+					class="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-zinc-900 py-2 text-sm font-bold text-zinc-200 transition hover:bg-zinc-800 active:scale-95"
 				>
 					<Minus class="size-4" />
 					<span>Subtract</span>
 				</button>
 				<button
 					onclick={() => (count += step)}
-					class="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-primary py-2 text-sm font-bold text-primary-foreground shadow-xs transition hover:bg-primary/90"
+					class="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-orange-500 py-2 text-sm font-bold text-white shadow-xs transition hover:bg-orange-600 active:scale-95"
 				>
 					<Plus class="size-4" />
 					<span>Add</span>
 				</button>
 			</div>
 
-			<div class="flex items-center justify-between border-t border-border pt-3 text-sm">
-				<span class="text-muted-foreground">Step Increment:</span>
+			<div class="flex items-center justify-between border-t border-zinc-800/60 pt-3 text-xs">
+				<span class="text-zinc-400">Step Increment:</span>
 				<div class="flex gap-1.5">
 					{#each [1, 5, 10] as s (s)}
 						<button
 							onclick={() => (step = s)}
-							class="rounded-md px-2.5 py-1 font-mono text-sm font-semibold transition {step === s
-								? 'bg-primary text-primary-foreground'
-								: 'bg-muted text-muted-foreground hover:text-foreground'}"
+							class="rounded-md px-2.5 py-1 font-mono text-xs font-semibold transition {step === s
+								? 'bg-orange-500 text-white shadow-xs'
+								: 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800 hover:text-white'}"
 						>
 							+{s}
 						</button>
@@ -75,27 +77,25 @@
 		</div>
 
 		<!-- Live Reactive Output -->
-		<div
-			class="flex flex-col justify-between space-y-3 rounded-xl border border-border bg-card p-4"
-		>
-			<span class="text-sm font-semibold text-muted-foreground">Derived Signal State</span>
+		<div class="flex flex-col justify-between space-y-3 p-4 sm:pl-6">
+			<span class="text-xs font-bold text-zinc-400 uppercase">Derived Signal State</span>
 
 			<div class="space-y-2">
 				<div class="flex justify-between text-sm">
-					<span class="text-muted-foreground">$derived(count * 2):</span>
-					<span class="font-mono font-bold text-foreground">{doubleCount}</span>
+					<span class="font-mono text-xs text-zinc-400">$derived(count * 2):</span>
+					<span class="font-mono font-bold text-zinc-100">{doubleCount}</span>
 				</div>
 				<div class="flex justify-between text-sm">
-					<span class="text-muted-foreground">Parity Check:</span>
-					<span class="font-mono font-bold {isEven ? 'text-emerald-500' : 'text-amber-500'}">
+					<span class="font-mono text-xs text-zinc-400">Parity Check:</span>
+					<span class="font-mono font-bold {isEven ? 'text-emerald-400' : 'text-amber-400'}">
 						{isEven ? 'EVEN' : 'ODD'}
 					</span>
 				</div>
 			</div>
 
-			<p class="text-sm leading-relaxed text-muted-foreground/80">
-				✨ Mutating <code class="text-primary">count</code> directly updates these derived values in fine-grained
-				DOM signals without re-rendering the surrounding template tree.
+			<p class="text-xs leading-relaxed text-zinc-400">
+				✨ Mutating <code class="font-bold text-orange-400">count</code> directly updates these derived
+				values in fine-grained DOM signals without re-rendering the surrounding template tree.
 			</p>
 		</div>
 	</div>

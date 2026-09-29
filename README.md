@@ -31,7 +31,7 @@
 - **⚡ Zero-WASM Code Highlighting & Copy:** Fast, compile-time syntax tokenization matching Yaxa UI with floating copy buttons.
 - **📜 Sticky Table of Contents:** `IntersectionObserver`-driven reading companion that tracks headings in real-time.
 - **📊 Scroll Reading Progress:** Viewport-aware progress indicator for long-form tutorials.
-- **🌗 Zero-Flash Dark Mode:** Powered by `mode-watcher` with system theme synchronization.
+- **🌗 Zero-Flash Dark Mode:** Native Svelte 5 `$state` store with OS preference synchronization and zero flash.
 - **🌐 SEO & Web Feeds:** Prerendered HTML, dynamic XML sitemaps, RSS feeds, and OpenGraph static vector/raster preview cards.
 - **🚀 SuperSvelte SaaS Integration:** Top-of-funnel funnel to the [SuperSvelte](https://supersvelte.netlify.app) enterprise TypeScript stack.
 
@@ -40,11 +40,11 @@
 ## 🛠️ Tech Stack
 
 - **Framework:** [SvelteKit](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/)
-- **UI Primitives & Design System:** Powered by [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.10.0)
+- **UI Primitives & Design System:** Powered by [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.13.2)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/), `@tailwindcss/typography`, OKLCH palette
 - **Content Engine:** [MDsveX](https://mdsvex.pngwn.io/)
 - **Syntax Highlighting:** Pure JavaScript Zero-WASM Multi-Language Tokenizer
-- **Theme Management:** [mode-watcher](https://github.com/sainthkh/mode-watcher)
+- **Theme Management:** Native Svelte 5 Runes Reactive Store
 - **Icons:** [@lucide/svelte](https://lucide.dev/guide/packages/lucide-svelte)
 - **Deployment Adapter:** `@sveltejs/adapter-static`
 

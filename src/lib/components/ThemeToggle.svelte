@@ -1,12 +1,12 @@
 <!-- src/lib/components/ThemeToggle.svelte -->
 <script lang="ts">
 	import { Moon, Sun } from '@lucide/svelte';
-	import { toggleMode } from 'mode-watcher';
+	import { theme } from '$lib/stores/theme.svelte';
 	import { Button } from 'yaxa-svelte';
 </script>
 
 <Button
-	onclick={toggleMode}
+	onclick={() => theme.toggle()}
 	variant="outline"
 	color="neutral"
 	square

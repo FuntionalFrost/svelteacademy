@@ -52,7 +52,9 @@
 
 	<!-- Interactive Demo 1: Basic Counter & Derived Parity Check -->
 	<section class="mt-12 space-y-3">
-		<div class="flex items-center gap-2 font-mono text-sm font-bold text-primary uppercase">
+		<div
+			class="flex items-center gap-2 font-mono text-sm font-black tracking-wide text-primary uppercase"
+		>
 			<Sparkles class="size-4" />
 			<span>1. Basic Signal Mutation & Derivation</span>
 		</div>
@@ -61,8 +63,10 @@
 
 	<!-- Interactive Demo 2: Deep Rune Execution Log & Untrack() -->
 	<section class="mt-12 space-y-3">
-		<div class="flex items-center gap-2 font-mono text-sm font-bold text-cyan-400 uppercase">
-			<Cpu class="size-4" />
+		<div
+			class="flex items-center gap-2 font-mono text-sm font-black tracking-wide text-cyan-800 uppercase dark:text-cyan-300"
+		>
+			<Cpu class="size-4 text-cyan-800 dark:text-cyan-300" />
 			<span>2. Effect Execution & Dependency Tracking</span>
 		</div>
 		<RuneVisualizer />
@@ -70,8 +74,10 @@
 
 	<!-- Interactive Demo 3: Shared Class State & Context Store -->
 	<section class="mt-12 space-y-3">
-		<div class="flex items-center gap-2 font-mono text-sm font-bold text-purple-400 uppercase">
-			<Layers class="size-4" />
+		<div
+			class="flex items-center gap-2 font-mono text-sm font-black tracking-wide text-purple-900 uppercase dark:text-purple-300"
+		>
+			<Layers class="size-4 text-purple-900 dark:text-purple-300" />
 			<span>3. Encapsulated Class State Inspector</span>
 		</div>
 		<ClassStateVisualizer />

@@ -15,7 +15,7 @@ export default defineConfig({
 			adapter: adapter({ fallback: '404.html' }),
 			paths: { relative: false },
 			compilerOptions: {
-				runes: ({ filename }) => (filename.includes('node_modules') ? undefined : true),
+				runes: true,
 				warningFilter: (warning) =>
 					!(warning.code === 'script_context_deprecated' && warning.filename?.endsWith('.md'))
 			},

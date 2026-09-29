@@ -157,9 +157,7 @@
 	>('$env/static/private');
 </script>
 
-<div
-	class="relative overflow-hidden rounded-2xl border border-border bg-card/70 p-5 shadow-lg backdrop-blur-md"
->
+<div class="relative overflow-hidden rounded-2xl bg-zinc-950 p-6 text-zinc-100 shadow-2xl">
 	<!-- Top Glowing Track Border Ambient -->
 	<div
 		class="absolute top-0 right-0 left-0 h-1 bg-linear-to-r {lesson.trackId === 'basic-svelte'
@@ -172,23 +170,23 @@
 	></div>
 
 	<!-- Interactive Header Toolbar -->
-	<div class="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 pb-3">
+	<div class="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800/80 pb-3">
 		<div class="flex items-center gap-2.5">
 			<div
-				class="flex size-8 items-center justify-center rounded-xl border border-primary/30 bg-primary/10 text-primary shadow-xs"
+				class="flex size-8 items-center justify-center rounded-xl border border-orange-500/30 bg-orange-500/10 text-orange-400 shadow-xs"
 			>
 				<Zap class="size-4" />
 			</div>
 			<div>
 				<div class="flex items-center gap-2">
-					<h3 class="text-sm font-bold tracking-tight text-foreground">Interactive Laboratory</h3>
+					<h3 class="text-sm font-bold tracking-tight text-zinc-100">Interactive Laboratory</h3>
 					<span
-						class="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-500"
+						class="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-400"
 					>
 						Live Runtime
 					</span>
 				</div>
-				<p class="text-xs text-muted-foreground">
+				<p class="text-xs text-zinc-400">
 					Experiment directly with {lesson.title} concepts in real time
 				</p>
 			</div>
@@ -199,7 +197,7 @@
 				href="https://svelte.dev/playground"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-semibold text-foreground shadow-xs transition hover:border-primary/50 hover:bg-muted hover:text-primary"
+				class="inline-flex items-center gap-1.5 rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-300 shadow-xs transition hover:border-orange-500/50 hover:bg-zinc-800 hover:text-orange-400"
 			>
 				<span>Svelte 5 REPL</span>
 				<ExternalLink class="size-3.5 opacity-70" />
@@ -212,98 +210,108 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<Network class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<Network class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>Reactive Dependency Graph</span
 					>
 				</div>
-				<Button variant="ghost" size="xs" onclick={resetReactivity}>
+				<Button
+					variant="ghost"
+					size="xs"
+					class="text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100"
+					onclick={resetReactivity}
+				>
 					<RotateCcw class="mr-1 size-3" />
 					Reset
 				</Button>
 			</div>
 
-			<!-- Signal Nodes Visual Flow -->
-			<div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+			<!-- Signal Nodes Visual Flow: Seamless Column Dividers, Zero Inner Card Boxes -->
+			<div
+				class="grid grid-cols-1 divide-y divide-zinc-800/60 py-2 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+			>
 				<!-- Root Signal Node -->
 				<div
-					class="relative overflow-hidden rounded-xl border p-3.5 text-center transition-all duration-250 {isSignalPulsing
-						? 'scale-[1.03] border-primary bg-primary/20 shadow-lg ring-2 shadow-primary/30 ring-primary/40'
-						: 'border-border bg-background'}"
+					class="flex flex-col items-center justify-center p-4 text-center transition-all duration-200 {isSignalPulsing
+						? 'scale-105'
+						: ''}"
 				>
-					<span class="font-mono text-xs text-muted-foreground">$state(count)</span>
-					<div class="my-1.5 font-mono text-3xl font-black text-foreground">{reactCount}</div>
-					<div class="flex gap-1.5 pt-1">
-						<Button
-							size="xs"
-							variant="outline"
-							class="flex-1"
+					<span class="font-mono text-xs text-zinc-400">$state(count)</span>
+					<div class="my-2 font-mono text-4xl font-black text-zinc-100">{reactCount}</div>
+					<div class="flex gap-2">
+						<button
+							type="button"
+							class="rounded-lg bg-zinc-900 px-4 py-1.5 font-mono text-xs font-bold text-zinc-200 transition hover:bg-zinc-800 active:scale-95"
 							onclick={() => triggerSignalMutation(-1)}
 						>
 							-1
-						</Button>
-						<Button size="xs" class="flex-1" onclick={() => triggerSignalMutation(1)}>+1</Button>
+						</button>
+						<button
+							type="button"
+							class="rounded-lg bg-orange-500 px-4 py-1.5 font-mono text-xs font-bold text-white shadow-xs transition hover:bg-orange-600 active:scale-95"
+							onclick={() => triggerSignalMutation(1)}
+						>
+							+1
+						</button>
 					</div>
 				</div>
 
 				<!-- Multiplier Node -->
-				<div class="rounded-xl border border-border bg-background p-3.5 text-center">
-					<span class="font-mono text-xs text-muted-foreground">$state(multiplier)</span>
-					<div class="my-1.5 font-mono text-3xl font-black text-foreground">{reactMultiplier}x</div>
-					<div class="flex gap-1.5 pt-1">
-						<Button
-							size="xs"
-							variant="outline"
-							class="flex-1"
+				<div class="flex flex-col items-center justify-center p-4 text-center">
+					<span class="font-mono text-xs text-zinc-400">$state(multiplier)</span>
+					<div class="my-2 font-mono text-4xl font-black text-zinc-100">{reactMultiplier}x</div>
+					<div class="flex gap-2">
+						<button
+							type="button"
+							class="rounded-lg bg-zinc-900 px-4 py-1.5 font-mono text-xs font-bold text-zinc-200 transition hover:bg-zinc-800 active:scale-95"
 							onclick={() => (reactMultiplier = Math.max(1, reactMultiplier - 1))}
 						>
 							-
-						</Button>
-						<Button
-							size="xs"
-							variant="outline"
-							class="flex-1"
+						</button>
+						<button
+							type="button"
+							class="rounded-lg bg-zinc-900 px-4 py-1.5 font-mono text-xs font-bold text-zinc-200 transition hover:bg-zinc-800 active:scale-95"
 							onclick={() => (reactMultiplier += 1)}
 						>
 							+
-						</Button>
+						</button>
 					</div>
 				</div>
 
 				<!-- Auto-Memoized Derived Node -->
 				<div
-					class="rounded-xl border p-3.5 text-center shadow-inner transition-all duration-250 {isDerivedPulsing
-						? 'scale-[1.03] border-primary bg-primary/25 shadow-lg ring-2 shadow-primary/30 ring-primary/40'
-						: 'border-primary/40 bg-linear-to-br from-primary/10 via-card to-primary/5'}"
+					class="flex flex-col items-center justify-center p-4 text-center transition-all duration-200 {isDerivedPulsing
+						? 'scale-105'
+						: ''}"
 				>
 					<div
-						class="flex items-center justify-center gap-1 font-mono text-xs font-bold text-primary"
+						class="flex items-center justify-center gap-1.5 font-mono text-xs font-bold text-orange-400"
 					>
 						<Sparkles class="size-3.5 {isDerivedPulsing ? 'animate-bounce' : ''}" />
 						<span>$derived()</span>
 					</div>
-					<div class="my-1.5 font-mono text-3xl font-black text-primary">{reactDerived}</div>
-					<span class="font-mono text-[10px] text-muted-foreground">Zero Virtual DOM Diffing</span>
+					<div class="my-2 font-mono text-4xl font-black text-orange-400">{reactDerived}</div>
+					<span class="font-mono text-[10px] text-zinc-500">Zero Virtual DOM Diffing</span>
 				</div>
 			</div>
 
-			<!-- Terminal Execution Logs -->
-			<div class="space-y-1.5">
-				<div class="flex items-center justify-between text-xs font-semibold text-muted-foreground">
+			<!-- Terminal Execution Logs: Seamless Flush Pane -->
+			<div class="rounded-xl bg-black/60 p-3.5">
+				<div class="mb-2 flex items-center justify-between text-xs font-semibold text-zinc-400">
 					<span class="flex items-center gap-1.5">
 						<TerminalIcon class="size-3.5 text-emerald-400" />
-						<span>Fine-Grained Runtime Observer Stream</span>
+						<span>Runtime Observer Stream</span>
 					</span>
-					<span class="font-mono text-[10px] opacity-70">Auto-scheduled</span>
+					<span class="font-mono text-[10px] text-zinc-500">Auto-scheduled</span>
 				</div>
 				<div
-					class="max-h-28 overflow-y-auto rounded-xl border bg-slate-950 p-3 font-mono text-xs text-emerald-400 shadow-inner transition-all duration-250 {isEffectPulsing
-						? 'border-emerald-400 ring-1 shadow-emerald-500/20 ring-emerald-400/40'
-						: 'border-border'}"
+					class="max-h-24 space-y-1 overflow-y-auto font-mono text-xs text-emerald-400 transition-all duration-200 {isEffectPulsing
+						? 'text-emerald-300'
+						: ''}"
 				>
 					{#each effectLogs as log, i (i)}
 						<div class="flex items-start gap-1.5 leading-relaxed">
-							<span class="text-primary opacity-60">❯</span>
+							<span class="text-orange-400 opacity-80">❯</span>
 							<span>{log}</span>
 						</div>
 					{/each}
@@ -316,36 +324,38 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<Sliders class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<Sliders class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>Two-Way $bindable() Synchronizer</span
 					>
 				</div>
 			</div>
 
-			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+			<div
+				class="grid grid-cols-1 divide-y divide-zinc-800/60 py-2 sm:grid-cols-2 sm:divide-x sm:divide-y-0"
+			>
 				<!-- Parent Controls -->
-				<div class="space-y-3 rounded-xl border border-border bg-background/80 p-4">
-					<span class="font-mono text-xs font-bold text-muted-foreground uppercase"
+				<div class="space-y-3 p-4">
+					<span class="font-mono text-xs font-bold text-zinc-400 uppercase"
 						>Parent State Controller</span
 					>
 					<div>
-						<label for="p-name" class="text-xs font-medium text-muted-foreground">User Name:</label>
+						<label for="p-name" class="text-xs font-medium text-zinc-400">User Name:</label>
 						<input
 							id="p-name"
 							type="text"
 							bind:value={propName}
-							class="mt-1 w-full rounded-lg border border-border bg-card px-3 py-1.5 font-mono text-sm text-foreground focus:border-primary focus:outline-hidden"
+							class="focus:bg-zinc-850 mt-1 w-full rounded-lg bg-zinc-900 px-3 py-1.5 font-mono text-sm text-zinc-100 focus:outline-hidden"
 						/>
 					</div>
 
 					<div class="grid grid-cols-2 gap-2">
 						<div>
-							<label for="p-role" class="text-xs font-medium text-muted-foreground">Role:</label>
+							<label for="p-role" class="text-xs font-medium text-zinc-400">Role:</label>
 							<select
 								id="p-role"
 								bind:value={propRole}
-								class="mt-1 w-full rounded-lg border border-border bg-card px-3 py-1.5 text-xs text-foreground focus:border-primary focus:outline-hidden"
+								class="focus:bg-zinc-850 mt-1 w-full rounded-lg bg-zinc-900 px-3 py-1.5 text-xs text-zinc-100 focus:outline-hidden"
 							>
 								<option value="Architect">Architect</option>
 								<option value="Engineer">Engineer</option>
@@ -354,20 +364,15 @@
 						</div>
 
 						<div>
-							<label for="p-verified" class="text-xs font-medium text-muted-foreground"
-								>Status:</label
-							>
+							<label for="p-verified" class="text-xs font-medium text-zinc-400">Status:</label>
 							<button
 								id="p-verified"
 								type="button"
 								onclick={() => (propVerified = !propVerified)}
-								class="mt-1 flex w-full cursor-pointer items-center justify-between rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground hover:border-primary/40"
+								class="mt-1 flex w-full cursor-pointer items-center justify-between rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-medium text-zinc-200 hover:bg-zinc-800"
 							>
 								<span>{propVerified ? 'Verified ✓' : 'Standard'}</span>
-								<span
-									class="size-2 rounded-full {propVerified
-										? 'bg-emerald-400'
-										: 'bg-muted-foreground'}"
+								<span class="size-2 rounded-full {propVerified ? 'bg-emerald-400' : 'bg-zinc-600'}"
 								></span>
 							</button>
 						</div>
@@ -375,28 +380,26 @@
 				</div>
 
 				<!-- Rendered Child Component -->
-				<div
-					class="flex flex-col justify-between rounded-xl border border-primary/30 bg-primary/5 p-4 shadow-xs"
-				>
-					<span class="font-mono text-xs font-bold text-primary uppercase"
+				<div class="flex flex-col justify-between p-4">
+					<span class="font-mono text-xs font-bold text-orange-400 uppercase"
 						>Child Component Output</span
 					>
-					<div class="my-2 flex items-center gap-3">
+					<div class="my-4 flex items-center gap-3">
 						<div
-							class="flex size-12 items-center justify-center rounded-2xl bg-linear-to-tr from-primary to-amber-400 text-lg font-black text-slate-950 shadow-md"
+							class="flex size-14 items-center justify-center rounded-2xl bg-linear-to-tr from-orange-500 to-amber-400 text-xl font-black text-zinc-950 shadow-md"
 						>
 							{propName.charAt(0) || 'U'}
 						</div>
 						<div>
-							<h4 class="font-bold text-foreground">
+							<h4 class="text-base font-bold text-zinc-100">
 								{propName || 'Anonymous'}
-								{#if propVerified}<span class="ml-1 text-primary">✓</span>{/if}
+								{#if propVerified}<span class="ml-1 text-emerald-400">✓</span>{/if}
 							</h4>
-							<span class="font-mono text-xs text-muted-foreground">{propRole}</span>
+							<span class="font-mono text-xs text-zinc-400">{propRole}</span>
 						</div>
 					</div>
-					<div class="flex items-center justify-between border-t border-border/60 pt-2 text-xs">
-						<span class="text-muted-foreground">Sync Channel:</span>
+					<div class="flex items-center justify-between text-xs">
+						<span class="text-zinc-500">Sync Channel:</span>
 						<Badge variant="solid" size="sm">Active Signal Sync</Badge>
 					</div>
 				</div>
@@ -408,52 +411,64 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<Layers class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<Layers class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>Keyed List & Control Flow</span
 					>
 				</div>
 				<div class="flex gap-2">
-					<Button size="xs" variant="outline" onclick={shuffleLogicItems}>Shuffle Items</Button>
-					<Button size="xs" variant="ghost" onclick={() => (logicShowDetails = !logicShowDetails)}>
+					<Button
+						size="xs"
+						variant="outline"
+						class="border-zinc-800 bg-zinc-900 text-zinc-200 hover:bg-zinc-800 hover:text-zinc-100"
+						onclick={shuffleLogicItems}
+					>
+						Shuffle Items
+					</Button>
+					<Button
+						size="xs"
+						variant="ghost"
+						class="text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100"
+						onclick={() => (logicShowDetails = !logicShowDetails)}
+					>
 						{'Toggle {#if}'}
 					</Button>
 				</div>
 			</div>
 
 			{#if logicShowDetails}
-				<div class="space-y-2">
+				<div class="divide-y divide-zinc-800/60 rounded-xl bg-zinc-900/40">
 					{#each logicItems as item (item.id)}
 						<div
-							class="flex items-center justify-between rounded-xl border border-border bg-background p-3 transition-all hover:border-primary/50"
+							class="flex items-center justify-between p-3.5 transition-all first:rounded-t-xl last:rounded-b-xl hover:bg-zinc-900/80"
 						>
 							<div class="flex items-center gap-3">
 								<span
-									class="flex size-7 items-center justify-center rounded-lg bg-primary/10 font-mono text-xs font-bold text-primary"
+									class="flex size-7 items-center justify-center rounded-lg bg-orange-500/15 font-mono text-xs font-bold text-orange-400"
 								>
 									#{item.id}
 								</span>
 								<div>
-									<div class="text-sm font-semibold text-foreground">{item.label}</div>
-									<span class="font-mono text-[10px] text-muted-foreground"
-										>Keyed node preserved</span
-									>
+									<div class="text-sm font-semibold text-zinc-100">{item.label}</div>
+									<span class="font-mono text-[10px] text-zinc-500">Keyed node preserved</span>
 								</div>
 							</div>
 
 							<div class="flex items-center gap-2">
 								<Badge variant="outline" size="sm">{item.tag}</Badge>
-								<Button size="xs" variant="ghost" onclick={() => incrementItemCount(item.id)}>
+								<button
+									type="button"
+									class="rounded-md bg-zinc-800 px-2.5 py-1 font-mono text-xs font-bold text-zinc-200 hover:bg-zinc-700"
+									onclick={() => incrementItemCount(item.id)}
+								>
 									+{item.count}
-								</Button>
+								</button>
 							</div>
 						</div>
 					{/each}
 				</div>
 			{:else}
-				<div
-					class="rounded-xl border border-dashed border-border/80 p-8 text-center text-xs text-muted-foreground"
-				>
+				<div class="rounded-xl bg-zinc-900/30 p-8 text-center text-xs text-zinc-500">
 					Condition Evaluated to FALSE — Subtree cleanly torn down from DOM
 				</div>
 			{/if}
@@ -464,18 +479,18 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<Activity class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<Activity class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>Event Dispatch & Modifiers</span
 					>
 				</div>
 				<button
 					type="button"
 					onclick={() => (eventStopProp = !eventStopProp)}
-					class="flex items-center gap-2 rounded-lg border border-border bg-background px-2.5 py-1 font-mono text-xs transition hover:border-primary/40"
+					class="flex items-center gap-2 rounded-lg bg-zinc-900 px-3 py-1 font-mono text-xs text-zinc-300 transition hover:bg-zinc-800"
 				>
 					<span>stopPropagation:</span>
-					<span class="font-bold {eventStopProp ? 'text-destructive' : 'text-emerald-400'}">
+					<span class="font-bold {eventStopProp ? 'text-red-400' : 'text-emerald-400'}">
 						{eventStopProp ? 'ON' : 'OFF'}
 					</span>
 				</button>
@@ -484,7 +499,7 @@
 			<div class="flex gap-2">
 				<Button
 					size="sm"
-					class="flex-1"
+					class="flex-1 bg-orange-500 font-bold text-white hover:bg-orange-600"
 					onclick={() => fireEventSimulation('Button Click Trigger')}
 				>
 					Fire onclick Handler
@@ -492,19 +507,19 @@
 				<Button
 					size="sm"
 					variant="outline"
-					class="flex-1"
+					class="flex-1 border-zinc-800 bg-zinc-900 text-zinc-200 hover:bg-zinc-800 hover:text-zinc-100"
 					onclick={() => fireEventSimulation('Keyboard onkeydown')}
 				>
 					Fire onkeydown Handler
 				</Button>
 			</div>
 
-			<!-- Event Stream Log -->
-			<div class="rounded-xl border border-border bg-slate-950 p-3 font-mono text-xs text-cyan-300">
+			<!-- Event Stream Log: Seamless Flush Pane -->
+			<div class="rounded-xl bg-black/60 p-3.5 font-mono text-xs text-cyan-300">
 				{#each eventStages as stage, i (i)}
 					<div class="leading-relaxed">>> {stage}</div>
 				{:else}
-					<div class="text-muted-foreground">
+					<div class="text-zinc-500">
 						Click a button above to inspect modern Svelte 5 event dispatch...
 					</div>
 				{/each}
@@ -516,20 +531,26 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<Move class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<Move class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>Physics Motion & Spring Bench</span
 					>
 				</div>
-				<Button size="xs" onclick={pulseSpring}>Trigger Spring Pulse</Button>
+				<Button
+					size="xs"
+					class="bg-orange-500 font-bold text-white hover:bg-orange-600"
+					onclick={pulseSpring}
+				>
+					Trigger Spring Pulse
+				</Button>
 			</div>
 
 			<!-- Interactive Spring Physics Visualizer Arena -->
 			<div
-				class="relative flex h-36 items-center justify-center overflow-hidden rounded-xl border border-border bg-background/60"
+				class="relative flex h-36 items-center justify-center overflow-hidden rounded-xl bg-black/40"
 			>
 				<div
-					class="flex size-16 items-center justify-center rounded-2xl bg-linear-to-tr from-primary via-emerald-400 to-cyan-400 font-bold text-slate-950 shadow-xl transition-all duration-150 ease-out"
+					class="flex size-16 items-center justify-center rounded-2xl bg-linear-to-tr from-orange-500 via-amber-400 to-emerald-400 font-bold text-zinc-950 shadow-xl transition-all duration-150 ease-out"
 					style:transform="translateY({springPos}px) rotate({springRotation}deg) scale({isSpringActive
 						? 1.2
 						: 1})"
@@ -546,35 +567,40 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<Code2 class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<Code2 class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>DOM Action Lifecycle (use:action)</span
 					>
 				</div>
-				<Button size="xs" variant="outline" onclick={updateActionParam}>
+				<Button
+					size="xs"
+					variant="outline"
+					class="border-zinc-800 bg-zinc-900 text-zinc-200 hover:bg-zinc-800 hover:text-zinc-100"
+					onclick={updateActionParam}
+				>
 					Update Action Parameter
 				</Button>
 			</div>
 
-			<div class="grid grid-cols-3 gap-2 text-center">
-				<div class="rounded-lg border border-border bg-background p-2.5">
-					<span class="font-mono text-[10px] text-muted-foreground">Mount (init)</span>
-					<div class="font-mono text-lg font-bold text-emerald-400">{actionMountCount}</div>
+			<div
+				class="grid grid-cols-3 divide-x divide-zinc-800/60 rounded-xl bg-zinc-900/40 p-2 text-center"
+			>
+				<div class="p-2">
+					<span class="font-mono text-[10px] text-zinc-500">Mount (init)</span>
+					<div class="font-mono text-xl font-bold text-emerald-400">{actionMountCount}</div>
 				</div>
-				<div class="rounded-lg border border-border bg-background p-2.5">
-					<span class="font-mono text-[10px] text-muted-foreground">Updates (param)</span>
-					<div class="font-mono text-lg font-bold text-amber-400">{actionUpdateCount}</div>
+				<div class="p-2">
+					<span class="font-mono text-[10px] text-zinc-500">Updates (param)</span>
+					<div class="font-mono text-xl font-bold text-amber-400">{actionUpdateCount}</div>
 				</div>
-				<div class="rounded-lg border border-border bg-background p-2.5">
-					<span class="font-mono text-[10px] text-muted-foreground">Destroy (cleanup)</span>
-					<div class="font-mono text-lg font-bold text-primary">0</div>
+				<div class="p-2">
+					<span class="font-mono text-[10px] text-zinc-500">Destroy (cleanup)</span>
+					<div class="font-mono text-xl font-bold text-orange-400">0</div>
 				</div>
 			</div>
 
-			<div
-				class="rounded-lg border border-border bg-card p-3 font-mono text-xs text-muted-foreground"
-			>
-				Action payload: <span class="text-foreground">{actionTooltipText}</span>
+			<div class="rounded-lg bg-zinc-900/40 p-3 font-mono text-xs text-zinc-400">
+				Action payload: <span class="text-zinc-100">{actionTooltipText}</span>
 			</div>
 		</div>
 
@@ -583,12 +609,17 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<Database class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<Database class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>Promise Streaming Waterfall</span
 					>
 				</div>
-				<Button size="xs" onclick={simulateStreamingWaterfall} disabled={isStreaming}>
+				<Button
+					size="xs"
+					class="bg-orange-500 font-bold text-white hover:bg-orange-600"
+					onclick={simulateStreamingWaterfall}
+					disabled={isStreaming}
+				>
 					{#if isStreaming}
 						<RefreshCw class="mr-1 size-3 animate-spin" />
 						Streaming Chunks...
@@ -599,25 +630,21 @@
 				</Button>
 			</div>
 
-			<div class="space-y-2">
+			<div class="divide-y divide-zinc-800/60 rounded-xl bg-zinc-900/40">
 				{#each streamChunks as chunk (chunk.name)}
-					<div
-						class="flex items-center justify-between rounded-xl border border-border bg-background p-3 text-xs"
-					>
+					<div class="flex items-center justify-between p-3 text-xs">
 						<div class="flex items-center gap-2.5">
 							{#if chunk.status === 'ready'}
 								<CheckCircle2 class="size-4 text-emerald-400" />
 							{:else}
 								<Circle class="size-4 animate-pulse text-amber-400" />
 							{/if}
-							<span class="font-medium text-foreground">{chunk.name}</span>
+							<span class="font-medium text-zinc-200">{chunk.name}</span>
 						</div>
-						<span class="font-mono text-muted-foreground">{chunk.latency}</span>
+						<span class="font-mono text-zinc-500">{chunk.latency}</span>
 					</div>
 				{:else}
-					<div
-						class="rounded-xl border border-dashed border-border p-6 text-center text-xs text-muted-foreground"
-					>
+					<div class="p-6 text-center text-xs text-zinc-500">
 						Click "Simulate Load()" to observe initial SSR render followed by deferred promise
 						streaming...
 					</div>
@@ -630,48 +657,48 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<ShieldCheck class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<ShieldCheck class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>Environment Security Matrix</span
 					>
 				</div>
 			</div>
 
-			<div class="flex gap-1.5">
+			<div class="flex gap-2">
 				<button
 					type="button"
-					class="flex-1 cursor-pointer rounded-lg border px-2 py-1.5 font-mono text-xs transition {selectedEnvModule ===
+					class="flex-1 cursor-pointer rounded-lg px-3 py-1.5 font-mono text-xs transition {selectedEnvModule ===
 					'$env/static/private'
-						? 'border-primary bg-primary/10 font-bold text-primary'
-						: 'border-border bg-background text-muted-foreground'}"
+						? 'bg-orange-500/20 font-bold text-orange-400'
+						: 'bg-zinc-900 text-zinc-400 hover:text-zinc-200'}"
 					onclick={() => (selectedEnvModule = '$env/static/private')}
 				>
 					$env/static/private
 				</button>
 				<button
 					type="button"
-					class="flex-1 cursor-pointer rounded-lg border px-2 py-1.5 font-mono text-xs transition {selectedEnvModule ===
+					class="flex-1 cursor-pointer rounded-lg px-3 py-1.5 font-mono text-xs transition {selectedEnvModule ===
 					'$env/dynamic/public'
-						? 'border-emerald-500 bg-emerald-500/10 font-bold text-emerald-500'
-						: 'border-border bg-background text-muted-foreground'}"
+						? 'bg-emerald-500/20 font-bold text-emerald-400'
+						: 'bg-zinc-900 text-zinc-400 hover:text-zinc-200'}"
 					onclick={() => (selectedEnvModule = '$env/dynamic/public')}
 				>
 					$env/dynamic/public
 				</button>
 			</div>
 
-			<div class="space-y-2 rounded-xl border border-border bg-background p-4 text-xs">
+			<div class="space-y-2 rounded-xl bg-zinc-900/40 p-4 text-xs">
 				<div class="flex justify-between font-mono">
-					<span class="text-muted-foreground">Target Scope:</span>
-					<span class="font-bold text-foreground">
+					<span class="text-zinc-500">Target Scope:</span>
+					<span class="font-bold text-zinc-100">
 						{selectedEnvModule.includes('private')
 							? 'Server-Only (Private Fence)'
 							: 'Public (Client & Server)'}
 					</span>
 				</div>
 				<div class="flex justify-between font-mono">
-					<span class="text-muted-foreground">Evaluation Time:</span>
-					<span class="font-bold text-foreground">
+					<span class="text-zinc-500">Evaluation Time:</span>
+					<span class="font-bold text-zinc-100">
 						{selectedEnvModule.includes('static')
 							? 'Build-Time (Constant Inlined)'
 							: 'Runtime (Per Request)'}
@@ -685,12 +712,17 @@
 		<div class="mt-4 space-y-4">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
-					<Server class="size-4 text-primary" />
-					<span class="text-xs font-bold tracking-wider text-primary uppercase"
+					<Server class="size-4 text-orange-400" />
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
 						>SvelteKit Full-Stack Pipeline</span
 					>
 				</div>
-				<Button size="xs" onclick={simulateStreamingWaterfall} disabled={isStreaming}>
+				<Button
+					size="xs"
+					class="bg-orange-500 font-bold text-white hover:bg-orange-600"
+					onclick={simulateStreamingWaterfall}
+					disabled={isStreaming}
+				>
 					{#if isStreaming}
 						<RefreshCw class="mr-1 size-3 animate-spin" />
 						Executing...
@@ -701,21 +733,23 @@
 				</Button>
 			</div>
 
-			<div class="grid grid-cols-4 gap-2 text-center font-mono text-xs">
-				<div class="rounded-lg border border-border bg-background p-2">
-					<span class="text-[10px] text-muted-foreground">1. Request</span>
-					<div class="font-bold text-foreground">Hook</div>
+			<div
+				class="grid grid-cols-4 divide-x divide-zinc-800/60 rounded-xl bg-zinc-900/40 p-2 text-center font-mono text-xs"
+			>
+				<div class="p-2">
+					<span class="text-[10px] text-zinc-500">1. Request</span>
+					<div class="font-bold text-zinc-100">Hook</div>
 				</div>
-				<div class="rounded-lg border border-border bg-background p-2">
-					<span class="text-[10px] text-muted-foreground">2. Loader</span>
-					<div class="font-bold text-primary">load()</div>
+				<div class="p-2">
+					<span class="text-[10px] text-zinc-500">2. Loader</span>
+					<div class="font-bold text-orange-400">load()</div>
 				</div>
-				<div class="rounded-lg border border-border bg-background p-2">
-					<span class="text-[10px] text-muted-foreground">3. Server</span>
+				<div class="p-2">
+					<span class="text-[10px] text-zinc-500">3. Server</span>
 					<div class="font-bold text-emerald-400">SSR HTML</div>
 				</div>
-				<div class="rounded-lg border border-border bg-background p-2">
-					<span class="text-[10px] text-muted-foreground">4. Browser</span>
+				<div class="p-2">
+					<span class="text-[10px] text-zinc-500">4. Browser</span>
 					<div class="font-bold text-cyan-400">Hydrate</div>
 				</div>
 			</div>
