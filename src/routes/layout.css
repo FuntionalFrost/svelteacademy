@@ -161,9 +161,9 @@
    CodeBlock & Syntax Token Colors (Bulletproof in Light & Dark Mode)
    ========================================================================== */
 
-/* Standalone prose & shiki code blocks */
+/* Standalone prose & syntax-highlighted code blocks */
 .prose pre,
-.shiki {
+.yaxa-code-block {
 	background-color: #0d1117 !important;
 	color: #e6edf3 !important;
 	border: 1px solid #30363d !important;
@@ -184,7 +184,7 @@
 
 /* Standardize code element resets */
 .prose pre code,
-.shiki code {
+.yaxa-code-block code {
 	background: transparent !important;
 	color: inherit !important;
 	padding: 0 !important;
@@ -193,9 +193,9 @@
 	font-size: inherit;
 }
 
-/* Keep Shiki syntax token colors active */
+/* Keep syntax token colors active */
 .prose pre span,
-.shiki span {
+.yaxa-code-block span {
 	background-color: transparent !important;
 }
 
