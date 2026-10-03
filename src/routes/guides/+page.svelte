@@ -1,7 +1,6 @@
-<!-- src/routes/guides/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import SEO from '$lib/components/SEO.svelte';
+	import SEO from '#lib/components/SEO.svelte';
 	import {
 		ArrowRight,
 		BookOpen,
@@ -75,6 +74,8 @@
 			data.guides[0]
 	);
 </script>
+
+<!-- src/routes/guides/+page.svelte -->
 
 <SEO
 	title="Svelte 5 Developer Guides & Tutorials"
@@ -197,7 +198,7 @@
 				</div>
 
 				<a
-					href={resolve(`/guides/${featuredGuide.slug}`)}
+					href={resolve(`guides/${featuredGuide.slug}`)}
 					class="inline-flex shrink-0 items-center gap-2 rounded-xl bg-primary px-5 py-3 font-mono text-sm font-bold text-primary-foreground shadow-sm transition hover:brightness-110 active:scale-95"
 				>
 					<span>Start Masterclass</span>
@@ -317,7 +318,7 @@
 				{@const isAdv = guide.level === 'advanced'}
 				{@const isInt = guide.level === 'intermediate'}
 				<a
-					href={resolve(`/guides/${guide.slug}`)}
+					href={resolve(`guides/${guide.slug}`)}
 					class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
 				>
 					<!-- Top border accent on hover -->

@@ -1,6 +1,6 @@
 <!-- src/lib/components/learn/InteractiveLessonDemo.svelte -->
 <script lang="ts">
-	import type { LessonMeta } from '$lib/content/curriculum';
+	import type { LessonMeta } from '#lib/content/curriculum.js';
 	import {
 		Activity,
 		CheckCircle2,

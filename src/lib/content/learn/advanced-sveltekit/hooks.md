@@ -48,7 +48,7 @@ Chain multiple handle functions together:
 ```ts
 // src/hooks.server.ts
 import { sequence } from '@sveltejs/kit/hooks';
-import { authMiddleware, loggerMiddleware, corsMiddleware } from '$lib/server/middleware';
+import { authMiddleware, loggerMiddleware, corsMiddleware } from '#lib/server/middleware';
 
 export const handle = sequence(loggerMiddleware, corsMiddleware, authMiddleware);
 ```

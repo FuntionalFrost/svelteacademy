@@ -1,8 +1,7 @@
-<!-- src/lib/components/learn/TrackProgressCard.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import type { TrackMeta } from '$lib/content/curriculum';
-	import { learningStore } from '$lib/stores/learningStore.svelte';
+	import type { TrackMeta } from '#lib/content/curriculum.js';
+	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { ArrowRight } from '@lucide/svelte';
 	import { Badge } from 'yaxa-svelte';
 
@@ -12,8 +11,10 @@
 	let isCompleted = $derived(learningStore.isTrackCompleted(track.id));
 
 	const firstLessonSlug = $derived(track.lessons[0]?.slug ?? 'introduction');
-	const trackHref = $derived(resolve(`/learn/${track.id}/${firstLessonSlug}`));
+	const trackHref = $derived(resolve(`learn/${track.id}/${firstLessonSlug}`));
 </script>
+
+<!-- src/lib/components/learn/TrackProgressCard.svelte -->
 
 <div
 	class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-6 shadow-xs transition-all duration-300 hover:border-primary/50 hover:shadow-md"

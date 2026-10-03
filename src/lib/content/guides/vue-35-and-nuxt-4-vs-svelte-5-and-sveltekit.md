@@ -7,7 +7,7 @@ readTime: '10 min read'
 ---
 
 <script>
-  import CodeComparison from '$lib/components/CodeComparison.svelte';
+  import CodeComparison from '#lib/components/CodeComparison.svelte';
 
   const vueCode = `<` + `script setup lang="ts">
 import { ref, computed } from 'vue';
@@ -125,7 +125,7 @@ In the Svelte 5 component, the loaded data is accessible via `$props()` with ful
 | **Application Root**   | `app/` (forward-compatible)            | `src/`                                                |
 | **File Router**        | `app/pages/*.vue`                      | `src/routes/**/+page.svelte`                          |
 | **Layouts**            | `app/layouts/default.vue`              | `src/routes/**/+layout.svelte`                        |
-| **Shared State**       | `app/composables/*.ts` (Auto-imported) | `src/lib/state/*.svelte.ts` (Explicit `$lib` imports) |
+| **Shared State**       | `app/composables/*.ts` (Auto-imported) | `src/lib/state/*.svelte.ts` (Explicit `#lib` imports) |
 | **Server Engine**      | `server/api/*.ts` (Nitro Engine)       | `src/routes/**/+server.ts` & `src/lib/server/`        |
 | **Middleware & Hooks** | `app/middleware/*.ts`                  | `src/hooks.server.ts` & `src/hooks.client.ts`         |
 

@@ -1,8 +1,8 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
-	import CodeComparison from '$lib/components/CodeComparison.svelte';
-	import SEO from '$lib/components/SEO.svelte';
-	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
+	import CodeComparison from '#lib/components/CodeComparison.svelte';
+	import SEO from '#lib/components/SEO.svelte';
+	import SuperSvelteBanner from '#lib/components/SuperSvelteBanner.svelte';
 	import { Sparkles } from '@lucide/svelte';
 
 	const reactExample = `// React 19: Stateful Counter with Effect

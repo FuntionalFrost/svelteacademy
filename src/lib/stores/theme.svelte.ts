@@ -1,5 +1,5 @@
 // src/lib/stores/theme.svelte.ts
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 export type ThemeMode = 'light' | 'dark' | 'system';
 

@@ -1,5 +1,5 @@
 // src/routes/rss.xml/+server.ts
-import { getAllGuides } from '$lib/content/guides';
+import { getAllGuides } from '#lib/content/guides.js';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ url }) => {

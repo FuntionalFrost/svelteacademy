@@ -12,21 +12,21 @@ SvelteKit includes built-in module aliases and security fences to keep your code
 
 ---
 
-## 1. The `$lib` Alias
+## 1. The `#lib` Alias
 
-The `$lib` alias maps to `src/lib/`. It lets you import components and utilities from anywhere without complex relative paths (`../../../`):
+The `#lib` alias maps to `src/lib/`. It lets you import components and utilities from anywhere without complex relative paths (`../../../`):
 
 ```svelte
 <script lang="ts">
 	// Clean import from src/lib/components/Button.svelte
-	import Button from '$lib/components/Button.svelte';
-	import { formatDate } from '$lib/utils';
+	import Button from '#lib/components/Button.svelte';
+	import { formatDate } from '#lib/utils.js';
 </script>
 ```
 
 ---
 
-## 2. Server-Only Security Boundary (`$lib/server`)
+## 2. Server-Only Security Boundary (`#lib/server`)
 
 Any file placed inside `src/lib/server/` or named with `.server.ts` is strictly prohibited from being imported by client-side code:
 

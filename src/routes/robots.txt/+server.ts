@@ -1,5 +1,5 @@
 // src/routes/robots.txt/+server.ts
-import { siteConfig } from '$lib/site';
+import { siteConfig } from '#lib/site.js';
 import { createRobotsHandler } from 'yaxa-svelte';
 import type { RequestHandler } from './$types';
 

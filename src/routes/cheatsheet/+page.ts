@@ -1,5 +1,5 @@
 // src/routes/cheatsheet/+page.ts
-import { cheatsheetItems, type CheatsheetItem } from '$lib/content/cheatsheet';
+import { cheatsheetItems, type CheatsheetItem } from '#lib/content/cheatsheet.js';
 import type { PageLoad } from './$types';
 
 export type { CheatsheetItem };

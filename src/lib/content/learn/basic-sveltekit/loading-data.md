@@ -19,7 +19,7 @@ Use server load functions when querying databases, accessing private API keys, o
 ```ts
 // src/routes/dashboard/+page.server.ts
 import type { PageServerLoad } from './$types';
-import { db } from '$lib/server/database';
+import { db } from '#lib/server/database';
 
 export const load: PageServerLoad = async ({ cookies }) => {
 	const sessionId = cookies.get('session_id');

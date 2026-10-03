@@ -48,7 +48,7 @@ export const clickOutside: Action<HTMLElement, () => void> = (node, onOutsideCli
 
 ```svelte
 <script lang="ts">
-	import { clickOutside } from '$lib/actions/clickOutside';
+	import { clickOutside } from '#lib/actions/clickOutside';
 
 	let isOpen = $state(false);
 </script>

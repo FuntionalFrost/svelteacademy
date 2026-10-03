@@ -413,7 +413,7 @@ export const CURRICULUM_TRACKS: TrackMeta[] = [
 				trackId: 'advanced-sveltekit',
 				trackTitle: 'Advanced SvelteKit',
 				description:
-					'Progressive Web Apps with $service-worker, form state preservation with snapshot, and CSP.',
+					'Progressive Web Apps with $app/manifest and $app/env, form state preservation with snapshot, and CSP.',
 				level: 'advanced',
 				readTime: '6 min read',
 				order: 4

@@ -1,7 +1,6 @@
-<!-- src/lib/components/learn/CelebrationModal.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import type { TrackMeta } from '$lib/content/curriculum';
+	import type { TrackMeta } from '#lib/content/curriculum.js';
 	import { ArrowRight, CheckCircle2, Trophy } from '@lucide/svelte';
 	import { Button, Modal } from 'yaxa-svelte';
 
@@ -17,6 +16,8 @@
 		isOpen = false;
 	}
 </script>
+
+<!-- src/lib/components/learn/CelebrationModal.svelte -->
 
 <Modal bind:open={isOpen} size="sm">
 	<div class="relative overflow-hidden pt-2 text-center">
@@ -60,7 +61,7 @@
 			<div class="flex gap-2 pt-2">
 				<Button class="flex-1" onclick={closeModal}>Keep Learning</Button>
 				<a
-					href={resolve('/learn')}
+					href={resolve('learn')}
 					class="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-border bg-card px-4 py-2 text-sm font-bold text-foreground transition hover:border-primary/50"
 					onclick={closeModal}
 				>

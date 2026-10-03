@@ -7,7 +7,7 @@ readTime: '6 min read'
 ---
 
 <script>
-  import CodeComparison from '$lib/components/CodeComparison.svelte';
+  import CodeComparison from '#lib/components/CodeComparison.svelte';
 
   const reactChildrenCode = `export function Card({ header, children }) {
   return (

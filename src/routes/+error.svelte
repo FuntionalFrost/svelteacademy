@@ -1,4 +1,3 @@
-<!-- src/routes/+error.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
@@ -10,6 +9,8 @@
 			: `${page.status} — An Error Occurred | SvelteAcademy`
 	);
 </script>
+
+<!-- src/routes/+error.svelte -->
 
 <svelte:head>
 	<title>{errorTitle}</title>
@@ -43,7 +44,7 @@
 		</a>
 
 		<a
-			href={resolve('/guides')}
+			href={resolve('guides')}
 			class="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-bold text-foreground transition hover:bg-accent"
 		>
 			<span>Browse Guides</span>

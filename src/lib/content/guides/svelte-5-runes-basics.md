@@ -7,8 +7,8 @@ readTime: '4 min read'
 ---
 
 <script>
-  import RuneVisualizer from '$lib/components/RuneVisualizer.svelte';
-  import CodeComparison from '$lib/components/CodeComparison.svelte';
+  import RuneVisualizer from '#lib/components/RuneVisualizer.svelte';
+  import CodeComparison from '#lib/components/CodeComparison.svelte';
 </script>
 
 ## Introduction

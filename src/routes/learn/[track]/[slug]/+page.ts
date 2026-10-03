@@ -1,5 +1,5 @@
 // src/routes/learn/[track]/[slug]/+page.ts
-import { getAdjacentLessons, getLesson, getTrack } from '$lib/content/curriculum';
+import { getAdjacentLessons, getLesson, getTrack } from '#lib/content/curriculum.js';
 import { error } from '@sveltejs/kit';
 import type { Component } from 'svelte';
 import type { PageLoad } from './$types';
@@ -19,18 +19,14 @@ export const load: PageLoad = async ({ params }) => {
 	const trackMeta = getTrack(track);
 
 	if (!lessonMeta || !trackMeta) {
-		error(404, {
-			message: `Lesson "${slug}" in track "${track}" was not found in curriculum.`
-		});
+		error(404, `Lesson "${slug}" in track "${track}" was not found in curriculum.`);
 	}
 
 	const path = `/src/lib/content/learn/${track}/${slug}.md`;
 	const mod = modules[path];
 
 	if (!mod) {
-		error(404, {
-			message: `Lesson content for "${track}/${slug}" could not be loaded.`
-		});
+		error(404, `Lesson content for "${track}/${slug}" could not be loaded.`);
 	}
 
 	const { prevLesson, nextLesson } = getAdjacentLessons(track, slug);

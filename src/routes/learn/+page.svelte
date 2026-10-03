@@ -1,11 +1,10 @@
-<!-- src/routes/learn/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import TrackProgressCard from '$lib/components/learn/TrackProgressCard.svelte';
-	import SEO from '$lib/components/SEO.svelte';
-	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
-	import { CURRICULUM_TRACKS, getAllLessons } from '$lib/content/curriculum';
-	import { learningStore } from '$lib/stores/learningStore.svelte';
+	import TrackProgressCard from '#lib/components/learn/TrackProgressCard.svelte';
+	import SEO from '#lib/components/SEO.svelte';
+	import SuperSvelteBanner from '#lib/components/SuperSvelteBanner.svelte';
+	import { CURRICULUM_TRACKS, getAllLessons } from '#lib/content/curriculum.js';
+	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { ArrowRight, GraduationCap, RotateCcw, Trophy } from '@lucide/svelte';
 	import { Button } from 'yaxa-svelte';
 
@@ -17,6 +16,8 @@
 		return all.find((l) => !learningStore.isCompleted(l.trackId, l.slug)) ?? all[0];
 	});
 </script>
+
+<!-- src/routes/learn/+page.svelte -->
 
 <SEO
 	title="Svelte 5 & SvelteKit Interactive Curriculum — SvelteAcademy"
@@ -64,7 +65,7 @@
 			<div class="flex flex-wrap items-center gap-3">
 				{#if nextUnfinishedLesson}
 					<a
-						href={resolve(`/learn/${nextUnfinishedLesson.trackId}/${nextUnfinishedLesson.slug}`)}
+						href={resolve(`learn/${nextUnfinishedLesson.trackId}/${nextUnfinishedLesson.slug}`)}
 						class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-xs transition hover:brightness-110"
 					>
 						<span>{overall.completed === 0 ? 'Start Learning' : 'Resume Curriculum'}</span>

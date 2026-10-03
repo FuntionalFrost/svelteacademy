@@ -7,7 +7,7 @@ readTime: '5 min read'
 ---
 
 <script>
-  import CodeComparison from '$lib/components/CodeComparison.svelte';
+  import CodeComparison from '#lib/components/CodeComparison.svelte';
 
   const reactEventCode = `export function Button({ onClick, children }) {
   return <button onClick={onClick}>{children}</button>;

@@ -1,11 +1,10 @@
-<!-- src/routes/guides/[slug]/+page.svelte -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import ProgressBar from '$lib/components/ProgressBar.svelte';
-	import SEO from '$lib/components/SEO.svelte';
-	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
-	import TableOfContents from '$lib/components/TableOfContents.svelte';
+	import ProgressBar from '#lib/components/ProgressBar.svelte';
+	import SEO from '#lib/components/SEO.svelte';
+	import SuperSvelteBanner from '#lib/components/SuperSvelteBanner.svelte';
+	import TableOfContents from '#lib/components/TableOfContents.svelte';
 	import { ArrowLeft, ArrowRight, Clock, GitPullRequest, Layers, Tag } from '@lucide/svelte';
 	import { Badge, Kbd, toast, useShortcuts } from 'yaxa-svelte';
 	import type { PageData } from './$types';
@@ -17,10 +16,10 @@
 	$effect(() => {
 		return useShortcuts({
 			'[': () => {
-				if (data.prevGuide) goto(`/guides/${data.prevGuide.slug}`);
+				if (data.prevGuide) goto(resolve(`guides/${data.prevGuide.slug}`));
 			},
 			']': () => {
-				if (data.nextGuide) goto(`/guides/${data.nextGuide.slug}`);
+				if (data.nextGuide) goto(resolve(`guides/${data.nextGuide.slug}`));
 			}
 		});
 	});
@@ -63,6 +62,8 @@
 	});
 </script>
 
+<!-- src/routes/guides/[slug]/+page.svelte -->
+
 <SEO
 	title="{data.guide.title} — Svelte 5 Guide"
 	description={data.guide.description}
@@ -77,7 +78,7 @@
 <div class="container mx-auto max-w-6xl px-4 py-12">
 	<!-- Back Link -->
 	<a
-		href={resolve('/guides')}
+		href={resolve('guides')}
 		class="mb-8 inline-flex items-center gap-1.5 font-mono text-sm font-semibold text-muted-foreground transition hover:text-primary"
 	>
 		<ArrowLeft class="size-4" />
@@ -152,7 +153,7 @@
 				>
 					{#if data.prevGuide}
 						<a
-							href={resolve(`/guides/${data.prevGuide.slug}`)}
+							href={resolve(`guides/${data.prevGuide.slug}`)}
 							class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/50 hover:bg-muted/30"
 						>
 							<div
@@ -176,7 +177,7 @@
 
 					{#if data.nextGuide}
 						<a
-							href={resolve(`/guides/${data.nextGuide.slug}`)}
+							href={resolve(`guides/${data.nextGuide.slug}`)}
 							class="group flex flex-col justify-between rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/50 hover:bg-muted/30 sm:text-right"
 						>
 							<div

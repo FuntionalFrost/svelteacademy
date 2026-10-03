@@ -41,7 +41,7 @@ Attach the action to any HTML element using the `use:` directive:
 
 ```svelte
 <script>
-	import { clickOutside } from '$lib/actions/clickOutside';
+	import { clickOutside } from '#lib/actions/clickOutside';
 
 	let isOpen = $state(false);
 </script>

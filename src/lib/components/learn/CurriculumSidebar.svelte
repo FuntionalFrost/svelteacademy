@@ -1,9 +1,8 @@
-<!-- src/lib/components/learn/CurriculumSidebar.svelte -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { CURRICULUM_TRACKS, getTrack, type TrackId } from '$lib/content/curriculum';
-	import { learningStore } from '$lib/stores/learningStore.svelte';
+	import { CURRICULUM_TRACKS, getTrack, type TrackId } from '#lib/content/curriculum.js';
+	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { CheckCircle2, ChevronDown, Circle, Search } from '@lucide/svelte';
 	import { useDebounce } from 'yaxa-svelte';
 
@@ -25,6 +24,7 @@
 		activeTrack.lessons.filter((lesson) => {
 			const q = debouncedQuery.value.toLowerCase().trim();
 			if (!q) return true;
+
 			return (
 				lesson.title.toLowerCase().includes(q) ||
 				lesson.description.toLowerCase().includes(q) ||
@@ -33,6 +33,8 @@
 		})
 	);
 </script>
+
+<!-- src/lib/components/learn/CurriculumSidebar.svelte -->
 
 <aside
 	class="flex h-full w-full flex-col border-r border-border/80 bg-background/95 backdrop-blur-sm lg:w-80"
@@ -50,7 +52,7 @@
 						const selected = (e.target as HTMLSelectElement).value as TrackId;
 						const track = getTrack(selected);
 						if (track && track.lessons[0]) {
-							goto(resolve(`/learn/${selected}/${track.lessons[0].slug}`));
+							goto(resolve(`learn/${selected}/${track.lessons[0].slug}`));
 						}
 					}}
 					class="w-full appearance-none rounded-xl border border-border bg-card px-3.5 py-2.5 pr-8 text-sm font-bold text-foreground transition focus:border-primary focus:outline-hidden"
@@ -98,7 +100,7 @@
 		{#each filteredLessons as lesson (lesson.slug)}
 			{@const isActive = lesson.slug === currentSlug}
 			{@const isDone = learningStore.isCompleted(lesson.trackId, lesson.slug)}
-			{@const lessonHref = resolve(`/learn/${lesson.trackId}/${lesson.slug}`)}
+			{@const lessonHref = resolve(`learn/${lesson.trackId}/${lesson.slug}`)}
 
 			<a
 				href={lessonHref}

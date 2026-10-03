@@ -7,7 +7,7 @@ readTime: '9 min read'
 ---
 
 <script>
-  import CodeComparison from '$lib/components/CodeComparison.svelte';
+  import CodeComparison from '#lib/components/CodeComparison.svelte';
 
   const solidCode = `import { createSignal } from 'solid-js';
 

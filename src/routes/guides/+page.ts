@@ -1,5 +1,5 @@
 // src/routes/guides/+page.ts
-import { getAllGuides, getAllGuideCategories, type GuideMeta } from '$lib/content/guides';
+import { getAllGuides, getAllGuideCategories, type GuideMeta } from '#lib/content/guides.js';
 import type { PageLoad } from './$types';
 
 export type Guide = GuideMeta;

@@ -1,5 +1,5 @@
 // src/routes/guides/[slug]/+page.ts
-import { getGuideBySlug, type GuideLink, type GuideMeta } from '$lib/content/guides';
+import { getGuideBySlug, type GuideLink, type GuideMeta } from '#lib/content/guides.js';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 

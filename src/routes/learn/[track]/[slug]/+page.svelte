@@ -1,12 +1,11 @@
-<!-- src/routes/learn/[track]/[slug]/+page.svelte -->
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import CelebrationModal from '$lib/components/learn/CelebrationModal.svelte';
-	import CurriculumSidebar from '$lib/components/learn/CurriculumSidebar.svelte';
-	import InteractiveLessonDemo from '$lib/components/learn/InteractiveLessonDemo.svelte';
-	import LessonNavigation from '$lib/components/learn/LessonNavigation.svelte';
-	import SEO from '$lib/components/SEO.svelte';
-	import { learningStore } from '$lib/stores/learningStore.svelte';
+	import CelebrationModal from '#lib/components/learn/CelebrationModal.svelte';
+	import CurriculumSidebar from '#lib/components/learn/CurriculumSidebar.svelte';
+	import InteractiveLessonDemo from '#lib/components/learn/InteractiveLessonDemo.svelte';
+	import LessonNavigation from '#lib/components/learn/LessonNavigation.svelte';
+	import SEO from '#lib/components/SEO.svelte';
+	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { CheckCircle2, ChevronRight, Clock, GraduationCap, PanelLeft } from '@lucide/svelte';
 	import { Badge, Slideover } from 'yaxa-svelte';
 	import type { PageData } from './$types';
@@ -26,6 +25,8 @@
 		}
 	}
 </script>
+
+<!-- src/routes/learn/[track]/[slug]/+page.svelte -->
 
 <SEO
 	title="{data.lesson.title} — {data.track.title} | SvelteAcademy"
@@ -65,12 +66,14 @@
 	<main class="flex-1 overflow-y-auto px-4 py-8 sm:px-8 lg:px-12">
 		<div class="mx-auto max-w-4xl space-y-8">
 			<!-- Mobile Track Menu Toggle & Breadcrumbs -->
+
 			<div class="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 pb-4">
 				<nav class="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-					<a href={resolve('/learn')} class="transition hover:text-foreground">Curriculum</a>
+					<a href={resolve('learn')} class="transition hover:text-foreground">Curriculum</a>
+
 					<ChevronRight class="size-3.5 opacity-60" />
 					<a
-						href={resolve(`/learn/${data.track.id}/${data.track.lessons[0].slug}`)}
+						href={resolve(`learn/${data.track.id}/${data.track.lessons[0].slug}`)}
 						class="font-semibold text-primary transition hover:underline"
 					>
 						{data.track.title}

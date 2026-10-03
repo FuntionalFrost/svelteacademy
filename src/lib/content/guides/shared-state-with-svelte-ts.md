@@ -7,7 +7,7 @@ readTime: '6 min read'
 ---
 
 <script>
-  import ClassStateVisualizer from '$lib/components/ClassStateVisualizer.svelte';
+  import ClassStateVisualizer from '#lib/components/ClassStateVisualizer.svelte';
 </script>
 
 One of Svelte 5's biggest features is that **Runes work outside components**. You can place `$state()`, `$derived()`, and `$effect()` inside standard `.svelte.ts` (or `.svelte.js`) files to build reactive application state.
@@ -47,7 +47,7 @@ Import the shared instance directly into any Svelte 5 component. UI templates up
 
 ```svelte
 <script>
-	import { theme } from '$lib/stores/theme.svelte.ts';
+	import { theme } from '#lib/stores/theme.svelte.ts';
 </script>
 
 <button onclick={() => theme.toggle()}>

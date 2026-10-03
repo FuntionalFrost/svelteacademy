@@ -1,9 +1,8 @@
-<!-- src/lib/components/learn/LessonNavigation.svelte -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import type { LessonMeta } from '$lib/content/curriculum';
-	import { learningStore } from '$lib/stores/learningStore.svelte';
+	import type { LessonMeta } from '#lib/content/curriculum.js';
+	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { ArrowLeft, ArrowRight, CheckCircle2, Circle } from '@lucide/svelte';
 	import { Button, Kbd, useShortcuts } from 'yaxa-svelte';
 
@@ -30,13 +29,13 @@
 
 	function goToPrev() {
 		if (prevLesson) {
-			goto(resolve(`/learn/${prevLesson.trackId}/${prevLesson.slug}`));
+			goto(resolve(`learn/${prevLesson.trackId}/${prevLesson.slug}`));
 		}
 	}
 
 	function goToNext() {
 		if (nextLesson) {
-			goto(resolve(`/learn/${nextLesson.trackId}/${nextLesson.slug}`));
+			goto(resolve(`learn/${nextLesson.trackId}/${nextLesson.slug}`));
 		}
 	}
 
@@ -52,6 +51,8 @@
 	});
 </script>
 
+<!-- src/lib/components/learn/LessonNavigation.svelte -->
+
 <div
 	class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/80 pt-6 sm:flex-row"
 >
@@ -59,7 +60,7 @@
 	<div class="w-full sm:w-auto">
 		{#if prevLesson}
 			<a
-				href={resolve(`/learn/${prevLesson.trackId}/${prevLesson.slug}`)}
+				href={resolve(`learn/${prevLesson.trackId}/${prevLesson.slug}`)}
 				class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-primary/50 hover:bg-muted/40 sm:w-auto"
 			>
 				<ArrowLeft class="size-4" />
@@ -94,7 +95,7 @@
 	<div class="w-full sm:w-auto">
 		{#if nextLesson}
 			<a
-				href={resolve(`/learn/${nextLesson.trackId}/${nextLesson.slug}`)}
+				href={resolve(`learn/${nextLesson.trackId}/${nextLesson.slug}`)}
 				class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-xs transition hover:brightness-110 sm:w-auto"
 			>
 				<div class="text-right">
@@ -109,7 +110,7 @@
 			</a>
 		{:else}
 			<a
-				href={resolve('/learn')}
+				href={resolve('learn')}
 				class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-bold text-slate-950 shadow-xs transition hover:brightness-110 sm:w-auto"
 			>
 				<span>Curriculum Complete 🎉</span>

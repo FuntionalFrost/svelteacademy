@@ -1,6 +1,6 @@
 ---
 title: Advanced Options: Service Workers, Snapshots, and Security
-description: Build offline PWAs with $service-worker, preserve form input with snapshot, and configure CSP.
+description: Build offline PWAs with $app/manifest and $app/env, preserve form input with snapshot, and configure CSP.
 trackId: advanced-sveltekit
 level: advanced
 readTime: 6 min read
@@ -12,14 +12,15 @@ Explore powerful enterprise capabilities for offline support, UI state preservat
 
 ---
 
-## 1. Built-in Service Worker Support (`$service-worker`)
+## 1. Built-in Service Worker Support (`$app/manifest` & `$app/env`)
 
 Create `src/service-worker.ts` and SvelteKit will bundle and version it automatically:
 
 ```ts
 // src/service-worker.ts
 /// <reference types="@sveltejs/kit" />
-import { build, files, version } from '$service-worker';
+import { version } from '$app/env';
+import { build, files } from '$app/manifest';
 
 const CACHE_NAME = `cache-${version}`;
 const ASSETS = [...build, ...files];

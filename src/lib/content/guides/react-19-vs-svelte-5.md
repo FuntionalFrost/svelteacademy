@@ -7,7 +7,7 @@ readTime: '8 min read'
 ---
 
 <script>
-  import CodeComparison from '$lib/components/CodeComparison.svelte';
+  import CodeComparison from '#lib/components/CodeComparison.svelte';
 
   const reactCode = `import { useActionState } from 'react';
 

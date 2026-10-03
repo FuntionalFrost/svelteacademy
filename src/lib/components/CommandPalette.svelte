@@ -1,9 +1,9 @@
 <!-- src/lib/components/CommandPalette.svelte -->
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { cheatsheetItems } from '$lib/content/cheatsheet';
-	import { getAllLessons } from '$lib/content/curriculum';
-	import { getAllGuides } from '$lib/content/guides';
+	import { cheatsheetItems } from '#lib/content/cheatsheet.js';
+	import { getAllLessons } from '#lib/content/curriculum.js';
+	import { getAllGuides } from '#lib/content/guides.js';
 	import {
 		BookOpen,
 		CodeXml,

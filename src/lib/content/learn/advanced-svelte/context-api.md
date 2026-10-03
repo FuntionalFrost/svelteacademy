@@ -46,7 +46,7 @@ export function getThemeContext(): ThemeContext {
 <!-- ThemeProvider.svelte -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { setThemeContext } from '$lib/context/theme';
+	import { setThemeContext } from '#lib/context/theme';
 
 	let { children }: { children: Snippet } = $props();
 
@@ -74,7 +74,7 @@ export function getThemeContext(): ThemeContext {
 ```svelte
 <!-- DeepChild.svelte -->
 <script lang="ts">
-	import { getThemeContext } from '$lib/context/theme';
+	import { getThemeContext } from '#lib/context/theme';
 
 	const theme = getThemeContext();
 </script>

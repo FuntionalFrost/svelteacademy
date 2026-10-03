@@ -7,8 +7,8 @@ readTime: '7 min read'
 ---
 
 <script>
-  import CodeComparison from '$lib/components/CodeComparison.svelte';
-  import InteractiveRuneDemo from '$lib/components/InteractiveRuneDemo.svelte';
+  import CodeComparison from '#lib/components/CodeComparison.svelte';
+  import InteractiveRuneDemo from '#lib/components/InteractiveRuneDemo.svelte';
 
   const reactCode = `import { useState } from 'react';
 

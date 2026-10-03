@@ -1,7 +1,7 @@
 <!-- src/lib/components/ThemeToggle.svelte -->
 <script lang="ts">
 	import { Moon, Sun } from '@lucide/svelte';
-	import { theme } from '$lib/stores/theme.svelte';
+	import { theme } from '#lib/stores/theme.svelte.js';
 	import { Button } from 'yaxa-svelte';
 </script>
 

@@ -1,5 +1,5 @@
 // src/routes/sitemap.xsl/+server.ts
-import { siteConfig } from '$lib/site';
+import { siteConfig } from '#lib/site.js';
 import { createSitemapXslHandler } from 'yaxa-svelte';
 import type { RequestHandler } from './$types';
 

@@ -1,10 +1,10 @@
 <!-- src/routes/playground/+page.svelte -->
 <script lang="ts">
-	import ClassStateVisualizer from '$lib/components/ClassStateVisualizer.svelte';
-	import InteractiveRuneDemo from '$lib/components/InteractiveRuneDemo.svelte';
-	import RuneVisualizer from '$lib/components/RuneVisualizer.svelte';
-	import SEO from '$lib/components/SEO.svelte';
-	import SuperSvelteBanner from '$lib/components/SuperSvelteBanner.svelte';
+	import ClassStateVisualizer from '#lib/components/ClassStateVisualizer.svelte';
+	import InteractiveRuneDemo from '#lib/components/InteractiveRuneDemo.svelte';
+	import RuneVisualizer from '#lib/components/RuneVisualizer.svelte';
+	import SEO from '#lib/components/SEO.svelte';
+	import SuperSvelteBanner from '#lib/components/SuperSvelteBanner.svelte';
 	import { Cpu, ExternalLink, Layers, Sparkles, Terminal } from '@lucide/svelte';
 </script>
 

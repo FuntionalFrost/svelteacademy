@@ -1,6 +1,6 @@
 <!-- src/routes/cheatsheet/+page.svelte -->
 <script lang="ts">
-	import SEO from '$lib/components/SEO.svelte';
+	import SEO from '#lib/components/SEO.svelte';
 	import { CircleX, CodeXml, Funnel, Link, Search, Sparkles } from '@lucide/svelte';
 	import { Badge, CodeBlock, Kbd, useDebounce, useShortcuts } from 'yaxa-svelte';
 	import type { PageData } from './$types';

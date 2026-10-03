@@ -7,7 +7,7 @@ readTime: '6 min read'
 ---
 
 <script>
-  import CodeComparison from '$lib/components/CodeComparison.svelte';
+  import CodeComparison from '#lib/components/CodeComparison.svelte';
 
   const vanillaCode = `const button = document.querySelector('#btn');
 const output = document.querySelector('#out');

@@ -1,7 +1,7 @@
 <!-- src/lib/components/SEO.svelte -->
 <script lang="ts">
 	import { page } from '$app/state';
-	import { siteConfig } from '$lib/site';
+	import { siteConfig } from '#lib/site.js';
 	import {
 		generateArticleSchema,
 		generateBreadcrumbSchema,

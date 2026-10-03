@@ -1,6 +1,6 @@
 // src/lib/stores/learningStore.svelte.ts
-import { browser } from '$app/environment';
-import { CURRICULUM_TRACKS, getAllLessons, type TrackId } from '$lib/content/curriculum';
+import { browser } from '$app/env';
+import { CURRICULUM_TRACKS, getAllLessons, type TrackId } from '#lib/content/curriculum.js';
 
 const STORAGE_KEY = 'svelteacademy_learning_progress_v1';
 

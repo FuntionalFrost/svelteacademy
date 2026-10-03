@@ -1,7 +1,7 @@
 // src/routes/sitemap.xml/+server.ts
-import { getAllLessons } from '$lib/content/curriculum';
-import { getAllGuides } from '$lib/content/guides';
-import { siteConfig } from '$lib/site';
+import { getAllLessons } from '#lib/content/curriculum.js';
+import { getAllGuides } from '#lib/content/guides.js';
+import { siteConfig } from '#lib/site.js';
 import { createSitemapHandler } from 'yaxa-svelte';
 import type { RequestHandler } from './$types';
 
