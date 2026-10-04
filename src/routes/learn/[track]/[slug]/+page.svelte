@@ -5,9 +5,10 @@
 	import InteractiveLessonDemo from '#lib/components/learn/InteractiveLessonDemo.svelte';
 	import LessonNavigation from '#lib/components/learn/LessonNavigation.svelte';
 	import SEO from '#lib/components/SEO.svelte';
+	import { enhanceCodeBlocks } from '#lib/actions/copyCode.js';
 	import { learningStore } from '#lib/stores/learningStore.svelte.js';
-	import { CheckCircle2, ChevronRight, Clock, GraduationCap, PanelLeft } from '@lucide/svelte';
-	import { Badge, Slideover } from 'yaxa-svelte';
+	import { CheckCircle2, Clock, GraduationCap, PanelLeft } from '@lucide/svelte';
+	import { Badge, Breadcrumb, Slideover } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -18,6 +19,15 @@
 	let isCurrentLessonDone = $derived(
 		learningStore.isCompleted(data.lesson.trackId, data.lesson.slug)
 	);
+
+	let breadcrumbItems = $derived([
+		{ label: 'Curriculum', href: resolve('learn') },
+		{
+			label: data.track.title,
+			href: resolve(`learn/${data.track.id}/${data.track.lessons[0].slug}`)
+		},
+		{ label: data.lesson.title }
+	]);
 
 	function handleLessonComplete() {
 		if (learningStore.isTrackCompleted(data.lesson.trackId)) {
@@ -68,19 +78,7 @@
 			<!-- Mobile Track Menu Toggle & Breadcrumbs -->
 
 			<div class="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 pb-4">
-				<nav class="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-					<a href={resolve('learn')} class="transition hover:text-foreground">Curriculum</a>
-
-					<ChevronRight class="size-3.5 opacity-60" />
-					<a
-						href={resolve(`learn/${data.track.id}/${data.track.lessons[0].slug}`)}
-						class="font-semibold text-primary transition hover:underline"
-					>
-						{data.track.title}
-					</a>
-					<ChevronRight class="size-3.5 opacity-60" />
-					<span class="font-bold text-foreground">{data.lesson.title}</span>
-				</nav>
+				<Breadcrumb items={breadcrumbItems} class="text-xs" />
 
 				<button
 					type="button"
@@ -146,6 +144,7 @@
 			<!-- Markdown Rendered Content with Enhanced Typography -->
 			<article
 				class="prose max-w-none prose-slate dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary prose-a:underline hover:prose-a:opacity-80 prose-pre:rounded-2xl prose-pre:border prose-pre:border-border/80 prose-pre:shadow-lg"
+				use:enhanceCodeBlocks
 			>
 				<data.content />
 			</article>

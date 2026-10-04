@@ -3,7 +3,7 @@
 	import type { TrackMeta } from '#lib/content/curriculum.js';
 	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { ArrowRight } from '@lucide/svelte';
-	import { Badge } from 'yaxa-svelte';
+	import { Badge, Progress } from 'yaxa-svelte';
 
 	let { track }: { track: TrackMeta } = $props();
 
@@ -62,12 +62,7 @@
 				</span>
 				<span class="font-mono text-primary">{progress.percentage}%</span>
 			</div>
-			<div class="h-2 w-full overflow-hidden rounded-full bg-muted">
-				<div
-					class="h-full bg-primary transition-all duration-500 ease-out"
-					style:width="{progress.percentage}%"
-				></div>
-			</div>
+			<Progress value={progress.percentage} max={100} size="xs" color="primary" />
 		</div>
 	</div>
 

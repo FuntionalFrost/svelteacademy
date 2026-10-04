@@ -6,7 +6,7 @@
 	import { CURRICULUM_TRACKS, getAllLessons } from '#lib/content/curriculum.js';
 	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { ArrowRight, GraduationCap, RotateCcw, Trophy } from '@lucide/svelte';
-	import { Button } from 'yaxa-svelte';
+	import { Button, Progress } from 'yaxa-svelte';
 
 	let overall = $derived(learningStore.overallProgress);
 
@@ -88,11 +88,8 @@
 		</div>
 
 		<!-- Progress Bar -->
-		<div class="mt-6 h-2.5 w-full overflow-hidden rounded-full bg-muted">
-			<div
-				class="h-full bg-linear-to-r from-primary via-emerald-400 to-cyan-400 transition-all duration-500 ease-out"
-				style:width="{overall.percentage}%"
-			></div>
+		<div class="mt-6">
+			<Progress value={overall.percentage} max={100} size="md" color="primary" />
 		</div>
 	</div>
 

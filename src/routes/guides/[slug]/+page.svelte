@@ -5,8 +5,9 @@
 	import SEO from '#lib/components/SEO.svelte';
 	import SuperSvelteBanner from '#lib/components/SuperSvelteBanner.svelte';
 	import TableOfContents from '#lib/components/TableOfContents.svelte';
+	import { enhanceCodeBlocks } from '#lib/actions/copyCode.js';
 	import { ArrowLeft, ArrowRight, Clock, GitPullRequest, Layers, Tag } from '@lucide/svelte';
-	import { Badge, Kbd, toast, useShortcuts } from 'yaxa-svelte';
+	import { Badge, Kbd, useShortcuts } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -22,43 +23,6 @@
 				if (data.nextGuide) goto(resolve(`guides/${data.nextGuide.slug}`));
 			}
 		});
-	});
-
-	// Attach floating copy buttons to all code blocks inside article
-	$effect(() => {
-		const preElements = document.querySelectorAll('article pre');
-		const cleanups: (() => void)[] = [];
-
-		preElements.forEach((pre) => {
-			if (pre.querySelector('.code-copy-btn')) return;
-
-			pre.classList.add('relative', 'group/code');
-
-			const btn = document.createElement('button');
-			btn.type = 'button';
-			btn.className =
-				'code-copy-btn absolute top-3 right-3 opacity-0 group-hover/code:opacity-100 transition-all rounded-md border border-white/10 bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 px-2.5 py-1 text-sm font-mono font-medium shadow-sm flex items-center gap-1 cursor-pointer whitespace-nowrap';
-			btn.innerHTML = '<span>Copy</span>';
-			btn.setAttribute('aria-label', 'Copy code to clipboard');
-
-			const onClick = async () => {
-				const code = pre.querySelector('code')?.innerText || (pre as HTMLElement).innerText;
-				await navigator.clipboard.writeText(code.trim());
-				toast.success('Code copied to clipboard');
-			};
-
-			btn.addEventListener('click', onClick);
-			pre.appendChild(btn);
-
-			cleanups.push(() => {
-				btn.removeEventListener('click', onClick);
-				btn.remove();
-			});
-		});
-
-		return () => {
-			cleanups.forEach((c) => c());
-		};
 	});
 </script>
 
@@ -124,7 +88,7 @@
 			</header>
 
 			<!-- Article Body -->
-			<article class="prose max-w-none dark:prose-invert">
+			<article class="prose max-w-none dark:prose-invert" use:enhanceCodeBlocks>
 				<Content />
 			</article>
 
