@@ -18,10 +18,9 @@
 		ShieldCheck,
 		Sliders,
 		Sparkles,
-		Terminal as TerminalIcon,
 		Zap
 	} from '@lucide/svelte';
-	import { Badge, Button } from 'yaxa-svelte';
+	import { Badge, Button, Terminal } from 'yaxa-svelte';
 
 	let { lesson }: { lesson: LessonMeta } = $props();
 
@@ -31,7 +30,6 @@
 	let reactDerived = $derived(reactCount * reactMultiplier);
 	let isSignalPulsing = $state(false);
 	let isDerivedPulsing = $state(false);
-	let isEffectPulsing = $state(false);
 	let effectLogs = $state<string[]>([
 		'Signal Graph Initialized: [count: 3] -> [derived: 6]',
 		'$effect scheduled observer on root component'
@@ -45,8 +43,6 @@
 			isDerivedPulsing = true;
 			setTimeout(() => {
 				isDerivedPulsing = false;
-				isEffectPulsing = true;
-				setTimeout(() => (isEffectPulsing = false), 250);
 			}, 180);
 		}, 160);
 
@@ -295,28 +291,13 @@
 				</div>
 			</div>
 
-			<!-- Terminal Execution Logs: Seamless Flush Pane -->
-			<div class="rounded-xl bg-black/60 p-3.5">
-				<div class="mb-2 flex items-center justify-between text-xs font-semibold text-zinc-400">
-					<span class="flex items-center gap-1.5">
-						<TerminalIcon class="size-3.5 text-emerald-400" />
-						<span>Runtime Observer Stream</span>
-					</span>
-					<span class="font-mono text-[10px] text-zinc-500">Auto-scheduled</span>
-				</div>
-				<div
-					class="max-h-24 space-y-1 overflow-y-auto font-mono text-xs text-emerald-400 transition-all duration-200 {isEffectPulsing
-						? 'text-emerald-300'
-						: ''}"
-				>
-					{#each effectLogs as log, i (i)}
-						<div class="flex items-start gap-1.5 leading-relaxed">
-							<span class="text-orange-400 opacity-80">❯</span>
-							<span>{log}</span>
-						</div>
-					{/each}
-				</div>
-			</div>
+			<!-- Terminal Execution Logs: Powered by Yaxa Terminal -->
+			<Terminal
+				title="signals.svelte.ts — Runtime Observer Stream"
+				lines={effectLogs.map((l) => ({ output: l, prompt: '❯' }))}
+				copyable={false}
+				class="border-zinc-800/80 bg-black/60 font-mono text-xs text-emerald-400"
+			/>
 		</div>
 
 		<!-- SIMULATOR 2: Props & Two-Way Bindings ($bindable) -->

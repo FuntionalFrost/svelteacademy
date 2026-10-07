@@ -6,7 +6,7 @@
 	import { CURRICULUM_TRACKS, getAllLessons } from '#lib/content/curriculum.js';
 	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { ArrowRight, GraduationCap, RotateCcw, Trophy } from '@lucide/svelte';
-	import { Button, Progress } from 'yaxa-svelte';
+	import { Button, MetricCard, Progress } from 'yaxa-svelte';
 
 	let overall = $derived(learningStore.overallProgress);
 
@@ -91,6 +91,28 @@
 		<div class="mt-6">
 			<Progress value={overall.percentage} max={100} size="md" color="primary" />
 		</div>
+	</div>
+
+	<!-- Curriculum Metric Badges -->
+	<div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+		<MetricCard
+			title="Lessons Mastered"
+			value="{overall.completed} of {overall.total}"
+			variant="flat"
+			class="rounded-2xl border border-border/80 bg-card/60 p-4 shadow-2xs backdrop-blur-sm"
+		/>
+		<MetricCard
+			title="Curriculum Tracks"
+			value="4 Tracks"
+			variant="flat"
+			class="rounded-2xl border border-border/80 bg-card/60 p-4 shadow-2xs backdrop-blur-sm"
+		/>
+		<MetricCard
+			title="Overall Completion"
+			value="{overall.percentage}%"
+			variant="flat"
+			class="rounded-2xl border border-border/80 bg-card/60 p-4 shadow-2xs backdrop-blur-sm"
+		/>
 	</div>
 
 	<!-- 4 Curriculum Tracks Grid -->

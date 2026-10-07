@@ -46,6 +46,21 @@
 	--sidebar-accent-foreground: oklch(0.45 0.22 35.6);
 	--sidebar-border: oklch(0.88 0.01 260);
 	--sidebar-ring: oklch(0.58 0.23 35.6);
+
+	/* Yaxa 1.15.0 Theme Engine Integration (Light Mode) */
+	--yaxa-primary-500: var(--primary);
+	--yaxa-primary-600: oklch(0.52 0.23 35.6);
+	--yaxa-primary-400: oklch(0.68 0.22 35.6);
+	--yaxa-primary-100: oklch(0.95 0.05 35.6);
+	--yaxa-bg: var(--background);
+	--yaxa-fg: var(--foreground);
+	--yaxa-border: var(--border);
+	--yaxa-muted: var(--muted-foreground);
+	--yaxa-ring: var(--ring);
+	--yaxa-radius: var(--radius);
+	--yaxa-scrollbar-thumb: oklch(0.75 0.01 260);
+	--yaxa-scrollbar-hover: oklch(0.6 0.01 260);
+	--yaxa-scrollbar-track: transparent;
 }
 
 .dark {
@@ -89,6 +104,19 @@
 	--sidebar-accent-foreground: oklch(0.75 0.2 35.6);
 	--sidebar-border: oklch(1 0 0 / 12%);
 	--sidebar-ring: oklch(0.65 0.23 35.6);
+
+	/* Yaxa 1.15.0 Theme Engine Integration (Dark Mode) */
+	--yaxa-primary-500: var(--primary);
+	--yaxa-primary-600: oklch(0.58 0.23 35.6);
+	--yaxa-primary-400: oklch(0.72 0.22 35.6);
+	--yaxa-primary-100: oklch(0.22 0.06 35.6);
+	--yaxa-bg: var(--background);
+	--yaxa-fg: var(--foreground);
+	--yaxa-border: var(--border);
+	--yaxa-muted: var(--muted-foreground);
+	--yaxa-ring: var(--ring);
+	--yaxa-scrollbar-thumb: oklch(0.3 0.01 260);
+	--yaxa-scrollbar-hover: oklch(0.42 0.01 260);
 }
 
 @theme inline {
@@ -122,9 +150,18 @@
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-secondary: var(--secondary);
 	--color-primary-foreground: var(--primary-foreground);
+	--color-primary-50: oklch(0.98 0.02 35.6);
+	--color-primary-100: oklch(0.95 0.05 35.6);
+	--color-primary-200: oklch(0.9 0.08 35.6);
+	--color-primary-300: oklch(0.8 0.14 35.6);
+	--color-primary-400: oklch(0.68 0.22 35.6);
 	--color-primary: var(--primary);
 	--color-primary-500: var(--primary);
 	--color-primary-600: var(--primary);
+	--color-primary-700: oklch(0.5 0.23 35.6);
+	--color-primary-800: oklch(0.42 0.2 35.6);
+	--color-primary-900: oklch(0.35 0.16 35.6);
+	--color-primary-950: oklch(0.25 0.12 35.6);
 	--color-popover-foreground: var(--popover-foreground);
 	--color-popover: var(--popover);
 	--color-card-foreground: var(--card-foreground);
@@ -143,6 +180,8 @@
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
+		scrollbar-color: var(--yaxa-scrollbar-thumb) var(--yaxa-scrollbar-track);
+		scrollbar-width: thin;
 	}
 	body {
 		@apply bg-background text-foreground;
@@ -153,6 +192,23 @@
 	html {
 		@apply font-sans;
 	}
+}
+
+/* Auto-Adaptive Cross-Browser Smooth Scrollbars */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+::-webkit-scrollbar-track {
+	background: var(--yaxa-scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+	background: var(--yaxa-scrollbar-thumb);
+	border-radius: 9999px;
+	transition: background-color 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--yaxa-scrollbar-hover);
 }
 
 /* ==========================================================================
