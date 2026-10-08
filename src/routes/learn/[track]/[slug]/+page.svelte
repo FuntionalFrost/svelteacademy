@@ -7,7 +7,7 @@
 	import SEO from '#lib/components/SEO.svelte';
 	import { enhanceCodeBlocks } from '#lib/actions/copyCode.js';
 	import { learningStore } from '#lib/stores/learningStore.svelte.js';
-	import { CheckCircle2, Clock, GraduationCap, PanelLeft } from '@lucide/svelte';
+	import { CheckCircle2, ChevronRight, Clock, GraduationCap, PanelLeft } from '@lucide/svelte';
 	import { Badge, Breadcrumb, Slideover } from 'yaxa-svelte';
 	import type { PageData } from './$types';
 
@@ -76,9 +76,19 @@
 	<main class="flex-1 overflow-y-auto px-4 py-8 sm:px-8 lg:px-12">
 		<div class="mx-auto max-w-4xl space-y-8">
 			<!-- Mobile Track Menu Toggle & Breadcrumbs -->
-
 			<div class="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 pb-4">
-				<Breadcrumb items={breadcrumbItems} class="text-xs" />
+				<Breadcrumb
+					items={breadcrumbItems}
+					separator={ChevronRight}
+					class="text-xs"
+					ui={{
+						list: 'flex-wrap items-center gap-1.5 text-xs text-muted-foreground',
+						item: 'inline-flex items-center whitespace-nowrap',
+						link: 'transition hover:text-foreground font-medium',
+						current: 'font-bold text-foreground',
+						separator: 'size-3.5 shrink-0 opacity-60 text-muted-foreground'
+					}}
+				/>
 
 				<button
 					type="button"

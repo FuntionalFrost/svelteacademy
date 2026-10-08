@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@source '../../node_modules/yaxa-svelte';
 @import '@fontsource-variable/inter';
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -209,6 +210,19 @@
 }
 ::-webkit-scrollbar-thumb:hover {
 	background: var(--yaxa-scrollbar-hover);
+}
+
+/* Breadcrumb items & separator icon sizing constraints */
+nav[aria-label='Breadcrumb'] svg {
+	width: 0.875rem !important;
+	height: 0.875rem !important;
+	max-width: 0.875rem !important;
+	max-height: 0.875rem !important;
+	flex-shrink: 0 !important;
+}
+
+nav[aria-label='Breadcrumb'] li {
+	white-space: nowrap !important;
 }
 
 /* ==========================================================================
