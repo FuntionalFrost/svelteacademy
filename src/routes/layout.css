@@ -48,7 +48,7 @@
 	--sidebar-border: oklch(0.88 0.01 260);
 	--sidebar-ring: oklch(0.58 0.23 35.6);
 
-	/* Yaxa 1.15.0 Theme Engine Integration (Light Mode) */
+	/* Yaxa Theme Engine Integration (Light Mode) */
 	--yaxa-primary-500: var(--primary);
 	--yaxa-primary-600: oklch(0.52 0.23 35.6);
 	--yaxa-primary-400: oklch(0.68 0.22 35.6);
@@ -106,7 +106,7 @@
 	--sidebar-border: oklch(1 0 0 / 12%);
 	--sidebar-ring: oklch(0.65 0.23 35.6);
 
-	/* Yaxa 1.15.0 Theme Engine Integration (Dark Mode) */
+	/* Yaxa Theme Engine Integration (Dark Mode) */
 	--yaxa-primary-500: var(--primary);
 	--yaxa-primary-600: oklch(0.58 0.23 35.6);
 	--yaxa-primary-400: oklch(0.72 0.22 35.6);
@@ -210,19 +210,6 @@
 }
 ::-webkit-scrollbar-thumb:hover {
 	background: var(--yaxa-scrollbar-hover);
-}
-
-/* Breadcrumb items & separator icon sizing constraints */
-nav[aria-label='Breadcrumb'] svg {
-	width: 0.875rem !important;
-	height: 0.875rem !important;
-	max-width: 0.875rem !important;
-	max-height: 0.875rem !important;
-	flex-shrink: 0 !important;
-}
-
-nav[aria-label='Breadcrumb'] li {
-	white-space: nowrap !important;
 }
 
 /* ==========================================================================
@@ -390,30 +377,6 @@ nav[aria-label='Breadcrumb'] li {
 	color: inherit !important;
 	font-size: inherit !important;
 	font-weight: inherit !important;
-}
-
-/* Universal Modern Sleek Scrollbars */
-* {
-	scrollbar-width: thin;
-	scrollbar-color: #30363d transparent;
-}
-
-::-webkit-scrollbar {
-	width: 6px;
-	height: 6px;
-}
-
-::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-	background-color: #30363d;
-	border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background-color: #8b949e;
 }
 
 /* Remove Tailwind Typography auto-injected backtick quotes */

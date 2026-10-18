@@ -10,7 +10,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8.svg?logo=tailwindcss)](https://tailwindcss.com)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[Live Platform](https://svelteacademy.netlify.app) • [Interactive Sandbox](https://svelteacademy.netlify.app/playground) • [Runes Cheatsheet](https://svelteacademy.netlify.app/cheatsheet) • [Guides](https://svelteacademy.netlify.app/guides) • [Yaxa UI](https://yaxa.vercel.app) • [SuperSvelte Boilerplate](https://supersvelte.netlify.app)
+[Live Platform](https://svelteacademy.pages.dev) • [Interactive Sandbox](https://svelteacademy.pages.dev/playground) • [Runes Cheatsheet](https://svelteacademy.pages.dev/cheatsheet) • [Guides](https://svelteacademy.pages.dev/guides) • [Yaxa UI](https://yaxa.vercel.app) • [SuperSvelte Boilerplate](https://supersvelte.netlify.app)
 
 </div>
 

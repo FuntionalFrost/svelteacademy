@@ -6,6 +6,7 @@
 	import LessonNavigation from '#lib/components/learn/LessonNavigation.svelte';
 	import SEO from '#lib/components/SEO.svelte';
 	import { enhanceCodeBlocks } from '#lib/actions/copyCode.js';
+	import { siteConfig } from '#lib/site.js';
 	import { learningStore } from '#lib/stores/learningStore.svelte.js';
 	import { CheckCircle2, ChevronRight, Clock, GraduationCap, PanelLeft } from '@lucide/svelte';
 	import { Badge, Breadcrumb, Slideover } from 'yaxa-svelte';
@@ -36,11 +37,21 @@
 	}
 </script>
 
-<!-- src/routes/learn/[track]/[slug]/+page.svelte -->
-
 <SEO
 	title="{data.lesson.title} — {data.track.title} | SvelteAcademy"
 	description={data.lesson.description}
+	breadcrumbs={[
+		{ name: 'Home', url: siteConfig.url },
+		{ name: 'Curriculum', url: `${siteConfig.url}/learn` },
+		{
+			name: data.track.title,
+			url: `${siteConfig.url}/learn/${data.track.id}/${data.track.lessons[0].slug}`
+		},
+		{
+			name: data.lesson.title,
+			url: `${siteConfig.url}/learn/${data.track.id}/${data.lesson.slug}`
+		}
+	]}
 />
 
 <!-- Celebration Modal on Track Completion -->

@@ -12,10 +12,10 @@
 		<meta name="text-scale" content="scale" />
 		<script>
 			try {
-				const t = localStorage.getItem('theme') || 'dark';
+				const t = localStorage.getItem('yaxa-theme') || localStorage.getItem('theme') || 'dark';
 				const isDark =
 					t === 'dark' ||
-					(t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+					((!t || t === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches);
 				if (isDark) {
 					document.documentElement.classList.add('dark');
 					document.documentElement.style.colorScheme = 'dark';

@@ -6,11 +6,11 @@ export const siteConfig = defineSiteConfig({
 	title: 'SvelteAcademy | Master Svelte 5 and SvelteKit',
 	description:
 		'Interactive developer guides, primitives deep-dives, and architectural benchmarks for modern Svelte 5 development.',
-	url: 'https://svelteacademy.netlify.app',
-	logo: 'https://svelteacademy.netlify.app/favicon.svg',
+	url: 'https://svelteacademy.pages.dev',
+	logo: 'https://svelteacademy.pages.dev/favicon.svg',
 	author: {
 		name: 'SvelteAcademy Team',
-		url: 'https://svelteacademy.netlify.app',
+		url: 'https://svelteacademy.pages.dev',
 		github: 'https://github.com/FuntionalFrost/svelteacademy'
 	},
 	project: {

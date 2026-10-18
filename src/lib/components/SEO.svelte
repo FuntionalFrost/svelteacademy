@@ -9,6 +9,11 @@
 		generateWebSiteSchema
 	} from 'yaxa-svelte';
 
+	interface BreadcrumbEntry {
+		name: string;
+		url: string;
+	}
+
 	interface Props {
 		title?: string;
 		description?: string;
@@ -16,6 +21,7 @@
 		image?: string;
 		publishDate?: string;
 		tag?: string;
+		breadcrumbs?: BreadcrumbEntry[];
 	}
 
 	let {
@@ -24,10 +30,11 @@
 		type = 'website',
 		image,
 		publishDate,
-		tag
+		tag,
+		breadcrumbs
 	}: Props = $props();
 
-	const siteUrl = siteConfig.url || 'https://svelteacademy.netlify.app';
+	const siteUrl = siteConfig.url || 'https://svelteacademy.pages.dev';
 	// Strips URL parameters (?utm_source, etc.) for a clean canonical tag
 	let canonicalUrl = $derived(`${siteUrl}${page.url.pathname}`);
 
@@ -58,15 +65,19 @@
 			: null
 	);
 
-	let breadcrumbSchema = $derived(
-		type === 'article'
-			? generateBreadcrumbSchema(siteConfig, [
-					{ name: 'Home', url: siteUrl },
-					{ name: 'Guides', url: `${siteUrl}/guides` },
-					{ name: title, url: canonicalUrl }
-				])
-			: null
-	);
+	let breadcrumbSchema = $derived.by(() => {
+		if (breadcrumbs && breadcrumbs.length > 0) {
+			return generateBreadcrumbSchema(siteConfig, breadcrumbs);
+		}
+		if (type === 'article') {
+			return generateBreadcrumbSchema(siteConfig, [
+				{ name: 'Home', url: siteUrl },
+				{ name: 'Guides', url: `${siteUrl}/guides` },
+				{ name: title, url: canonicalUrl }
+			]);
+		}
+		return null;
+	});
 
 	let sourceCodeSchema = $derived(
 		type === 'article' ? generateSoftwareSourceCodeSchema(siteConfig) : null
