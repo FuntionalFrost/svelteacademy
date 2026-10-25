@@ -55,3 +55,22 @@ Prevent SvelteKit from scrolling to the top of the page upon navigation (useful 
 ```svelte
 <a href="?page=2" data-sveltekit-noscroll> Next Page </a>
 ```
+
+---
+
+## 5. Type-Safe Routing with `resolve()` (`$app/paths`)
+
+In modern SvelteKit, hardcoding string URLs like `href="/guides"` can break when deploying under a base path or during site refactors. Use the `resolve()` helper from `$app/paths` to generate canonical, base-aware route URLs:
+
+```svelte
+<script lang="ts">
+	import { resolve } from '$app/paths';
+</script>
+
+<!-- Automatically prepends base paths and verifies route paths -->
+<a href={resolve('guides')} data-sveltekit-preload-data="hover"> Guides </a>
+
+<a href={resolve('learn/[track]/[slug]', { track: 'basic-svelte', slug: 'props' })}>
+	Lesson: Props
+</a>
+```

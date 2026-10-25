@@ -44,20 +44,20 @@
 	}
 </script>
 
-<div class="my-6 rounded-2xl bg-zinc-950 p-6 text-zinc-100 shadow-2xl">
+<div class="my-6 rounded-2xl bg-zinc-950 p-4 text-zinc-100 shadow-2xl sm:p-6">
 	<!-- Top Bar -->
-	<div class="flex items-center justify-between border-b border-zinc-800/80 pb-4">
-		<div class="flex items-center gap-2.5">
+	<div class="flex items-center justify-between gap-3 border-b border-zinc-800/80 pb-4">
+		<div class="flex min-w-0 items-center gap-2.5">
 			<div
-				class="flex size-8 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/10 text-cyan-400"
+				class="flex size-8 shrink-0 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/10 text-cyan-400"
 			>
 				<Cpu class="size-4" />
 			</div>
-			<div>
-				<h3 class="text-base font-bold text-zinc-100 sm:text-lg">
+			<div class="min-w-0">
+				<h3 class="truncate text-base font-bold text-zinc-100 sm:text-lg">
 					Interactive Svelte 5 Rune Inspector
 				</h3>
-				<p class="text-sm text-zinc-400">
+				<p class="truncate text-xs text-zinc-400 sm:text-sm">
 					Observe $state mutations trigger $derived signals and $effect observers
 				</p>
 			</div>
@@ -66,10 +66,11 @@
 		<button
 			type="button"
 			onclick={reset}
-			class="inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100"
+			class="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100"
 		>
 			<RefreshCw class="size-3.5" />
-			<span>Reset Signals</span>
+			<span class="xs:inline hidden">Reset Signals</span>
+			<span class="xs:hidden">Reset</span>
 		</button>
 	</div>
 

@@ -1,6 +1,6 @@
 ---
-title: 'Vue 3.5 & Nuxt 4 vs Svelte 5 & SvelteKit 2: Deep Reactivity & Architectural Comparison'
-description: 'A comprehensive architectural guide comparing Vue 3.5 reactive prop destructuring, useAsyncData, and Nuxt 4 app/ layout against Svelte 5 Runes and SvelteKit 2.'
+title: 'Vue 3.5 & Nuxt 4 vs Svelte 5 & SvelteKit 3: Deep Reactivity & Architectural Comparison'
+description: 'A comprehensive architectural guide comparing Vue 3.5 reactive prop destructuring, useAsyncData, and Nuxt 4 app/ layout against Svelte 5 Runes and SvelteKit 3.'
 category: 'Framework Comparison'
 level: 'intermediate'
 readTime: '10 min read'
@@ -38,9 +38,9 @@ const total = computed(() => count + localClicks.value);
 // 1. Svelte 5 Universal Runes
 let { count = 0, label = 'Metrics' }: { count?: number; label?: string } = $props();
 
-// 2. Native DOM binding & unique ID
+// 2. Native DOM binding & SSR-safe unique ID
 let inputElement: HTMLInputElement | undefined = $state();
-const elementId = $props.id ?? crypto.randomUUID();
+const elementId = $props.id();
 
 // 3. Local signal state & derived calculations
 let localClicks = $state(0);
@@ -89,7 +89,7 @@ const {
 });
 ```
 
-### SvelteKit 2 Data Flow (`+page.server.ts` & Streaming)
+### SvelteKit 3 Data Flow (`+page.server.ts` & Streaming)
 
 SvelteKit strictly isolates server data loading from client UI components through type-safe `load` contracts:
 
@@ -120,7 +120,7 @@ In the Svelte 5 component, the loaded data is accessible via `$props()` with ful
 
 ## 3. Directory Structures: Nuxt 4 `app/` vs SvelteKit `src/`
 
-| Feature                | Nuxt 4 Directory Topology              | SvelteKit 2 Directory Topology                        |
+| Feature                | Nuxt 4 Directory Topology              | SvelteKit 3 Directory Topology                        |
 | :--------------------- | :------------------------------------- | :---------------------------------------------------- |
 | **Application Root**   | `app/` (forward-compatible)            | `src/`                                                |
 | **File Router**        | `app/pages/*.vue`                      | `src/routes/**/+page.svelte`                          |
@@ -142,7 +142,7 @@ Both ecosystems prioritize accessible headless primitives combined with Tailwind
 
 ## 5. Architectural Comparison Matrix
 
-| Architectural Metric       | Vue 3.5 + Nuxt 4                                | Svelte 5 + SvelteKit 2                         |
+| Architectural Metric       | Vue 3.5 + Nuxt 4                                | Svelte 5 + SvelteKit 3                         |
 | :------------------------- | :---------------------------------------------- | :--------------------------------------------- |
 | **Reactivity Runtime**     | Proxy-based Reactive Ref System                 | Compiler Signals (Universal Runes)             |
 | **State Getter/Setter**    | `.value` in JS (auto-unwrapped in `<template>`) | Direct variable assignment (`count++`)         |

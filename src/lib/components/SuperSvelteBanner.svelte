@@ -4,7 +4,7 @@
 </script>
 
 <div
-	class="group relative my-12 overflow-hidden rounded-3xl border border-emerald-500/30 bg-[#09090b] p-8 shadow-[0_0_50px_-12px_rgba(16,185,129,0.2)] transition-all duration-300 hover:border-emerald-400/50 hover:shadow-[0_0_60px_-10px_rgba(6,182,212,0.3)]"
+	class="group relative my-12 overflow-hidden rounded-3xl border border-emerald-500/30 bg-[#09090b] p-5 shadow-[0_0_50px_-12px_rgba(16,185,129,0.2)] transition-all duration-300 hover:border-emerald-400/50 hover:shadow-[0_0_60px_-10px_rgba(6,182,212,0.3)] sm:p-8"
 >
 	<!-- Ambient Glowing Aura Blobs (Mint, Cyan, Teal) -->
 	<div
@@ -20,7 +20,7 @@
 	<div class="relative z-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
 		<div class="space-y-4 lg:max-w-xl">
 			<!-- SuperSvelte Header Lockup -->
-			<div class="flex flex-wrap items-center gap-3">
+			<div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
 				<!-- S5 Badge + Glowing Brand -->
 				<div class="flex items-center gap-2">
 					<div
@@ -38,10 +38,10 @@
 
 				<!-- Glowing SuperSvelte Feature Pill -->
 				<div
-					class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-slate-900/90 px-3 py-1 font-mono text-sm text-slate-300 shadow-[0_0_15px_rgba(16,185,129,0.15)]"
+					class="inline-flex max-w-full items-center gap-1.5 rounded-full border border-emerald-500/30 bg-slate-900/90 px-3 py-1 font-mono text-xs text-slate-300 shadow-[0_0_15px_rgba(16,185,129,0.15)] sm:text-sm"
 				>
-					<Sparkles class="size-3.5 text-emerald-400" />
-					<span>Svelte 5 + Hono RPC + Neon</span>
+					<Sparkles class="size-3.5 shrink-0 text-emerald-400" />
+					<span class="truncate">Svelte 5 + Hono RPC + Neon</span>
 				</div>
 			</div>
 

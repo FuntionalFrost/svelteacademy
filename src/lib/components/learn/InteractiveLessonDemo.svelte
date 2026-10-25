@@ -153,7 +153,7 @@
 	>('$env/static/private');
 </script>
 
-<div class="relative overflow-hidden rounded-2xl bg-zinc-950 p-6 text-zinc-100 shadow-2xl">
+<div class="relative overflow-hidden rounded-2xl bg-zinc-950 p-4 text-zinc-100 shadow-2xl sm:p-6">
 	<!-- Top Glowing Track Border Ambient -->
 	<div
 		class="absolute top-0 right-0 left-0 h-1 bg-linear-to-r {lesson.trackId === 'basic-svelte'
@@ -167,15 +167,17 @@
 
 	<!-- Interactive Header Toolbar -->
 	<div class="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800/80 pb-3">
-		<div class="flex items-center gap-2.5">
+		<div class="flex min-w-0 items-center gap-2.5">
 			<div
-				class="flex size-8 items-center justify-center rounded-xl border border-orange-500/30 bg-orange-500/10 text-orange-400 shadow-xs"
+				class="flex size-8 shrink-0 items-center justify-center rounded-xl border border-orange-500/30 bg-orange-500/10 text-orange-400 shadow-xs"
 			>
 				<Zap class="size-4" />
 			</div>
-			<div>
+			<div class="min-w-0">
 				<div class="flex items-center gap-2">
-					<h3 class="text-sm font-bold tracking-tight text-zinc-100">Interactive Laboratory</h3>
+					<h3 class="truncate text-sm font-bold tracking-tight text-zinc-100">
+						Interactive Laboratory
+					</h3>
 					<span
 						class="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-400"
 					>

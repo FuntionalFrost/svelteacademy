@@ -162,7 +162,7 @@
 				</div>
 			</div>
 			<div class="mt-3 font-mono text-3xl font-black text-foreground">Svelte 5</div>
-			<p class="mt-1 text-xs text-muted-foreground">Signal runes & SvelteKit 2</p>
+			<p class="mt-1 text-xs text-muted-foreground">Signal runes & SvelteKit 3</p>
 		</div>
 	</div>
 

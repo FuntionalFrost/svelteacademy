@@ -8,13 +8,13 @@ readTime: 4 min read
 
 # Reactive App State (`$app/state`)
 
-In SvelteKit 2.12+ and Svelte 5, the legacy `$app/stores` module (`$page`, `$navigating`) is replaced by **Runes-powered state signals** from `$app/state`.
+In SvelteKit 3 and Svelte 5, the legacy `$app/stores` module (`$page`, `$navigating`) is deprecated and replaced by **Runes-powered state signals** from `$app/state`.
 
 ---
 
 ## 1. Inspecting Current Route (`page`)
 
-`page` is a reactive signal containing URL details, route parameters, loaded data, and error status:
+`page` is a fine-grained reactive state signal containing URL details, route parameters (`page.params`), loaded data (`page.data`), and error status (`page.status`, `page.error`):
 
 ```svelte
 <!-- src/lib/components/ActiveLink.svelte -->
@@ -25,6 +25,8 @@ In SvelteKit 2.12+ and Svelte 5, the legacy `$app/stores` module (`$page`, `$nav
 
 	// Fine-grained derived reactivity without $ sign prefix!
 	let isActive = $derived(page.url.pathname === href);
+	let currentUserId = $derived(page.params.userId);
+	let currentUser = $derived(page.data.user);
 </script>
 
 <a {href} class:active={isActive}>

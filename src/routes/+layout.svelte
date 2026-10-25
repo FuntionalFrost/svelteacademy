@@ -11,7 +11,6 @@
 		ExternalLink,
 		GraduationCap,
 		Menu,
-		Rocket,
 		Terminal,
 		X
 	} from '@lucide/svelte';
@@ -96,37 +95,10 @@
 				{/each}
 			</nav>
 
-			<!-- Action Items & Conversion Link -->
+			<!-- Action Items -->
 			<div class="flex items-center gap-2.5">
 				<CommandPalette />
 				<ThemeToggle />
-
-				<a
-					href="https://github.com/FuntionalFrost/svelteacademy"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex size-9 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
-					aria-label="GitHub Repository"
-				>
-					<svg class="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-						<path
-							fill-rule="evenodd"
-							clip-rule="evenodd"
-							d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-						></path>
-					</svg>
-				</a>
-
-				<a
-					href="https://supersvelte.netlify.app"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="hidden items-center gap-1.5 rounded-xl bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400 px-3.5 py-2 text-sm font-bold text-slate-950 shadow-xs transition hover:brightness-110 sm:inline-flex"
-				>
-					<Rocket class="size-4" />
-					<span>SuperSvelte</span>
-					<ExternalLink class="size-3.5 opacity-70" />
-				</a>
 
 				<button
 					onclick={() => (mobileMenuOpen = !mobileMenuOpen)}
@@ -160,18 +132,6 @@
 							<span>{item.label}</span>
 						</a>
 					{/each}
-
-					<a
-						href="https://supersvelte.netlify.app"
-						target="_blank"
-						rel="noopener noreferrer"
-						onclick={closeMobileMenu}
-						class="flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-emerald-400 via-teal-300 to-cyan-400 py-3 text-sm font-bold text-slate-950 shadow-xs"
-					>
-						<Rocket class="size-4" />
-						<span>Explore SuperSvelte</span>
-						<ExternalLink class="size-3 opacity-70" />
-					</a>
 				</nav>
 			</div>
 		{/if}
@@ -191,123 +151,145 @@
 	<!-- Footer -->
 	<footer class="border-t border-border bg-card/40 py-12 text-sm text-muted-foreground">
 		<div class="container mx-auto max-w-6xl px-4">
-			<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-				<div class="space-y-3">
-					<div class="flex items-center gap-2">
+			<div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-5">
+				<!-- Brand Column (wider) -->
+				<div class="space-y-4 lg:col-span-2">
+					<div class="flex items-center gap-2.5">
 						<Logo />
-						<span class="text-base font-bold text-foreground">Svelte Academy</span>
-					</div>
-					<p class="text-sm leading-relaxed text-muted-foreground">
-						Interactive educational platform, signal visualizer, and architectural reference suite
-						for Svelte 5 and SvelteKit.
-					</p>
-					<div class="pt-1">
-						<a
-							href="https://yaxa.vercel.app"
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-1.5 rounded-md border border-primary/20 bg-primary/5 px-2.5 py-1 font-mono text-xs font-semibold text-primary transition hover:border-primary/40 hover:bg-primary/10"
+						<span class="text-base font-extrabold tracking-tight text-foreground">
+							Svelte<span class="text-primary">Academy</span>
+						</span>
+						<span
+							class="rounded-full border border-primary/25 bg-primary/10 px-2 py-0.5 text-[11px] font-semibold text-primary"
 						>
-							<span>Powered by Yaxa UI</span>
-							<ExternalLink class="size-3 opacity-70" />
-						</a>
+							Svelte 5 &amp; Kit
+						</span>
 					</div>
+					<p class="max-w-sm text-sm leading-relaxed text-muted-foreground">
+						Interactive educational platform, signal visualizer, and architectural reference suite
+						for Svelte 5 and SvelteKit. Built with Yaxa.
+					</p>
+					<p class="font-mono text-xs text-muted-foreground/80">
+						&copy; 2026 SvelteAcademy. &middot; MIT Licensed
+					</p>
 				</div>
 
-				<div>
-					<h4 class="mb-3 font-mono text-sm font-bold text-foreground uppercase">
-						Learning Resources
+				<!-- Navigation Column -->
+				<div class="space-y-3">
+					<h4 class="font-mono text-xs font-bold tracking-wider text-foreground uppercase">
+						Navigation
 					</h4>
-					<ul class="space-y-2 font-medium">
+					<ul class="space-y-2 text-sm">
 						<li>
-							<a href={resolve('cheatsheet')} class="transition hover:text-primary"
-								>Svelte 5 Runes Cheatsheet</a
-							>
+							<a href={resolve('learn')} class="transition hover:text-foreground">Learn</a>
 						</li>
 						<li>
-							<a href={resolve('playground')} class="transition hover:text-primary"
-								>Interactive Signal Sandbox</a
-							>
+							<a href={resolve('cheatsheet')} class="transition hover:text-foreground">
+								Cheatsheet
+							</a>
 						</li>
 						<li>
-							<a href={resolve('guides')} class="transition hover:text-primary"
-								>Production Architecture Guides</a
-							>
+							<a href={resolve('playground')} class="transition hover:text-foreground">
+								Playground
+							</a>
+						</li>
+						<li>
+							<a href={resolve('guides')} class="transition hover:text-foreground">Guides</a>
 						</li>
 					</ul>
 				</div>
 
-				<div>
-					<h4 class="mb-3 font-mono text-sm font-bold text-foreground uppercase">
-						Open Source & SaaS
+				<!-- Legal & Compliance Column -->
+				<div class="space-y-3">
+					<h4 class="font-mono text-xs font-bold tracking-wider text-foreground uppercase">
+						Legal &amp; Compliance
 					</h4>
-					<ul class="space-y-2 font-medium">
+					<ul class="space-y-2 text-sm">
 						<li>
 							<a
-								href="https://supersvelte.netlify.app"
+								href="https://github.com/FuntionalFrost/svelteacademy/blob/main/LICENSE"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline"
+								class="inline-flex items-center gap-1 transition hover:text-foreground"
 							>
-								<span>SuperSvelte Boilerplate</span>
-								<ExternalLink class="size-3.5" />
+								<span>Terms of Service</span>
+								<ExternalLink class="size-3 opacity-60" />
 							</a>
-						</li>
-						<li>
-							<a
-								href="https://github.com/FuntionalFrost/svelteacademy"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="transition hover:text-primary">GitHub Repository</a
-							>
 						</li>
 						<li>
 							<a
 								href="https://github.com/FuntionalFrost/svelteacademy/blob/main/CONTRIBUTING.md"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="transition hover:text-primary">Contributing Guide</a
+								class="inline-flex items-center gap-1 transition hover:text-foreground"
 							>
+								<span>Contributing Guide</span>
+								<ExternalLink class="size-3 opacity-60" />
+							</a>
 						</li>
 						<li>
 							<a
-								href="https://github.com/FuntionalFrost/svelteacademy/blob/main/LICENSE"
+								href="https://github.com/FuntionalFrost/svelteacademy/issues"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="transition hover:text-primary">MIT License</a
+								class="inline-flex items-center gap-1 transition hover:text-foreground"
 							>
+								<span>Contact &amp; Support</span>
+								<ExternalLink class="size-3 opacity-60" />
+							</a>
 						</li>
 					</ul>
 				</div>
 
-				<div>
-					<h4 class="mb-3 font-mono text-sm font-bold text-foreground uppercase">
-						Official Ecosystem
+				<!-- Community Column -->
+				<div class="space-y-3">
+					<h4 class="font-mono text-xs font-bold tracking-wider text-foreground uppercase">
+						Community
 					</h4>
-					<ul class="space-y-2 font-medium">
+					<ul class="space-y-2 text-sm">
+						<li>
+							<a
+								href="https://github.com/FuntionalFrost/svelteacademy"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1 transition hover:text-foreground"
+							>
+								<span>GitHub</span>
+								<ExternalLink class="size-3 opacity-60" />
+							</a>
+						</li>
+						<li>
+							<a
+								href="https://supersvelte.netlify.app"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1 transition hover:text-foreground"
+							>
+								<span>SuperSvelte</span>
+								<ExternalLink class="size-3 opacity-60" />
+							</a>
+						</li>
 						<li>
 							<a
 								href="https://svelte.dev"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="transition hover:text-primary">Svelte Official Documentation</a
+								class="inline-flex items-center gap-1 transition hover:text-foreground"
 							>
+								<span>Official Svelte</span>
+								<ExternalLink class="size-3 opacity-60" />
+							</a>
 						</li>
 						<li>
 							<a
-								href="https://svelte.dev/docs/svelte/what-are-runes"
+								href="https://yaxa.vercel.app"
 								target="_blank"
 								rel="noopener noreferrer"
-								class="transition hover:text-primary">Svelte 5 Runes Docs</a
+								class="inline-flex items-center gap-1 transition hover:text-foreground"
 							>
-						</li>
-						<li>
-							<a
-								href="https://svelte.dev/playground"
-								target="_blank"
-								rel="noopener noreferrer"
-								class="transition hover:text-primary">Official Svelte Playground</a
-							>
+								<span>Built with Yaxa</span>
+								<ExternalLink class="size-3 opacity-60" />
+							</a>
 						</li>
 					</ul>
 				</div>

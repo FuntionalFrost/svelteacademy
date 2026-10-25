@@ -31,10 +31,12 @@
 		</h1>
 
 		<p class="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-			Mutate signals in real time to observe how Svelte 5 recalculates <code class="text-primary"
-				>$derived</code
+			Mutate signals in real time to observe how Svelte 5 recalculates <code
+				class="inline-block whitespace-nowrap text-primary">$derived</code
 			>
-			values and schedules <code class="text-primary">$effect</code> observers without Virtual DOM re-renders.
+			values and schedules
+			<code class="inline-block whitespace-nowrap text-primary">$effect</code> observers without Virtual
+			DOM re-renders.
 		</p>
 
 		<div class="pt-2">

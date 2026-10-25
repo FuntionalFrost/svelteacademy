@@ -21,7 +21,7 @@
 
 <SEO
 	title="Svelte 5 & SvelteKit Interactive Curriculum — SvelteAcademy"
-	description="Master Svelte 5 runes, fine-grained reactivity, and SvelteKit 2 full-stack application development across 35 practical lessons."
+	description="Master Svelte 5 runes, fine-grained reactivity, and SvelteKit 3 full-stack application development across 35 practical lessons."
 />
 
 <div class="container mx-auto max-w-6xl space-y-12 px-4 py-12">

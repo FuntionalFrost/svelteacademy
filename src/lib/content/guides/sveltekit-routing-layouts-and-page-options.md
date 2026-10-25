@@ -1,5 +1,5 @@
 ---
-title: 'SvelteKit 2 Routing Topology: Page Options, Layout Resets & Route Groups'
+title: 'SvelteKit 3 Routing Topology: Page Options, Layout Resets & Route Groups'
 description: 'Master SvelteKit file-based routing hierarchies, dynamic parameters, catch-all routes, route groups, layout inheritance resets, and per-route page options.'
 category: 'SvelteKit Architecture'
 level: 'intermediate'

@@ -126,18 +126,18 @@
 	<div class="h-1 w-full bg-linear-to-r from-cyan-500 via-orange-500 to-emerald-500"></div>
 
 	<!-- Component Title Bar -->
-	<div class="flex items-center justify-between border-b border-zinc-800/80 p-4 pb-4 sm:p-5">
-		<div class="flex items-center gap-2.5">
+	<div class="flex items-center justify-between gap-3 border-b border-zinc-800/80 p-4 pb-4 sm:p-5">
+		<div class="flex min-w-0 items-center gap-2.5">
 			<div
-				class="flex size-9 items-center justify-center rounded-xl border border-orange-500/30 bg-orange-500/10 text-orange-400"
+				class="flex size-9 shrink-0 items-center justify-center rounded-xl border border-orange-500/30 bg-orange-500/10 text-orange-400"
 			>
 				<Share2 class="size-5" />
 			</div>
-			<div>
-				<h3 class="text-base font-bold text-zinc-100 sm:text-lg">
+			<div class="min-w-0">
+				<h3 class="truncate text-base font-bold text-zinc-100 sm:text-lg">
 					Svelte 5 Class State & Context Inspector
 				</h3>
-				<p class="text-sm text-zinc-400">
+				<p class="truncate text-xs text-zinc-400 sm:text-sm">
 					Demonstrating shared object reactivity across components via class instance
 				</p>
 			</div>
@@ -147,7 +147,8 @@
 			class="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-zinc-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-zinc-400 transition hover:bg-zinc-800 hover:text-zinc-100"
 		>
 			<RotateCcw class="size-3.5" />
-			<span>Reset Class State</span>
+			<span class="hidden sm:inline">Reset Class State</span>
+			<span class="sm:hidden">Reset</span>
 		</button>
 	</div>
 
