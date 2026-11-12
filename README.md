@@ -4,13 +4,14 @@
 
 > **Code without the complexity.** Deep dives into Svelte 5 Runes, SvelteKit architecture, and framework comparisons brought down to earth.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-svelteacademy.pages.dev-0051C3?style=flat&logo=cloudflarepages&logoColor=white)](https://svelteacademy.pages.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
-[![Svelte](https://img.shields.io/badge/Svelte-5.56-ff3e00.svg?logo=svelte)](https://svelte.dev)
-[![SvelteKit](https://img.shields.io/badge/SvelteKit-2.70-orange.svg?logo=svelte)](https://kit.svelte.dev)
+[![Svelte](https://img.shields.io/badge/Svelte-5.0+-ff3e00.svg?logo=svelte)](https://svelte.dev)
+[![SvelteKit](https://img.shields.io/badge/SvelteKit-3.1+-orange.svg?logo=svelte)](https://kit.svelte.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8.svg?logo=tailwindcss)](https://tailwindcss.com)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[Live Platform](https://svelteacademy.pages.dev) • [Interactive Sandbox](https://svelteacademy.pages.dev/playground) • [Runes Cheatsheet](https://svelteacademy.pages.dev/cheatsheet) • [Guides](https://svelteacademy.pages.dev/guides) • [Yaxa UI](https://yaxa.vercel.app) • [SuperSvelte Boilerplate](https://supersvelte.netlify.app)
+[🌐 Live Platform](https://svelteacademy.pages.dev) • [🎓 Interactive Curriculum](https://svelteacademy.pages.dev/learn) • [🧪 Signal Sandbox](https://svelteacademy.pages.dev/playground) • [📋 Runes Cheatsheet](https://svelteacademy.pages.dev/cheatsheet) • [📑 Architecture Guides](https://svelteacademy.pages.dev/guides) • [Yaxa UI](https://yaxa.vercel.app)
 
 </div>
 
@@ -23,30 +24,30 @@
 ### ✨ Key Features
 
 - **⚡ Svelte 5 Runes Native:** Fine-grained reactivity powered by `$state`, `$derived`, `$derived.by`, `$effect`, `$effect.pre`, `$props`, `$bindable`, and `untrack()`.
-- **🎨 Built With & Powered By Yaxa UI:** High-performance Svelte 5 UI primitives, zero-WASM syntax tokenization, and pre-bundled design system from [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.10.0).
+- **🎓 35-Lesson Interactive Curriculum:** 4 structured tracks (Basic Svelte, Advanced Svelte, Basic SvelteKit, Advanced SvelteKit) featuring embedded micro-simulators and persistent mastery tracking.
+- **🎨 Built With & Powered By Yaxa UI:** High-performance Svelte 5 UI primitives, zero-WASM syntax tokenization, and pre-bundled design system from [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v2.1.0).
 - **🔍 Universal ⌘K Command Palette:** Keyboard-first instant search modal (`Cmd+K` / `Ctrl+K`) that searches runes, architectural guides, and platform tools.
 - **🧪 Interactive Signal Sandbox:** Live `/playground` route featuring interactive state mutations, derived signal trees, and class-based reactive service visualizers.
-- **📑 19 In-Depth Guides:** Production architecture walkthroughs, React 19 vs Svelte 5 benchmarks, form action patterns, and SSR streaming guides.
+- **📑 23 In-Depth Guides:** Production architecture walkthroughs, React 19 vs Svelte 5 benchmarks, form action patterns, and SSR streaming guides.
 - **📋 Deep-Linked Runes Cheatsheet:** Searchable syntax reference with copyable anchors (`#state`, `#derived`, `#effect`).
 - **⚡ Zero-WASM Code Highlighting & Copy:** Fast, compile-time syntax tokenization matching Yaxa UI with floating copy buttons.
 - **📜 Sticky Table of Contents:** `IntersectionObserver`-driven reading companion that tracks headings in real-time.
 - **📊 Scroll Reading Progress:** Viewport-aware progress indicator for long-form tutorials.
 - **🌗 Zero-Flash Dark Mode:** Native Svelte 5 `$state` store with OS preference synchronization and zero flash.
 - **🌐 SEO & Web Feeds:** Prerendered HTML, dynamic XML sitemaps, RSS feeds, and OpenGraph static vector/raster preview cards.
-- **🚀 SuperSvelte SaaS Integration:** Top-of-funnel funnel to the [SuperSvelte](https://supersvelte.netlify.app) enterprise TypeScript stack.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [SvelteKit](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/)
-- **UI Primitives & Design System:** Powered by [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v1.13.2)
+- **Framework:** [SvelteKit 3](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/)
+- **UI Primitives & Design System:** Powered by [Yaxa UI](https://yaxa.vercel.app) (`yaxa-svelte` v2.1.0)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/), `@tailwindcss/typography`, OKLCH palette
 - **Content Engine:** [MDsveX](https://mdsvex.pngwn.io/)
 - **Syntax Highlighting:** Pure JavaScript Zero-WASM Multi-Language Tokenizer
-- **Theme Management:** Native Svelte 5 Runes Reactive Store
+- **Theme Management:** Native Svelte 5 Runes Reactive Store (`theme.svelte.ts`)
 - **Icons:** [@lucide/svelte](https://lucide.dev/guide/packages/lucide-svelte)
-- **Deployment Adapter:** `@sveltejs/adapter-static`
+- **Deployment Adapter:** `@sveltejs/adapter-static` (Edge-hosted on Cloudflare Pages)
 
 ---
 
@@ -54,8 +55,8 @@
 
 ### Prerequisites
 
-- Node.js 20+
-- pnpm 9+ or npm / yarn
+- Node.js 22+ (Node.js 24 recommended)
+- pnpm 10+ (or npm / yarn)
 
 ### Installation & Run
 
@@ -101,17 +102,22 @@ svelteacademy/
 │   │   │   ├── ProgressBar.svelte          # Reading progress bar
 │   │   │   ├── RuneVisualizer.svelte       # $effect execution log inspector
 │   │   │   ├── SEO.svelte                  # Dynamic metadata and OG tags
-│   │   │   ├── SuperSvelteBanner.svelte    # SaaS funnel banner
+│   │   │   ├── SuperSvelteBanner.svelte    # SaaS ecosystem callout
 │   │   │   ├── TableOfContents.svelte      # Sticky TOC observer sidebar
 │   │   │   └── ThemeToggle.svelte          # Dark/Light mode switcher
 │   │   └── content/
-│   │       └── guides/               # 19 MDsveX guides and tutorials
+│   │       ├── cheatsheet.ts         # Runes syntax dataset & card search definitions
+│   │       ├── curriculum.ts         # 35 curriculum lessons across 4 tracks
+│   │       ├── guides.ts             # Guide catalog metadata & slug resolution
+│   │       ├── guides/               # 23 MDsveX production architecture guides
+│   │       └── learn/                # 35 MDsveX interactive lessons
 │   └── routes/
 │       ├── +layout.svelte            # Root layout with navbar and footer
 │       ├── +layout.ts                # Global prerender = true Edge configuration
 │       ├── +page.svelte              # Landing page hero & comparison showcase
 │       ├── cheatsheet/               # Svelte 5 Runes reference guide
 │       ├── guides/                   # Guide catalog & dynamic reader ([slug])
+│       ├── learn/                    # 35-lesson interactive curriculum & reader ([track]/[slug])
 │       ├── playground/               # Live interactive signal sandbox
 │       ├── robots.txt/               # Dynamic robots.txt endpoint
 │       ├── rss.xml/                  # Syndication RSS feed

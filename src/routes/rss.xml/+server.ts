@@ -2,6 +2,8 @@
 import { getAllGuides } from '#lib/content/guides.js';
 import type { RequestHandler } from './$types';
 
+export const prerender = true;
+
 export const GET: RequestHandler = async ({ url }) => {
 	const origin = url.origin;
 	const guides = getAllGuides().map((guide) => ({

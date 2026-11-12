@@ -2,8 +2,10 @@
 import { getAllLessons } from '#lib/content/curriculum.js';
 import { getAllGuides } from '#lib/content/guides.js';
 import { siteConfig } from '#lib/site.js';
-import { createSitemapHandler } from 'yaxa-svelte';
+import { createSitemapHandler } from 'yaxa-svelte/seo';
 import type { RequestHandler } from './$types';
+
+export const prerender = true;
 
 export const GET: RequestHandler = createSitemapHandler({
 	config: siteConfig,

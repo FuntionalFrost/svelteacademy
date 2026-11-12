@@ -7,7 +7,7 @@
 		generateBreadcrumbSchema,
 		generateSoftwareSourceCodeSchema,
 		generateWebSiteSchema
-	} from 'yaxa-svelte';
+	} from 'yaxa-svelte/seo';
 
 	interface BreadcrumbEntry {
 		name: string;
