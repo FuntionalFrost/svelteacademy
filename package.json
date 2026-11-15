@@ -44,7 +44,7 @@
 		"vite": "^8.3.0"
 	},
 	"dependencies": {
-		"yaxa-svelte": "^2.8.1"
+		"yaxa-svelte": "^2.10.0"
 	},
 	"imports": {
 		"#lib": "./src/lib/index.js",
