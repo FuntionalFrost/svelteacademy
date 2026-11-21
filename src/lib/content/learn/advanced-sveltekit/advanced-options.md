@@ -1,5 +1,5 @@
 ---
-title: Advanced Options: Service Workers, Snapshots, and Security
+title: 'Advanced Options: Service Workers, Snapshots, and Security'
 description: Build offline PWAs with $app/manifest and $app/env, preserve form input with snapshot, and configure CSP.
 trackId: advanced-sveltekit
 level: advanced

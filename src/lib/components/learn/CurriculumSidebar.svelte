@@ -71,9 +71,9 @@
 		<div class="space-y-1.5 pt-1">
 			<div class="flex items-center justify-between text-xs font-semibold">
 				<span class="text-muted-foreground">Track Progress</span>
-				<span class="font-mono text-primary"
-					>{trackProgress.completed}/{trackProgress.total} ({trackProgress.percentage}%)</span
-				>
+				<span class="font-mono text-primary">
+					{trackProgress.completed}/{trackProgress.total} ({trackProgress.percentage}%)
+				</span>
 			</div>
 			<div class="h-1.5 w-full overflow-hidden rounded-full bg-muted">
 				<div

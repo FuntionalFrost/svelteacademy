@@ -105,8 +105,9 @@
 				<ArrowRight class="size-4" />
 				<Kbd
 					class="ml-2 hidden bg-primary-foreground/20 text-[10px] text-primary-foreground sm:inline-block"
-					>K</Kbd
 				>
+					K
+				</Kbd>
 			</a>
 		{:else}
 			<a

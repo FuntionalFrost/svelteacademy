@@ -54,15 +54,16 @@ export function Counter() {
 		<h1 class="text-4xl font-black tracking-tight sm:text-6xl">
 			Code without the <span
 				class="bg-linear-to-r from-primary via-emerald-500 to-cyan-500 bg-clip-text text-transparent"
-				>complexity.</span
 			>
+				complexity.
+			</span>
 		</h1>
 
 		<p class="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
 			Eliminate artificial framework bloat and complex dependency arrays with Svelte 5.
-			<span class="mt-1 block font-medium text-foreground/90"
-				>Focus on shipping your ideas, not fighting hooks.</span
-			>
+			<span class="mt-1 block font-medium text-foreground/90">
+				Focus on shipping your ideas, not fighting hooks.
+			</span>
 		</p>
 	</section>
 

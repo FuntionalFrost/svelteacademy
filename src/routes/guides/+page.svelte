@@ -94,8 +94,9 @@
 		<h1 class="text-3xl font-black tracking-tight text-foreground sm:text-5xl">
 			Developer <span
 				class="bg-linear-to-r from-primary via-emerald-400 to-cyan-400 bg-clip-text text-transparent"
-				>Guides & Tutorials</span
 			>
+				Guides & Tutorials
+			</span>
 		</h1>
 		<p class="mt-3 max-w-2xl text-base text-muted-foreground sm:text-lg">
 			Practical architecture blueprints, rune-based reactivity patterns, and performance benchmarks
@@ -240,9 +241,9 @@
 
 			<!-- Difficulty Level Pills with Color Indicators -->
 			<div class="flex flex-wrap items-center gap-1.5">
-				<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground uppercase"
-					>Level:</span
-				>
+				<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground uppercase">
+					Level:
+				</span>
 				{#each levels as level (level)}
 					{@const isSelected = selectedLevel === level}
 					<button
@@ -276,9 +277,9 @@
 
 		<!-- Category Filter Pills with Item Count Badges -->
 		<div class="flex flex-wrap items-center gap-2 border-t border-border pt-4">
-			<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground uppercase"
-				>Category:</span
-			>
+			<span class="mr-1 font-mono text-xs font-semibold text-muted-foreground uppercase">
+				Category:
+			</span>
 			{#each data.categories as category (category)}
 				{@const count = getCategoryCount(category)}
 				{@const isSelected = selectedCategory === category}

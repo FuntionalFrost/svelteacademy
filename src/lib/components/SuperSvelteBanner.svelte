@@ -31,8 +31,9 @@
 					<span class="text-base font-extrabold tracking-tight text-white sm:text-lg">
 						Super<span
 							class="bg-linear-to-r from-emerald-300 via-teal-300 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(52,211,153,0.4)]"
-							>Svelte</span
 						>
+							Svelte
+						</span>
 					</span>
 				</div>
 
@@ -51,10 +52,10 @@
 			</h3>
 
 			<p class="text-base leading-relaxed text-slate-300">
-				Stop assembling your stack from 15 npm packages. <strong class="text-slate-100"
-					>Super Svelte</strong
-				> ships Auth, Neon DB, Redis SSE, OpenAPI 3.1 Hono RPC, Uploads, and Resend out-of-the-box with
-				sub-10ms edge cold starts.
+				Stop assembling your stack from 15 npm packages. <strong class="text-slate-100">
+					Super Svelte
+				</strong> ships Auth, Neon DB, Redis SSE, OpenAPI 3.1 Hono RPC, Uploads, and Resend out-of-the-box
+				with sub-10ms edge cold starts.
 			</p>
 
 			<!-- Glowing Feature List -->

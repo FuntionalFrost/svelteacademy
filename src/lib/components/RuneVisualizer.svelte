@@ -81,9 +81,9 @@
 		<!-- 1. $state Signals Column -->
 		<div class="space-y-4 p-4">
 			<div class="flex items-center justify-between">
-				<span class="font-mono text-xs font-bold tracking-wider text-cyan-400 uppercase"
-					>1. $state Signals</span
-				>
+				<span class="font-mono text-xs font-bold tracking-wider text-cyan-400 uppercase">
+					1. $state Signals
+				</span>
 			</div>
 
 			<!-- Count Control -->
@@ -129,9 +129,9 @@
 		<!-- 2. $derived Signals Column -->
 		<div class="space-y-4 p-4">
 			<div class="flex items-center justify-between">
-				<span class="font-mono text-xs font-bold tracking-wider text-emerald-400 uppercase"
-					>2. $derived Signals</span
-				>
+				<span class="font-mono text-xs font-bold tracking-wider text-emerald-400 uppercase">
+					2. $derived Signals
+				</span>
 			</div>
 
 			<!-- Multiplied Output -->
@@ -159,9 +159,9 @@
 		<!-- 3. $effect Execution Log Column -->
 		<div class="flex flex-col p-4">
 			<div class="mb-2 flex items-center justify-between">
-				<span class="font-mono text-xs font-bold tracking-wider text-purple-400 uppercase"
-					>3. $effect Log</span
-				>
+				<span class="font-mono text-xs font-bold tracking-wider text-purple-400 uppercase">
+					3. $effect Log
+				</span>
 			</div>
 
 			<div class="flex-1 overflow-hidden rounded-xl bg-black/50 p-3">

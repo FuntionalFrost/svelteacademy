@@ -11,21 +11,17 @@ import { renderHighlightedCode } from './src/lib/highlighter.ts';
 export default defineConfig({
 	plugins: [
 		tailwindcss(),
+		mdsvex({
+			extensions: ['.svx', '.md'],
+			highlight: renderHighlightedCode
+		}),
 		sveltekit({
 			adapter: adapter({ fallback: '404.html' }),
 			paths: { relative: false },
 			compilerOptions: {
-				runes: true,
-				warningFilter: (warning) =>
-					!(warning.code === 'script_context_deprecated' && warning.filename?.endsWith('.md'))
+				runes: true
 			},
-			preprocess: [
-				vitePreprocess(),
-				mdsvex({
-					extensions: ['.svx', '.md'],
-					highlight: { highlighter: renderHighlightedCode }
-				})
-			],
+			preprocess: [vitePreprocess()],
 			extensions: ['.svelte', '.svx', '.md']
 		}),
 		yaxa()

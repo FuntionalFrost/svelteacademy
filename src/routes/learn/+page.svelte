@@ -37,8 +37,9 @@
 		<h1 class="text-4xl font-black tracking-tight text-foreground sm:text-6xl">
 			Learn <span
 				class="bg-linear-to-r from-primary via-emerald-500 to-cyan-500 bg-clip-text text-transparent"
-				>Svelte 5 & SvelteKit</span
 			>
+				Svelte 5 & SvelteKit
+			</span>
 		</h1>
 
 		<p class="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">

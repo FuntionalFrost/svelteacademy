@@ -1,5 +1,4 @@
 // src/lib/highlighter.ts
-import { escapeSvelte } from 'mdsvex';
 
 interface Token {
 	text: string;
@@ -232,8 +231,16 @@ const TOKEN_COLOR_MAP: Record<string, string> = {
 	link: 'color: #58a6ff; text-decoration: underline;'
 };
 
-export function renderHighlightedCode(code: string, lang?: string | null): string {
-	const language = lang || 'typescript';
+export function renderHighlightedCode(
+	code: string,
+	info?: { lang?: string; inline?: boolean } | string | null
+): string | null {
+	if (typeof info === 'object' && info !== null && info.inline) {
+		return null;
+	}
+
+	const rawLang = typeof info === 'string' ? info : info?.lang;
+	const language = rawLang || 'typescript';
 	const lines = tokenizeCode(code.trim(), language);
 
 	const innerHtml = lines
@@ -249,6 +256,5 @@ export function renderHighlightedCode(code: string, lang?: string | null): strin
 		})
 		.join('\n');
 
-	const html = `<pre class="yaxa-code-block" data-language="${escapeHtml(language)}"><code class="language-${escapeHtml(language)}">${innerHtml}</code></pre>`;
-	return `{@html \`${escapeSvelte(html)}\`}`;
+	return `<pre class="yaxa-code-block" data-language="${escapeHtml(language)}"><code class="language-${escapeHtml(language)}">${innerHtml}</code></pre>`;
 }

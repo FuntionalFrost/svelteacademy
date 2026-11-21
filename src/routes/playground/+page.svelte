@@ -26,14 +26,17 @@
 		<h1 class="text-4xl font-black tracking-tight text-foreground sm:text-6xl">
 			Svelte 5 <span
 				class="bg-linear-to-r from-primary via-emerald-500 to-cyan-500 bg-clip-text text-transparent"
-				>Signal Sandbox</span
 			>
+				Signal Sandbox
+			</span>
 		</h1>
 
 		<p class="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
 			Mutate signals in real time to observe how Svelte 5 recalculates <code
-				class="inline-block whitespace-nowrap text-primary">$derived</code
+				class="inline-block whitespace-nowrap text-primary"
 			>
+				$derived
+			</code>
 			values and schedules
 			<code class="inline-block whitespace-nowrap text-primary">$effect</code> observers without Virtual
 			DOM re-renders.

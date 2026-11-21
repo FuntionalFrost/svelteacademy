@@ -209,9 +209,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<Network class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>Reactive Dependency Graph</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						Reactive Dependency Graph
+					</span>
 				</div>
 				<Button
 					variant="ghost"
@@ -308,9 +308,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<Sliders class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>Two-Way $bindable() Synchronizer</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						Two-Way $bindable() Synchronizer
+					</span>
 				</div>
 			</div>
 
@@ -319,9 +319,9 @@
 			>
 				<!-- Parent Controls -->
 				<div class="space-y-3 p-4">
-					<span class="font-mono text-xs font-bold text-zinc-400 uppercase"
-						>Parent State Controller</span
-					>
+					<span class="font-mono text-xs font-bold text-zinc-400 uppercase">
+						Parent State Controller
+					</span>
 					<div>
 						<label for="p-name" class="text-xs font-medium text-zinc-400">User Name:</label>
 						<input
@@ -364,9 +364,9 @@
 
 				<!-- Rendered Child Component -->
 				<div class="flex flex-col justify-between p-4">
-					<span class="font-mono text-xs font-bold text-orange-400 uppercase"
-						>Child Component Output</span
-					>
+					<span class="font-mono text-xs font-bold text-orange-400 uppercase">
+						Child Component Output
+					</span>
 					<div class="my-4 flex items-center gap-3">
 						<div
 							class="flex size-14 items-center justify-center rounded-2xl bg-linear-to-tr from-orange-500 to-amber-400 text-xl font-black text-zinc-950 shadow-md"
@@ -395,9 +395,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<Layers class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>Keyed List & Control Flow</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						Keyed List & Control Flow
+					</span>
 				</div>
 				<div class="flex gap-2">
 					<Button
@@ -463,9 +463,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<Activity class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>Event Dispatch & Modifiers</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						Event Dispatch & Modifiers
+					</span>
 				</div>
 				<button
 					type="button"
@@ -515,9 +515,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<Move class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>Physics Motion & Spring Bench</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						Physics Motion & Spring Bench
+					</span>
 				</div>
 				<Button
 					size="xs"
@@ -551,9 +551,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<Code2 class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>DOM Action Lifecycle (use:action)</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						DOM Action Lifecycle (use:action)
+					</span>
 				</div>
 				<Button
 					size="xs"
@@ -593,9 +593,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<Database class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>Promise Streaming Waterfall</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						Promise Streaming Waterfall
+					</span>
 				</div>
 				<Button
 					size="xs"
@@ -641,9 +641,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<ShieldCheck class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>Environment Security Matrix</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						Environment Security Matrix
+					</span>
 				</div>
 			</div>
 
@@ -696,9 +696,9 @@
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-2">
 					<Server class="size-4 text-orange-400" />
-					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase"
-						>SvelteKit Full-Stack Pipeline</span
-					>
+					<span class="text-xs font-bold tracking-wider text-orange-400 uppercase">
+						SvelteKit Full-Stack Pipeline
+					</span>
 				</div>
 				<Button
 					size="xs"
